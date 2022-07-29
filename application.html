@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Himlayang General Trias</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    h1{
+        color: black;
+    }
+    .row i{
+        font-size: small;
+    }
+</style>
+</head>
+<body>
+<!--Header-->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container-fluid">
+          <a class="navbar-brand" href="Homepage.html">
+              <img src="logo.jpg" style="width:55px;" class="rounded-pill">
+          </a>
+      <h3>Application</h3>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar"style="text-align: right;">
+        <ul class="navbar-nav w-100"></ul>
+        <ul class="navbar-nav m-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Application</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="Buyers Application.html">Buyers</a></li>
+              <li><a class="dropdown-item" href="Inquiry.html">Inquiry</a></li>
+              <li><a class="dropdown-item" href="Appointment.html">Appointment</a></li>
+            </ul>
+    </div> 
+</div>
+</nav>
+<div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
+    Search: 
+    <input type="text" class="form-control-sm float-md-right" id="usr">
+    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
+</div>
+<!--Table-->
+  <div style="overflow-x:auto;" class="col-sm-12">
+    <table class="table table-bordered table-dark table-hover">
+    <thead>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Contact</th>
+      <th>Address</th>
+      <th>Email</th>
+    </thead>
+  </table><br><br>
+  <input type="button" onclick="myFunction()" value="Back" class="btn btn-success float-sm-left">
+  </div>
+</body>
+</html>
