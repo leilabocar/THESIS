@@ -1,0 +1,23 @@
+.container{
+    font-family: Roboto, sans-serif;
+    border-style: 1px solid grey;
+    background-color: rgb(174, 199, 192);
+    margin: 0 auto;
+    text-align: left;
+    opacity: 0.8;
+    box-shadow: 2px 5px 5px 0px #eee;
+    max-width: 500px;
+    padding-top: 7px;
+    height: 330px;
+    margin-top: 50px;
+}
+.heading {
+    text-decoration: bold;
+    text-align: center;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    padding-top: 10px;
+}
+
+
+

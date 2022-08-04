@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Client Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        h3 {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="Homepage.html">
+                <img src="logo.jpg" style="width: 55px; padding-left: 0.9rem"  class="rounded-pill">
+            </a>
+            <h3 style="font-size: 25px;" >Himlayang General Trias</h3>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 20px;" href="Client.html">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 20px;" href="Property.html">Property</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
+                            data-bs-toggle="dropdown">Application</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="Application Form.html">Application Form</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="Buyers Form.html">Buyers Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  style="font-size: 20px;" href="#" role="button" data-bs-toggle="dropdown">Bills &
+                            Payments</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="#">Bill Summary</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="#">Payment History</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="#">Installment Bill</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 20px;" href="Book Appointment.html">Appointment</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <a href="#" style="font-size: 16px;" class="btn btn-secondary">LOG OUT</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CAROUSEL -->
+    <div class="container1">
+        <h2 class="text-info" style="font-size: 35px;">Hello, Abcde</h2>
+        <h3>Welcome to your online account!</h3>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="undraw_browsing_online_re_umsa.svg" alt="" style="height: 300px;" class="d-block w-100">
+                </div>
+
+                <div class="item">
+                    <img src="undraw_personal_data_29co.svg" alt="" style="height: 300px;" class="d-block w-100">
+                </div>
+
+                <div class="item">
+                    <img src="undraw_fingerprint_swrc.svg" alt="" style="height: 300px;" class="d-block w-100">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <form method="POST">
+        <div class="bg-img"><br><br>
+            <div class="container2">
+                <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> TOTAL AMOUNT DUE:</p>
+                <p class="text-center" id="receives" style="font-size: 25px; font-family: sans-serif;color: black;">30,000</p> <br><br>
+                <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> DUE DATE:</p>
+                <p class="text-center" id="returns" style="font-size: 25px; font-family: sans-serif;color: black; ">Immediately</p>
+            </div>
+        </div>
+    </form>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container text-center text-md-left" style="font-size: 15px;">
+            <div class="row text-center text-md-left">
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h7 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-size: 15px;">Himlayang General Trias</h7>
+                    <p>Welcome to the official Cemetery Website of the City Government of General Trias!
+                        #MyOneAndOnlyGenTri
+                    </p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3" style="font-size: 15px;">
+                    <h7 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-size: 15px;">Lot Offers</h7>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none;" style="font-size: 15px;">Apartment Type</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none;" style="font-size: 15px;">Lawn Lot</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none;" style="font-size: 15px;">Niche</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none;" style="font-size: 15px;">Mausoleum</a>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3" style="font-size: 15px;">
+                    <h7 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-size: 15px;">Useful Links</h7>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none;" style="font-size: 15px;">Sign Up</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none;" style="font-size: 15px;">Terms of Payment</a>
+                    </p>
+                    <p>
+                        <a href="#" class="text-white" style="text-decoration: none;" style="font-size: 15px;">Help</a>
+                    </p>
+                </div>
+                <div class="col-md4 col-lg-3 col-xl-3 mx-auto mt-3" style="font-size: 15px;">
+                    <h7 class="text-uppercase mb-4 font-weight-bold text-warning" style="font-size: 15px;">Contact</h7>
+                    <p>
+                        <i class="fas fa-home mr-3" style="font-size: 15px;"></i>Imus City, Cavite, Philippines
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope mr-3" style="font-size: 15px;"></i>mayor@generaltrias.gov.ph
+                    </p>
+                    <p>
+                        <i class="fas fa-phone mr-3" style="font-size: 15px;"></i>(046) 419 8380
+                    </p>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <div class="row align-items-center" style="font-size: 15px;">
+                <div class="col-md-4 col-lg-5" style="font-size: 15px;">
+                    <p>Copyright Ⓒ2022 All rights reserved by:
+                        <strong class="text-warning" style="font-size: 15px;">PROGRAMMERIST</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
