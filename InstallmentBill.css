@@ -1,0 +1,42 @@
+.container{
+    font-family: Roboto, sans-serif;
+    border-style: 1px solid grey;
+    background-color: rgb(174, 199, 192);
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0.8;
+    box-shadow: 2px 5px 5px 0px #eee;
+    max-width: 700px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 800px;
+    margin-top: 50px;
+}
+.heading {
+    text-decoration: bold;
+    text-align: center;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    padding-top: 10px;
+}
+.table {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 400px;
+    height: 45vh;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 70px;
+    position: relative;
+}
+
+.table thead tr {
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+.table tbody tr.active-row {
+    font-weight: bold;
