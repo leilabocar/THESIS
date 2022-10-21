@@ -1,153 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Buyers Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="inquiryform.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        h3 {
-            color: black;
-        }
-    </style>
+  <title>Client Inquiry</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    h1{
+        color: black;
+    }
+    .row i{
+        font-size: small;
+    }
+</style>
 </head>
-
 <body>
-    <!-- HEADER -->
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" >
-                <img src="logo.jpg" style="width:60px;" class="rounded-pill">
-            </a>
-            <h3>Himlayang General Trias</h3>
-
-            <ul class="navbar-nav ms-auto">
-                <a href="Client.html" class="btn btn-secondary">BACK</a>
-            </ul>
-        </div>
-        </div>
-    </nav>
-
-	<form name="vform" action="/confirm" onsubmit="return Validate()" method="post"> 
-    
-
-    <div class="container">
-        <!-- Content here -->
-        <header class="heading"> INQUIRY FORM</header>
-        <hr>
-        </hr>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type :</p>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="validationFormCheck1" name="radio-stacked" required>
-            <label class="form-check-label" for="validationFormCheck1">Lawn Lot</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="validationFormCheck2" name="radio-stacked" required>
-            <label class="form-check-label" for="validationFormCheck2">Mausoleum</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="validationFormCheck3" name="radio-stacked" required>
-            <label class="form-check-label" for="validationFormCheck3">Niche</label>
-            <div class="invalid-feedback">Please Select</div>
-        </div>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
-        <div class="input-group">
-            <div class="input-group-prepend ">
-              <span class="input-group-text"  >Location</span>
-            </div>
-            <input type="text" placeholder="Phase"  class="form-control" required>
-            <input type="text" placeholder="Block" class="form-control" required>
-            <input type="text" placeholder="Lot No." class="form-control" required>
-            <div id="Phase_error"></div>
-          </div>
-        </form>
-        </form>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Terms of Payment :</p>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
-            <label class="form-check-label" for="validationFormCheck1">Cash</label>
-            <div id="Cash_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck2" required>
-            <label class="form-check-label" for="validationFormCheck2">1 Year</label>
-            <div id="1y_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck3" required>
-            <label class="form-check-label" for="validationFormCheck3">2 Years</label>
-            <div id="2y_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck4" required>
-            <label class="form-check-label" for="validationFormCheck4">3 Years</label>
-            <div id="3y_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck5" required>
-            <label class="form-check-label" for="validationFormCheck1">Full Down</label>
-            <div id="fd_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck5" required>
-            <label class="form-check-label" for="validationFormCheck1">Reservation</label>
-            <div id="Reservation_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Full Name" name="Full Name">Full Name</span>
-            <input type="text" class="form-control" placeholder="Full Name"  aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="FN_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Age" name="Age">Age</span>
-            <input type="text" class="form-control" placeholder="Age" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Age_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Gender" name="Gender">Gender</span>
-            <input type="text" class="form-control" placeholder="Gender" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Gender_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
-            <input type="text" class="form-control" placeholder="Contacts" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Contacts_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Address" name="Address">Address</span>
-            <input type="text" class="form-control" placeholder="Address" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Address_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Email" name="Email">Email</span>
-            <input type="text" class="form-control" placeholder="Email" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Email_error"></div>
-        </div>
-        <div class="d-flex justify-content-center mt-5 button">
-            <input type="submit" onclick="myFunction()" value="CONFIRM" name="confirm" class="btn btn-secondary" />
-            <script>
-                function myFunction() {
-                    document.getElementById("frm1").reg();
-                }
-            </script>
-        </div>
-
-
-    </div>
-
+<!--Header-->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container-fluid">
+          <a class="navbar-brand" href="Homepage.html">
+              <img src="logo.jpg" style="width:55px;" class="rounded-pill">
+          </a>
+          <div style="text-align: left;" class="col-sm-12"><h3>HIMLAYANG GENERAL TRIAS</h3></div>
+    </div> 
+</div>
+</nav>
+<div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
+    Search: 
+    <input type="text" class="form-control-sm float-md-right" id="usr">
+    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
+</div>
+<!--Table-->
+  <div style="overflow-x:auto;" class="col-sm-12">
+    <table class="table table-bordered table-dark table-hover">
+    <thead>
+      <th>Lot Type</th>
+      <th>Location</th>
+      <th>Terms of Payment</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Contact</th>
+      <th>Address</th>
+      <th>Email</th>
+    </thead>
+  </table><br><br>
+  <a class="btn btn-secondary" style="font-size: 15px;" href="admin homepage.html">Back</a>
+  </div>
 </body>
-
 </html>
