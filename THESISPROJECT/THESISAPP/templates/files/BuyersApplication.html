@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +21,8 @@
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
     <div class="container-fluid">
-          <a class="navbar-brand" href="Homepage.html">
-              <img src="images/logo.jpg" style="width:55px;" class="rounded-pill">
+          <a class="navbar-brand" href="{% url 'Homepage' %}">
+              <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
           </a>
           <div style="text-align: left;" class="col-sm-12"><h3>HIMLAYANG GENERAL TRIAS</h3></div>
     </div> 
@@ -47,7 +48,7 @@
       <th>Email</th>
     </thead>
   </table><br><br>
-  <a class="btn btn-secondary" style="font-size: 15px;" href="AdminHomepage.html">Back</a>
+  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' %}">Back</a>
   </div>
 </body>
 </html>

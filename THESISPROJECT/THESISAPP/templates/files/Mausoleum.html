@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +20,8 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
-        <a class="navbar-brand" href="Homepage.html">
-            <img src="images/logo.jpg" style="width:55px;" class="rounded-pill">
+        <a class="navbar-brand" href="{% url 'Homepage' %}">
+            <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
         </a>
     <h3>Himlayang General Trias</h3>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -29,7 +30,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav m-auto">
         <li class="nav-item">
-          <a class="nav-link" href="Homepage.html">Home</a>
+          <a class="nav-link" href="{% url 'Homepage' %}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pre-Need Service</a>
@@ -37,22 +38,22 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Lot Property</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="Apartment.html">Apartment Type</a></li>
-            <li><a class="dropdown-item" href="Lawn.html">Lawn Lot</a></li>
-            <li><a class="dropdown-item" href="Niche.html">Niche</a></li>
-            <li><a class="dropdown-item" href="Mausoleum.html">Mausoleum</a></li>
+            <li><a class="dropdown-item" href="{% url 'Apartment' %}">Apartment Type</a></li>
+            <li><a class="dropdown-item" href="{% url 'Lawn' %}">Lawn Lot</a></li>
+            <li><a class="dropdown-item" href="{% url 'Niche' %}">Niche</a></li>
+            <li><a class="dropdown-item" href="{% url 'Mausoleum' %}">Mausoleum</a></li>
           </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="GraveFinder.html">Grave Finder</a>
+            <a class="nav-link" href="{% url 'GraveFinder' %}">Grave Finder</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="TermsofPayment.html">Terms of Payment</a>
+            <a class="nav-link" href="{% url 'TermsofPayment' %}">Terms of Payment</a>
         </li>  
       </ul>
       <ul class="navbar-nav ms-auto">
-        <a href="Login.html" class="btn btn-primary">Login</a> 
-        <a href="InquiryForm.html" class="btn btn-secondary">Inquire</a>
+        <a href="{% url 'Login' %}Login.html" class="btn btn-primary">Login</a> 
+        <a href="{% url 'InquiryForm' %}" class="btn btn-secondary">Inquire</a>
       </ul>
     </div> 
   </div>
@@ -94,28 +95,25 @@
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Lot Offers</h5>
         <p>
-          <a href="Apartment.html" class="text-white" style="text-decoration: none;">Apartment Type</a>
+          <a href="{% url 'Apartment' %}" class="text-white" style="text-decoration: none;">Apartment Type</a>
         </p>
         <p>
-          <a href="Lawn.html" class="text-white" style="text-decoration: none;">Lawn Lot</a>
+          <a href="{% url 'Lawn' %}" class="text-white" style="text-decoration: none;">Lawn Lot</a>
         </p>
         <p>
-          <a href="Niche.html" class="text-white" style="text-decoration: none;">Niche</a>
+          <a href="{% url 'Niche' %}" class="text-white" style="text-decoration: none;">Niche</a>
         </p>
         <p>
-          <a href="Mausoleum.html" class="text-white" style="text-decoration: none;">Mausoleum</a>
+          <a href="{% url 'Mausoleum' %}" class="text-white" style="text-decoration: none;">Mausoleum</a>
         </p>
       </div>
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
         <h5 class="text-uppercase mb-4 font-weight-bold text-warning">Useful Links</h5>
         <p>
-          <a href="Signup.html" class="text-white" style="text-decoration: none;">Sign Up</a>
+          <a href="{% url 'Signup' %}" class="text-white" style="text-decoration: none;">Sign Up</a>
         </p>
         <p>
-          <a href="TermsofPayment.html" class="text-white" style="text-decoration: none;">Terms of Payment</a>
-        </p>
-        <p>
-          <a href="#" class="text-white" style="text-decoration: none;">Help</a>
+          <a href="{% url 'TermsofPayment' %}" class="text-white" style="text-decoration: none;">Terms of Payment</a>
         </p>
       </div>
       <div class="col-md4 col-lg-3 col-xl-3 mx-auto mt-3">

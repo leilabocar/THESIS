@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +21,8 @@
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
-        <a class="navbar-brand" href="Homepage.html">
-            <img src="images/profile.png" style="width:55px;" class="rounded-pill">
+        <a class="navbar-brand" href="{% url 'Homepage' %}">
+            <img src="{% static 'images/profile.png' %}" style="width:55px;" class="rounded-pill">
         </a>
     <h2>Welcome Admin!</h2>
     
@@ -30,14 +31,14 @@
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
               data-bs-toggle="dropdown">Application</a>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" style="font-size: 20px;" href="inquiry.html">Inquiry</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="Appointment.html">Appointment</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="ClientPayment.html">Payments</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="Application.html">Application</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="BuyersApplication.html">Buyers</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' %}">Inquiry</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' %}">Appointment</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' %}">Payments</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' %}">Application</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' %}">Buyers</a></li>
           </ul>
         </li>
-        <a class="btn btn-secondary" style="font-size: 15px;" href="Login.html">Log out</a>
+        <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Login' %}">Log out</a>
       </ul>
     </div> 
 </div>
@@ -64,7 +65,7 @@
   </div>
 </table>
 <div style="text-align: right;" class="col-sm-12">
-  <a class="btn btn-secondary" style="font-size: 15px;" href="Notice.html">Notice</a>
+  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Notice' %}">Notice</a>
 </div>
 
 </body>

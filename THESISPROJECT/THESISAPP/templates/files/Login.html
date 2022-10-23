@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,7 +10,7 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
 
 	</head>
 	<body>
@@ -22,13 +23,13 @@
 			<div class="row justify-content-center">
 				<div class="col-md-12">
 					<div class="wrap d-md-flex">
-						<div class="img" style="background-image: url(images/bg-1.jpg);">
+						<div class="img" style="background-image: url('{% static 'images/bg-1.jpg' %}');">
 			      </div>
 						<div class="login-wrap p-4 p-md-5">
 			      	<div class="d-flex">
 			      		<div class="w-100">
-							<a  href="Homepage.html">
-								<p style="text-align:center;"><img src="images/logo.jpg" alt="Logo" width="150" height="130"></p>
+							<a  href="{% url 'Homepage' %}">
+								<p style="text-align:center;"><img src="{% static 'images/logo.jpg' %}" alt="Logo" width="150" height="130"></p>
 
 							</a>
 			      		</div>
@@ -46,7 +47,7 @@
 		            	<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
 		            </div>
 		          </form>
-		          <p class="text-center">Don't have an account? <a href="Signup.html">Sign Up</a></p>
+		          <p class="text-center">Don't have an account? <a href="{% url 'Signup' %}">Sign Up</a></p>
 		        </div>
 		      </div>
 				</div>

@@ -1,3 +1,4 @@
+{%load static%}
 <!doctype html>
 <html lang="en">
   <head>
@@ -9,10 +10,10 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<link rel="stylesheet" href="css/signup.css">
+	<link rel="stylesheet" href="{% static 'css/signup.css' %}">
 
   </head>
-	<body style="background-image: url(images/bg.jpg);">
+	<body style="background-image: url({% static 'images/bg.jpg' %});">
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -22,7 +23,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-12">
 					<div class="wrap d-md-flex">
-						<div class="text p-4 p-lg-5 d-flex img" style="background-image: url(images/bg-2.png);">
+						<div class="text p-4 p-lg-5 d-flex img" style="background-image: url({% static 'images/bg2.png' %});">
 							<div class="text w-100" style="padding: 70px 0;
 							text-align: center;">
 								<h1   style= "font-size: 60px; font-weight: bold; color:rgb(255, 255, 255)" class="mb-4">Welcome Back!</h1>
@@ -58,7 +59,7 @@
 											<div class="col-md-12">
 												<div class="form-group1">
 						            	<button type="submit" class="btn btn-primary submit p-3" >Create an Account</button>
-										<p class="mt-4">Already have an account? <a href="Login.html">Sign In</a></p>
+										<p class="mt-4">Already have an account? <a href="{% url 'Login' %}">Sign In</a></p>
 						            </div>
 											</div>
 										</div>
@@ -76,10 +77,10 @@
 		</div>
 	</section>
 
-	<script src="js/jquery.min.js"></script>
-  <script src="js/popper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
+	<script src="{% static 'js/js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/js/popper.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
 
 	</body>
 </html>

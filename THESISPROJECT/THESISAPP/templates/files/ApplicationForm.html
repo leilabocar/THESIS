@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -44,12 +45,12 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" >
-                <img src="images/logo.jpg" style="width: 55px;" class="rounded-pill">
+                <img src="{% static 'images/logo.jpg' %}" style="width: 55px;" class="rounded-pill">
             </a>
             <h3>Himlayang General Trias</h3>
 
             <ul class="navbar-nav ms-auto">
-                <a href="Client.html" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'Client' %}" class="btn btn-secondary">BACK</a>
             </ul>
         </div>
         </div>
