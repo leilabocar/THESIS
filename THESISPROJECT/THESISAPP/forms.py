@@ -9,10 +9,11 @@ class LoginForm(forms.Form):
 class SignupForm(UserCreationForm):
     first_name = forms.CharField()
     last_name = forms.CharField
-    username = forms.CharField(label="username")
-    email = forms.CharField(label="email")
+    username = forms.CharField()
+    email = forms.CharField()
     password1 = forms.CharField()
-    password2 = forms.CharField(label="password2")
+    password2 = forms.CharField(label="Confirm Password")
+    is_client = forms.BooleanField(initial=True, required=True)
 
     class Meta:
         model = User

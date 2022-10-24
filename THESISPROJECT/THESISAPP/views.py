@@ -4,6 +4,8 @@ from django.shortcuts import HttpResponse
 from django.http.response import HttpResponse
 from .forms import *
 from django.contrib.auth import authenticate, login
+from django.utils.safestring import mark_safe
+from django.contrib import messages
 
 def Homepage(request):
     return render(request, 'files/Homepage.html')
@@ -37,7 +39,13 @@ def Signup(request):
             msg = 'User Created'
             return redirect('Login')
         else:
-            msg = 'Form is not valid'
+            error_text = '<ul style="display:flex;'\
+              'flex-direction:column;list-style-type:none;"'
+            for msg_list in form.errors.values():
+                for msg in msg_list:
+                    error_text += f'<li>{msg}</li>'
+            error_text += '</ul>'
+            messages.error(request, mark_safe(error_text))
     else:
         form = SignupForm()
     return render(request, 'files/Signup.html', {'form': form, 'msg': msg})

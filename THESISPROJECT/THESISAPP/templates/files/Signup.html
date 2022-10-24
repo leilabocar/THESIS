@@ -38,6 +38,16 @@
 			          	</div>
 									<form method="post" class="signup-form">
 										{% csrf_token %}
+										{% if messages %}
+											<ul class="messages">
+											{% for message in messages %}
+											<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+												{{ message|safe }}
+												<button  class="close">x</button>
+											</li>
+											{% endfor %}
+											</ul>
+										{% endif %}
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
