@@ -24,7 +24,7 @@
         <a class="navbar-brand" href="{% url 'Homepage' %}">
             <img src="{% static 'images/profile.png' %}" style="width:55px;" class="rounded-pill">
         </a>
-    <h2>Welcome Admin!</h2>
+    <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
     
       <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
