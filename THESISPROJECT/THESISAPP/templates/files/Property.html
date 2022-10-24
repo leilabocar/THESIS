@@ -48,7 +48,7 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand">
-                <img src="{% url 'images/logo.jpg' %}" style="width: 55px; padding-left: 0.9rem" class="rounded-pill">
+                <img src="{% static 'images/logo.jpg' %}" style="width: 55px; padding-left: 0.9rem" class="rounded-pill">
             </a>
             <h3 style="font-size: 25px;"> PROPERTY</h3>
 
@@ -76,16 +76,15 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="undraw_browsing_online_re_umsa.svg" alt="" style="height: 300px;"
-                            class="d-block w-100">
+                        <img src="{% static 'images/undraw_browsing_online_re_umsa.svg' %}" alt="" style="height: 300px;" class="d-block w-100">
                     </div>
-
+    
                     <div class="item">
-                        <img src="undraw_personal_data_29co.svg" alt="" style="height: 300px;" class="d-block w-100">
+                        <img src="{% static 'images/undraw_personal_data_29co.svg' %}" alt="" style="height: 300px;" class="d-block w-100">
                     </div>
-
+    
                     <div class="item">
-                        <img src="undraw_fingerprint_swrc.svg" alt="" style="height: 300px;" class="d-block w-100">
+                        <img src="{% static 'images/undraw_fingerprint_swrc.svg' %}" alt="" style="height: 300px;" class="d-block w-100">
                     </div>
                 </div>
 
