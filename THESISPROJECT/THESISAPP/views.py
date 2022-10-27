@@ -51,52 +51,154 @@ def Signup(request):
         form = SignupForm()
     return render(request, 'files/Signup.html', {'form': form, 'msg': msg})
 
+# --------------- CLIENT
 @login_required(login_url='/accounts/login/')
-def AdminHomepage(request):
-    return render(request, 'files/AdminHomepage.html')
+def Client(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Client.html')
 
-def Apartment(request):
-    return render(request, 'files/Apartment.html')
-
-def Application(request):
-    return render(request, 'files/Application.html')
-
+@login_required(login_url='/accounts/login/')
 def ApplicationForm(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
     return render(request, 'files/ApplicationForm.html')
 
-def Appointment(request):
-    return render(request, 'files/Appointment.html')
-
+@login_required(login_url='/accounts/login/')
 def BillSummary(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
     return render(request, 'files/BillSummary.html')
 
+@login_required(login_url='/accounts/login/')
 def BookAppointment(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
     return render(request, 'files/BookAppointment.html')
 
-def BuyersApplication(request):
-    return render(request, 'files/BuyersApplication.html')
+@login_required(login_url='/accounts/login/')
+def InstallmentBill(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/InstallmentBill.html')
 
+@login_required(login_url='/accounts/login/')
 def BuyersForm(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
     return render(request, 'files/BuyersForm.html')
 
 @login_required(login_url='/accounts/login/')
-def Client(request):
-    return render(request, 'files/Client.html')
+def PaymentHistory(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/PaymentHistory.html')
 
+@login_required(login_url='/accounts/login/')
+def Property(request):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Property.html')
+# ---------- END CLIENT
+
+# ---------- ADMIN
+@login_required(login_url='/accounts/login/')
+def AdminHomepage(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AdminHomepage.html')
+
+@login_required(login_url='/accounts/login/')
 def ClientPayment(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Success")
+    else:
+        return redirect('Logout')
     return render(request, 'files/ClientPayment.html')
+
+@login_required(login_url='/accounts/login/')
+def BuyersApplication(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/BuyersApplication.html')
+
+@login_required(login_url='/accounts/login/')
+def Appointment(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Appointment.html')
+
+@login_required(login_url='/accounts/login/')
+def Inquiry(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Inquiry.html')
+
+@login_required(login_url='/accounts/login/')
+def Application(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Application.html')
+
+@login_required(login_url='/accounts/login/')
+def Notice(request):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Success")
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Notice.html')
+
+# ---------- END ADMIN
+
+# ---------- NO LOGIN
+def Niche(request):
+    return render(request, 'files/Niche.html')
+
+def Notifier(request):
+    return render(request, 'files/Notifier.html')
+
+def TermsofPayment(request):
+    return render(request, 'files/TermsofPayment.html')
 
 def GraveFinder(request):
     return render(request, 'files/GraveFinder.html')
 
-def Inquiry(request):
-    return render(request, 'files/Inquiry.html')
-
 def InquiryForm(request):
-    return render(request, 'files/InquiryForm.html')
-
-def InstallmentBill(request):
-    return render(request, 'files/InstallmentBill.html')
+    form = InquiryFormForm()
+    if request.method == 'POST':
+        form = InquiryFormForm(request.POST)
+        if form.is_valid():
+            forms.save()
+            return redirect('InquiryForm')
+        else:
+            return redirect('InquiryForm')
+    return render(request, 'files/InquiryForm.html',{'form':form})
 
 def Lawn(request):
     return render(request, 'files/Lawn.html')
@@ -104,23 +206,10 @@ def Lawn(request):
 def Mausoleum(request):
     return render(request, 'files/Mausoleum.html')
 
-def Niche(request):
-    return render(request, 'files/Niche.html')
+def Apartment(request):
+    return render(request, 'files/Apartment.html')
 
-def Notice(request):
-    return render(request, 'files/Notice.html')
-
-def Notifier(request):
-    return render(request, 'files/Notifier.html')
-
-def PaymentHistory(request):
-    return render(request, 'files/PaymentHistory.html')
-
-def Property(request):
-    return render(request, 'files/Property.html')
-
-def TermsofPayment(request):
-    return render(request, 'files/TermsofPayment.html')
+# ---------- END NO LOGIN
 
 def Logout(request):
     logout(request)
