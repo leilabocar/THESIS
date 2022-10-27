@@ -194,9 +194,23 @@ def InquiryForm(request):
     if request.method == 'POST':
         form = InquiryFormForm(request.POST)
         if form.is_valid():
-            forms.save()
+            form.save()
+
+            print('Success')
             return redirect('InquiryForm')
         else:
+            print(form.cleaned_data.get('lot_type'))
+            print(form.cleaned_data.get('phase'))
+            print(form.cleaned_data.get('block'))
+            print(form.cleaned_data.get('lotno'))
+            print(form.cleaned_data.get('terms'))
+            print(form.cleaned_data.get('fullname'))
+            print(form.cleaned_data.get('age'))
+            print(form.cleaned_data.get('gender'))
+            print(form.cleaned_data.get('contacts'))
+            print(form.cleaned_data.get('address'))
+            print(form.cleaned_data.get('email'))
+            print('Error')
             return redirect('InquiryForm')
     return render(request, 'files/InquiryForm.html',{'form':form})
 

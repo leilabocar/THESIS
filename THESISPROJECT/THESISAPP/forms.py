@@ -1,3 +1,4 @@
+from enum import unique
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
@@ -19,7 +20,7 @@ class SignupForm(UserCreationForm):
         model = User
         fields = ('first_name','last_name','username','email','password1','password2','is_admin','is_client')
 
-class InquiryFormForm(forms.Form):
+class InquiryFormForm(forms.ModelForm):
     lot_type_choices=[('Lawn Lot','Lawn Lot'),
                       ('Mausoleum','Mausoleum'),
                       ('Niche','Niche'),
@@ -32,14 +33,26 @@ class InquiryFormForm(forms.Form):
                    ('Full Down','Full Down'),
                    ('Reservation','Reservation')]
 
-    lot_type = forms.ChoiceField(choices=lot_type_choices, widget=forms.RadioSelect,initial=True, required=True)
+    lot_type = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect, required=True)
     phase = forms.CharField()
     block = forms.CharField()
     lotno = forms.CharField()
-    terms = forms.CharField(choices=terms_choices, widget=forms.RadioSelect, initial=True, required=True)
+    terms = forms.ChoiceField(choices= terms_choices, widget=forms.RadioSelect, required=True)
     fullname = forms.CharField()
     age = forms.IntegerField()
     gender = forms.CharField()
-    contacts = forms.IntegerField()
+    contacts = forms.CharField()
     address = forms.CharField()
     email = forms.EmailField()
+
+    class Meta:
+        model = InquiryForm
+        fields = ('lot_type','phase','block','lotno','terms','fullname','age','gender','contacts','address','email')
+
+        def contacts(self):
+            n = self.cleaned_data.get('contacts')
+            allowed_characters = '0123456789'
+            for char in n:
+                if char not in allowed_characters:
+                    raise forms.ValidationError("Please only use numbers")
+            return n

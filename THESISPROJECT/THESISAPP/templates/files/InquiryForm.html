@@ -55,7 +55,7 @@
         </div>
     </nav>
 
-	<form name="vform" action="/confirm" onsubmit="return Validate()" method="post">
+	<form name="vform" onsubmit="return Validate()" method="post">
         {% csrf_token %}
         <div class="container">
             <!-- Content here -->
@@ -142,7 +142,7 @@
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
                 <input type="number"  class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
+                    aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)" required/>
                     <div id="Contacts_error"></div>
             </div>
             <div class="input-group mb-3">
@@ -153,20 +153,13 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Email" name="Email">Email</span>
-                <input type="text" class="form-control" placeholder="Email" name="Email" aria-label="Sizing example input"
+                <input type="text" class="form-control" placeholder="Email" name="email" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" required>
                     <div id="Email_error"></div>
             </div>
             <div class="d-flex justify-content-center mt-5 button">
-                <input type="submit" onclick="myFunction()" value="CONFIRM" name="confirm" class="btn btn-secondary" />
-                <script>
-                    function myFunction() {
-                        document.getElementById("frm1").reg();
-                    }
-                </script>
+                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Submit</button>
             </div>
-
-
         </div>
     </form>
 
