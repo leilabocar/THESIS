@@ -56,3 +56,4 @@ class InquiryFormForm(forms.ModelForm):
                 if char not in allowed_characters:
                     raise forms.ValidationError("Please only use numbers")
             return n
+

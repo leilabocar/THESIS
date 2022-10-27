@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.utils.safestring import mark_safe
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import InquiryForm as inquire
 
 def Homepage(request):
     return render(request, 'files/Homepage.html')
@@ -153,10 +154,10 @@ def Appointment(request):
 @login_required(login_url='/accounts/login/')
 def Inquiry(request):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Success")
+        inq_table = inquire.objects.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/Inquiry.html')
+    return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
 
 @login_required(login_url='/accounts/login/')
 def Application(request):
@@ -199,17 +200,6 @@ def InquiryForm(request):
             print('Success')
             return redirect('InquiryForm')
         else:
-            print(form.cleaned_data.get('lot_type'))
-            print(form.cleaned_data.get('phase'))
-            print(form.cleaned_data.get('block'))
-            print(form.cleaned_data.get('lotno'))
-            print(form.cleaned_data.get('terms'))
-            print(form.cleaned_data.get('fullname'))
-            print(form.cleaned_data.get('age'))
-            print(form.cleaned_data.get('gender'))
-            print(form.cleaned_data.get('contacts'))
-            print(form.cleaned_data.get('address'))
-            print(form.cleaned_data.get('email'))
             print('Error')
             return redirect('InquiryForm')
     return render(request, 'files/InquiryForm.html',{'form':form})

@@ -18,6 +18,7 @@
 </style>
 </head>
 <body>
+{% block content %}
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
     <div class="container-fluid">
@@ -37,18 +38,36 @@
   <div style="overflow-x:auto;" class="col-sm-12">
     <table class="table table-bordered table-dark table-hover">
     <thead>
-      <th>Lot Type</th>
-      <th>Location</th>
-      <th>Terms of Payment</th>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Gender</th>
-      <th>Contact</th>
-      <th>Address</th>
-      <th>Email</th>
+      <tr>
+        <th>Lot Type</th>
+        <th>Location</th>
+        <th>Terms of Payment</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Email</th>
+      </tr>
+      {% for inq in inq_table %}
+      <tr>
+        <td>{{inq.lot_type}}</td>
+        <td>Phase:{{inq.phase}} Block:{{inq.block}} Lot No.:{{inq.lotno}}</td>
+        <td>{{inq.terms}}</td>
+        <td>{{inq.fullname}}</td>
+        <td>{{inq.age}}</td>
+        <td>{{inq.gender}}</td>
+        <td>{{inq.contacts}}</td>
+        <td>{{inq.address}}</td>
+        <td>{{inq.email}}</td>
+      </tr>
+      {% endfor %}
+
     </thead>
   </table><br><br>
   <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' %}">Back</a>
   </div>
+{% endblock %}
 </body>
+
 </html>
