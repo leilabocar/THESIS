@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from django.http.response import HttpResponse
 from .forms import *
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate,login,logout
 from django.utils.safestring import mark_safe
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def Homepage(request):
     return render(request, 'files/Homepage.html')
@@ -50,6 +51,7 @@ def Signup(request):
         form = SignupForm()
     return render(request, 'files/Signup.html', {'form': form, 'msg': msg})
 
+@login_required(login_url='/accounts/login/')
 def AdminHomepage(request):
     return render(request, 'files/AdminHomepage.html')
 
@@ -77,6 +79,7 @@ def BuyersApplication(request):
 def BuyersForm(request):
     return render(request, 'files/BuyersForm.html')
 
+@login_required(login_url='/accounts/login/')
 def Client(request):
     return render(request, 'files/Client.html')
 
@@ -119,4 +122,7 @@ def Property(request):
 def TermsofPayment(request):
     return render(request, 'files/TermsofPayment.html')
 
+def Logout(request):
+    logout(request)
+    return redirect ('Login')
 

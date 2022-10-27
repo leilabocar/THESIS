@@ -1,5 +1,8 @@
+from unicodedata import name
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+from django.contrib import admin
 
 
 urlpatterns = [
@@ -29,4 +32,6 @@ urlpatterns = [
     path('Property', views.Property, name='Property'),
     path('Signup', views.Signup, name='Signup'),
     path('TermsofPayment', views.TermsofPayment, name='TermsofPayment'),
+    path('Logout', views.Logout, name='Logout'),
+    path('accounts/login/', views.Logout),
 ]
