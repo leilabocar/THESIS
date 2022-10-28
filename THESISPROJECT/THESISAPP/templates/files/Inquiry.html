@@ -48,6 +48,7 @@
         <th>Contact</th>
         <th>Address</th>
         <th>Email</th>
+        <th>Notice</th>
       </tr>
       {% for inq in inq_table %}
       <tr>
@@ -60,6 +61,7 @@
         <td>{{inq.contacts}}</td>
         <td>{{inq.address}}</td>
         <td>{{inq.email}}</td>
+        <td> <input type="button" onclick="myFunction()" value="Notice" class="btn btn-success"></td>
       </tr>
       {% endfor %}
 
