@@ -7,7 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+<form method="post">{% csrf_token %}
     {{form.content}}
-    
+</form>
 </body>
 </html>

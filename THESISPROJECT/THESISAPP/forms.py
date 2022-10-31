@@ -57,7 +57,7 @@ class InquiryFormForm(forms.ModelForm):
                     raise forms.ValidationError("Please only use numbers")
             return n
 
-class NotifierForm(forms.Form):
-    email = forms.EmailField()
-    receiver = forms.EmailField()
-    content = forms.TextInput()
+class NoticeForm(forms.Form):
+    client = forms.CharField()
+    receiver = forms.CharField()
+    content = forms.CharField()

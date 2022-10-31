@@ -176,10 +176,27 @@ def Application(request):
 @login_required(login_url='/accounts/login/')
 def Notice(request):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Success")
+        form = NoticeForm()
+        if request.method == 'POST':
+            form = NoticeForm(request.POST)
+            if form.is_valid():
+                receiver = form.cleaned_data.get('receiver')
+                content = form.cleaned_data.get('content')
+                send_mail(
+                'Himlayang Cemetery',
+                content,
+                'andrewleilaraqueljustin@gmail.com',
+                [receiver],
+                fail_silently=False,
+            )
+                print("SUCCESS")
+                return redirect('Notice')
+            else:
+                print("ERROR")
+                return redirect('Notice')
     else:
         return redirect('Logout')
-    return render(request, 'files/Notice.html')
+    return render(request, 'files/Notice.html', {'form':form})
 
 # ---------- END ADMIN
 
@@ -188,17 +205,6 @@ def Niche(request):
     return render(request, 'files/Niche.html')
 
 def Notifier(request):
-    form = NotifierForm()
-    email = form.cleaned_data('email')
-    receiver = form.cleaned_data('email')
-    content = form.cleaned_data('email')
-    send_mail(
-        "Himlayang Cemetery",
-        content,
-        settings.EMAIL_HOST_USER,
-        [email]
-    )
-    html_content = render_to_string("Email_Template.html")
     return render(request, 'files/Notifier.html')
 
 def TermsofPayment(request):
