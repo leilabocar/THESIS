@@ -7,8 +7,9 @@ from django.contrib.auth import authenticate,login,logout
 from django.utils.safestring import mark_safe
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 #EMAIL
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives,send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 #MODELS
@@ -187,6 +188,17 @@ def Niche(request):
     return render(request, 'files/Niche.html')
 
 def Notifier(request):
+    form = NotifierForm()
+    email = form.cleaned_data('email')
+    receiver = form.cleaned_data('email')
+    content = form.cleaned_data('email')
+    send_mail(
+        "Himlayang Cemetery",
+        content,
+        settings.EMAIL_HOST_USER,
+        [email]
+    )
+    html_content = render_to_string("Email_Template.html")
     return render(request, 'files/Notifier.html')
 
 def TermsofPayment(request):
