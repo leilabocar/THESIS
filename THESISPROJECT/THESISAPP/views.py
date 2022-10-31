@@ -7,6 +7,11 @@ from django.contrib.auth import authenticate,login,logout
 from django.utils.safestring import mark_safe
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+#EMAIL
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+#MODELS
 from .models import InquiryForm as inquire
 
 def Homepage(request):
@@ -213,9 +218,11 @@ def Mausoleum(request):
 def Apartment(request):
     return render(request, 'files/Apartment.html')
 
-# ---------- END NO LOGIN
-
 def Logout(request):
     logout(request)
     return redirect ('Login')
+
+# ---------- END NO LOGIN
+
+
 
