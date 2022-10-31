@@ -46,7 +46,7 @@ class InquiryFormForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
-        model = InquiryForm
+        model = InquiryFormModel
         fields = ('lot_type','phase','block','lotno','terms','fullname','age','gender','contacts','address','email')
 
         def contacts(self):
@@ -61,3 +61,19 @@ class NoticeForm(forms.Form):
     client = forms.CharField()
     receiver = forms.CharField()
     content = forms.CharField()
+
+class ApplicationFormForm(forms.ModelForm):
+    date = forms.DateField()
+    phase = forms.CharField()
+    block = forms.CharField()
+    lotno = forms.CharField()
+    fullname = forms.CharField()
+    age = forms.IntegerField()
+    gender = forms.CharField()
+    contacts = forms.CharField()
+    address = forms.CharField()
+    email = forms.EmailField()
+
+    class Meta:
+        model = ApplicationFormModel
+        fields = ('date','phase','block','lotno','fullname','age','gender','contacts','address','email')

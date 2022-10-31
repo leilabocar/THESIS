@@ -13,7 +13,8 @@ from django.core.mail import EmailMultiAlternatives,send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 #MODELS
-from .models import InquiryForm as inquire
+from .models import *
+from .models import InquiryFormModel as inquire
 
 def Homepage(request):
     return render(request, 'files/Homepage.html')
@@ -31,7 +32,7 @@ def Login(request):
                 return redirect('AdminHomepage')
             elif user is not None and user.is_client:
                 login(request, user)
-                return redirect('Client')
+                return redirect('Client', username==user.username)
             else:
                 msg= 'Invalid Credentials'
         else:
@@ -60,7 +61,7 @@ def Signup(request):
 
 # --------------- CLIENT
 @login_required(login_url='/accounts/login/')
-def Client(request):
+def Client(request,username):
     if request.user.is_authenticated and request.user.is_client:
         print ("Success")
     else:
@@ -68,12 +69,20 @@ def Client(request):
     return render(request, 'files/Client.html')
 
 @login_required(login_url='/accounts/login/')
-def ApplicationForm(request):
+def ApplicationForm(request, id):
     if request.user.is_authenticated and request.user.is_client:
-        print ("Success")
+        applicant = ApplicationFormModel.objects.filter(id=id).first()
+        if request.method == 'POST':
+            form = ApplicationFormForm(request.POST or None, instance=applicant)
+            if form.is_valid():
+                form.save()
+            else:
+                print("Error")
+        else:
+            form = ApplicationFormForm(request.POST or None, instance=applicant)
     else:
         return redirect('Logout')
-    return render(request, 'files/ApplicationForm.html')
+    return render(request, 'files/ApplicationForm.html',{'applicant':applicant,'form':form})
 
 @login_required(login_url='/accounts/login/')
 def BillSummary(request):
@@ -219,7 +228,6 @@ def InquiryForm(request):
         form = InquiryFormForm(request.POST)
         if form.is_valid():
             form.save()
-
             print('Success')
             return redirect('InquiryForm')
         else:

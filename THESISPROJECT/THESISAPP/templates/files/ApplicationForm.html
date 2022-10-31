@@ -50,87 +50,78 @@
             <h3>Himlayang General Trias</h3>
 
             <ul class="navbar-nav ms-auto">
-                <a href="{% url 'Client' %}" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'Client' user.username %}" class="btn btn-secondary">BACK</a>
             </ul>
         </div>
         </div>
     </nav>
 
-	<form name="vform" action="/confirm" onsubmit="return Validate()" method="post"> 
-    
-
-    <div class="container">
-        <!-- Content here -->
-        <header class="heading"> APPLICATION FORM</header>
-        <hr>
-        </hr>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Apartment Unit :</p>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Date</span>
-            <input type="text" class="form-control" placeholder="Date" aria-label="Date" aria-describedby="basic-addon1" required>
-          </div>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
-        <div class="input-group">
-            <div class="input-group-prepend ">
-              <span class="input-group-text"  >Location</span>
+	<form name="vform" onsubmit="return Validate()" method="post">{% csrf_token %} 
+        <div class="container">
+            <!-- Content here -->
+            <header class="heading"> APPLICATION FORM</header>
+            <hr>
+            </hr>
+            <input type="hidden" name="id" value="{{ form.id }}">
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Apartment Unit :</p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Date</span>
+                <input type="date" name="date" class="form-control" placeholder="Date" aria-label="Date" aria-describedby="basic-addon1" required>
             </div>
-            <input type="text" placeholder="Phase" class="form-control" required>
-            <input type="text" placeholder="Block" class="form-control" required>
-            <input type="text" placeholder="Lot No." class="form-control" required>
-            <div id="Phase_error"></div>
-          </div>
-        </form>
-        </form>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Fill Up Form :</p>
- 
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Full Name" name="Full Name">Full Name</span>
-            <input type="text" class="form-control" placeholder="Full Name"  aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="FN_error"></div>
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
+            <div class="input-group">
+                <div class="input-group-prepend ">
+                <span class="input-group-text"  >Location</span>
+                </div>
+                <input type="text" name="phase" placeholder="Phase" class="form-control" required>
+                <input type="text" name="block"" placeholder="Block" class="form-control" required>
+                <input type="text" name="lotno" placeholder="Lot No." class="form-control" required>
+                <div id="Phase_error"></div>
+            </div>
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Fill Up Form :</p>
+    
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Full Name" name="Full Name">Full Name</span>
+                <input type="text" name="fullname" class="form-control" placeholder="Full Name"  aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="FN_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Age" name="Age">Age</span>
+                <input type="text" name="age" class="form-control" placeholder="Age" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Age_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Gender" name="Gender">Gender</span>
+                <input type="text" name="gender" class="form-control" placeholder="Gender" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Gender_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
+                <input type="text" name="contacts" class="form-control" placeholder="Contacts" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Contacts_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Address" name="Address">Address</span>
+                <input type="text" name="address" class="form-control" placeholder="Address" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Address_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Email" name="Email">Email</span>
+                <input type="text" name="email" class="form-control" placeholder="Email" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Email_error"></div>
+            </div>
+            <div class="d-flex justify-content-center mt-5 button_container">
+                <br>
+                <input type="submit" value="CONFIRM" class="btn btn-secondary" />
+             </div>
         </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Age" name="Age">Age</span>
-            <input type="text" class="form-control" placeholder="Age" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Age_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Gender" name="Gender">Gender</span>
-            <input type="text" class="form-control" placeholder="Gender" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Gender_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
-            <input type="text" class="form-control" placeholder="Contacts" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Contacts_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Address" name="Address">Address</span>
-            <input type="text" class="form-control" placeholder="Address" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Address_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Email" name="Email">Email</span>
-            <input type="text" class="form-control" placeholder="Email" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Email_error"></div>
-        </div>
-        <div class="d-flex justify-content-center mt-5 button_container">
-            <br>
-            <input type="submit" onclick="myFunction()" value="CONFIRM" name="confirm" class="btn btn-secondary" />
-            <script>
-                function myFunction() {
-                    document.getElementById("frm1").reg();
-                }
-            </script>
-        </div>
-
-
-    </div>
+    </form>
 
 </body>
 
