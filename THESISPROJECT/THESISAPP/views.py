@@ -8,6 +8,8 @@ from django.utils.safestring import mark_safe
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
 from django.template.loader import render_to_string
@@ -32,7 +34,7 @@ def Login(request):
                 return redirect('AdminHomepage')
             elif user is not None and user.is_client:
                 login(request, user)
-                return redirect('Client', username==user.username)
+                return redirect(f'Client/{user.username}')
             else:
                 msg= 'Invalid Credentials'
         else:
@@ -45,6 +47,10 @@ def Signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
+            email = form.cleaned_data.get('email')
+            pk = User.objects.filter(email=email).values_list('id', flat=True).first()
+            print(pk)
+            ApplicationFormModel.objects.create(id_id=pk)
             msg = 'User Created'
             return redirect('Login')
         else:
@@ -63,26 +69,26 @@ def Signup(request):
 @login_required(login_url='/accounts/login/')
 def Client(request,username):
     if request.user.is_authenticated and request.user.is_client:
-        print ("Success")
+        print("Client Page")
+        a = User.objects.filter(username=username)
     else:
         return redirect('Logout')
-    return render(request, 'files/Client.html')
+    return render(request, 'files/Client.html', {'a':a})
 
 @login_required(login_url='/accounts/login/')
-def ApplicationForm(request, id):
+def ApplicationForm(request, pk):
     if request.user.is_authenticated and request.user.is_client:
-        applicant = ApplicationFormModel.objects.filter(id=id).first()
+        print("Application Page")
+        a = User.objects.filter(pk=pk)
+        b = ApplicationFormModel.objects.get(id_id=pk)
+        form = ApplicationFormForm(instance=b)
         if request.method == 'POST':
-            form = ApplicationFormForm(request.POST or None, instance=applicant)
+            form = ApplicationFormForm(request.POST, instance=b)
             if form.is_valid():
                 form.save()
-            else:
-                print("Error")
-        else:
-            form = ApplicationFormForm(request.POST or None, instance=applicant)
     else:
         return redirect('Logout')
-    return render(request, 'files/ApplicationForm.html',{'applicant':applicant,'form':form})
+    return render(request, 'files/ApplicationForm.html',{'a':a, 'form':form})
 
 @login_required(login_url='/accounts/login/')
 def BillSummary(request):

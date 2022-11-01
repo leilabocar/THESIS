@@ -138,6 +138,7 @@ STATICFILES_DIRS = [
 
 #USER
 AUTH_USER_MODEL = 'THESISAPP.User'
+AUTH_PROFILE_MODULE = 'THESISAPP.User'
 
 #EMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

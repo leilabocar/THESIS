@@ -63,6 +63,7 @@ class NoticeForm(forms.Form):
     content = forms.CharField()
 
 class ApplicationFormForm(forms.ModelForm):
+    pk = forms.IntegerField()
     date = forms.DateField()
     phase = forms.CharField()
     block = forms.CharField()

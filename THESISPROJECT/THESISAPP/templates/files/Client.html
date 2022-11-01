@@ -58,7 +58,7 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav m-auto">
                     <li class="nav-item">
-                        <a class="nav-link" style="font-size: 20px;" href="{% url 'Client' user.username %}">Overview</a>
+                        <a class="nav-link" style="font-size: 20px;" href="{% url 'Client' user.pk %}">Overview</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="font-size: 20px;" href="{% url 'Property' %}">Property</a>
@@ -67,7 +67,7 @@
                         <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
                             data-bs-toggle="dropdown">Application</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ApplicationForm' user.id %}">Application Form</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ApplicationForm' user.pk %}">Application Form</a></li>
                             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersForm' %}">Buyers Form</a></li>
                         </ul>
                     </li>
