@@ -37,18 +37,33 @@
   <div style="overflow-x:auto;" class="col-sm-12">
     <table class="table table-bordered table-dark table-hover">
     <thead>
-      <th>Lot Type</th>
-      <th>Location</th>
-      <th>Terms of Payment</th>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Gender</th>
-      <th>Contact</th>
-      <th>Address</th>
-      <th>Email</th>
+      <tr>
+        <th>Lot Type</th>
+        <th>Location</th>
+        <th>Terms of Payment</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Email</th>
+      </tr>
+      {% for buyers in buyers_table %}
+      <tr>
+        <td>{{buyers.lot_type}}</td>
+        <td>Phase:{{buyers.phase}} Block:{{buyers.block}} Lot:{{buyers.lotno}}</td>
+        <td>{{buyers.terms}}</td>
+        <td>{{buyers.fullname}}</td>
+        <td>{{buyers.age}}</td>
+        <td>{{buyers.gender}}</td>
+        <td>{{buyers.contacts}}</td>
+        <td>{{buyers.address}}</td>
+        <td>{{buyers.email}}</td>
+      </tr>
+      {% endfor %}
     </thead>
   </table><br><br>
-  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' %}">Back</a>
+  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
   </div>
 </body>
 </html>

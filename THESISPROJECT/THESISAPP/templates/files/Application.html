@@ -37,17 +37,31 @@
   <div style="overflow-x:auto;" class="col-sm-12">
     <table class="table table-bordered table-dark table-hover">
     <thead>
-      <th>Date</th>
-      <th>Location</th>
-      <th>Name</th>
-      <th>Age</th>
-      <th>Gender</th>
-      <th>Contact</th>
-      <th>Address</th>
-      <th>Email</th>
+      <tr>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Email</th>
+      </tr>
+      {% for appli in applicants_table %}
+      <tr>
+        <td>{{appli.date}}</td>
+        <td>Phase:{{appli.phase}} Block:{{appli.block}} Lot:{{appli.lotno}}</td>
+        <td>{{appli.fullname}}</td>
+        <td>{{appli.age}}</td>
+        <td>{{appli.gender}}</td>
+        <td>{{appli.contacts}}</td>
+        <td>{{appli.address}}</td>
+        <td>{{appli.email}}</td>
+      </tr>
+      {% endfor %}
     </thead>
   </table><br><br>
-  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' %}">Back</a>
+  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
   </div>
 </body>
 </html>

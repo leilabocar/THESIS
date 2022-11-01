@@ -31,7 +31,7 @@ def Login(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_admin:
                 login(request, user)
-                return redirect('AdminHomepage')
+                return redirect(f'AdminHomepage/{user.username}')
             elif user is not None and user.is_client:
                 login(request, user)
                 return redirect(f'Client/{user.username}')
@@ -164,56 +164,66 @@ def Property(request, pk):
 
 # ---------- ADMIN
 @login_required(login_url='/accounts/login/')
-def AdminHomepage(request):
+def AdminHomepage(request, username):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Success")
+        print ("Admin Homepage")
+        a = User.objects.filter(username=username)
     else:
         return redirect('Logout')
-    return render(request, 'files/AdminHomepage.html')
+    return render(request, 'files/AdminHomepage.html', {'a':a})
 
 @login_required(login_url='/accounts/login/')
-def ClientPayment(request):
+def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Success")
+        print ("Client Payment Page")
+        a = User.objects.filter(pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/ClientPayment.html')
+    return render(request, 'files/ClientPayment.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
-def BuyersApplication(request):
+def BuyersApplication(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Success")
+        print ("Buyers Application Page")
+        a = User.objects.filter(pk=pk)
+        buyers_table = BuyersFormModel.objects.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/BuyersApplication.html')
+    return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table})
 
 @login_required(login_url='/accounts/login/')
-def Appointment(request):
+def Appointment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Success")
+        print ("Appointment Page")
+        a = User.objects.filter(pk=pk)
+        appointment_table = BookAppointmentModel.objects.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/Appointment.html')
+    return render(request, 'files/Appointment.html',{'a':a, 'appointment_table':appointment_table})
 
 @login_required(login_url='/accounts/login/')
-def Inquiry(request):
+def Inquiry(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
         inq_table = inquire.objects.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
+    return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a})
 
 @login_required(login_url='/accounts/login/')
-def Application(request):
+def Application(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Success")
+        print ("Application Page")
+        a = User.objects.filter(pk=pk)
+        applicants_table = ApplicationFormModel.objects.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/Application.html')
+    return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table})
 
 @login_required(login_url='/accounts/login/')
-def Notice(request):
+def Notice(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
         form = NoticeForm()
         if request.method == 'POST':
             form = NoticeForm(request.POST)
@@ -228,13 +238,11 @@ def Notice(request):
                 fail_silently=False,
             )
                 print("SUCCESS")
-                return redirect('Notice')
             else:
                 print("ERROR")
-                return redirect('Notice')
     else:
         return redirect('Logout')
-    return render(request, 'files/Notice.html', {'form':form})
+    return render(request, 'files/Notice.html', {'form':form, 'a':a})
 
 # ---------- END ADMIN
 
@@ -242,8 +250,12 @@ def Notice(request):
 def Niche(request):
     return render(request, 'files/Niche.html')
 
-def Notifier(request):
-    return render(request, 'files/Notifier.html')
+def Notifier(request,pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Notifier.html', {'a':a})
 
 def TermsofPayment(request):
     return render(request, 'files/TermsofPayment.html')

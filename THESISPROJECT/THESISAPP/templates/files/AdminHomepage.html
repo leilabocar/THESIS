@@ -31,11 +31,11 @@
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
               data-bs-toggle="dropdown">Application</a>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' %}">Inquiry</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' %}">Appointment</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' %}">Payments</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' %}">Application</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' %}">Buyers</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk %}">Inquiry</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk %}">Appointment</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk %}">Payments</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk %}">Application</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk %}">Buyers</a></li>
           </ul>
         </li>
         <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Login' %}">Log out</a>
@@ -76,7 +76,7 @@
   </div>
 </table>
 <div style="text-align: right;" class="col-sm-12">
-  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Notice' %}">Notice</a>
+  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Notice' user.pk %}">Notice</a>
 </div>
 
 </body>

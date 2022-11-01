@@ -58,12 +58,12 @@
         <td>asd</td>
         <td>asd</td>
         <td>asd</td>
-        <td><input type="button" onclick="myFunction()" value="Update" class="btn btn-success"><a href="{% url 'Notifier' %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
+        <td><input type="button" onclick="myFunction()" value="Update" class="btn btn-success"><a href="{% url 'Notifier' user.pk %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
       </tr>
     </thead>
       
     </table><br><br>
-    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' %}">Back</a>
+    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
   </div>
 </body>
 </html>

@@ -53,22 +53,18 @@
         <th>Email</th>
         <th>Reason for Visit</th>
       </tr>
+      {% for appo in appointment_table %}
       <tr>
-        <td>asd</td>
-        <td>asd</td>
-        <td>asd</td>
-        <td>asd</td>
+        <td>{{appo.fullname}}</td>
+        <td>{{appo.contacts}}</td>
+        <td>{{appo.email}}</td>
+        <td>{{appo.reason}}</td>
       </tr>
-      <tr>
-        <td>asd</td>
-        <td>asd</td>
-        <td>asd</td>
-        <td>asd</td>
-      </tr>
+      {% endfor %}
     </thead>
       
     </table><br><br>
-    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' %}">Back</a>
+    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
   </div>
 </body>
 </html>
