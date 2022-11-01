@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'THESISAPP',
+    'django_filters',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
