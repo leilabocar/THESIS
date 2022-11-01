@@ -61,27 +61,27 @@
                         <a class="nav-link" style="font-size: 20px;" href="{% url 'Client' user.pk %}">Overview</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="font-size: 20px;" href="{% url 'Property' %}">Property</a>
+                        <a class="nav-link" style="font-size: 20px;" href="{% url 'Property' user.pk %}">Property</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
                             data-bs-toggle="dropdown">Application</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ApplicationForm' user.pk %}">Application Form</a></li>
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersForm' %}">Buyers Form</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersForm' user.pk %}">Buyers Form</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"  style="font-size: 20px;" href="#" role="button" data-bs-toggle="dropdown">Bills &
                             Payments</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BillSummary' %}">Bill Summary</a></li>
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'PaymentHistory' %}">Payment History</a></li>
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'InstallmentBill' %}">Installment Bill</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BillSummary' user.pk  %}">Bill Summary</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'PaymentHistory' user.pk %}">Payment History</a></li>
+                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'InstallmentBill' user.pk %}">Installment Bill</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="font-size: 20px;" href="{% url 'BookAppointment' %}">Appointment</a>
+                        <a class="nav-link" style="font-size: 20px;" href="{% url 'BookAppointment' user.pk %}">Appointment</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">

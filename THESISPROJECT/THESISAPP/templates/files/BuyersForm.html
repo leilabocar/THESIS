@@ -49,124 +49,115 @@
             <h3>Himlayang General Trias</h3>
 
             <ul class="navbar-nav ms-auto">
-                <a href="{% url 'Client' %}" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'Client' user.username %}" class="btn btn-secondary">BACK</a>
             </ul>
         </div>
         </div>
     </nav>
 
-	<form name="vform" action="/confirm" onsubmit="return Validate()" method="post"> 
-    
-
-    <div class="container">
-        <!-- Content here -->
-        <header class="heading"> BUYER'S APPLICATION FORM</header>
-        <hr>
-        </hr>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type :</p>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="validationFormCheck1" name="radio-stacked" required>
-            <label class="form-check-label" for="validationFormCheck1">Lawn Lot</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="validationFormCheck2" name="radio-stacked" required>
-            <label class="form-check-label" for="validationFormCheck2">Mausoleum</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="radio" class="form-check-input" id="validationFormCheck3" name="radio-stacked" required>
-            <label class="form-check-label" for="validationFormCheck3">Niche</label>
-            <div class="invalid-feedback">Please Select</div>
-        </div>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
-        <div class="input-group">
-            <div class="input-group-prepend ">
-              <span class="input-group-text"  >Location</span>
+	<form name="vform" onsubmit="return Validate()" method="post">
+        {% csrf_token %}
+        <div class="container">
+            <!-- Content here -->
+            <header class="heading"> BUYER'S APPLICATION FORM</header>
+            <hr>
+            </hr>
+            <input type="hidden" name="pk" value="{{user.pk}}">
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type :</p>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot_type" value="Lawn Lot" required>
+                <label class="form-check-label" for="validationFormCheck1">Lawn Lot</label>
             </div>
-            <input type="text" placeholder="Phase"  class="form-control" required>
-            <input type="text" placeholder="Block" class="form-control" required>
-            <input type="text" placeholder="Lot No." class="form-control" required>
-            <div id="Phase_error"></div>
-          </div>
-        </form>
-        </form>
-        <p class="text-center" style="font-size: 25px; font-family: verdana;">Terms of Payment :</p>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
-            <label class="form-check-label" for="validationFormCheck1">Cash</label>
-            <div id="Cash_error"></div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot_type" value="Mausoleum" required>
+                <label class="form-check-label" for="validationFormCheck1">Mausoleum</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck2" name="lot_type" value="Niche" required>
+                <label class="form-check-label" for="validationFormCheck2">Niche</label>
+            </div>
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
+            <div class="input-group">
+                <div class="input-group-prepend ">
+                <span class="input-group-text"  >Location</span>
+                </div>
+                <input type="text" placeholder="Phase"  class="form-control" name="phase" required>
+                <input type="text" placeholder="Block" class="form-control" name="block" required>
+                <input type="text" placeholder="Lot No." class="form-control" name="lotno" required>
+                <div id="Phase_error"></div>
+            </div>
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Terms of Payment :</p>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="Cash" required>
+                <label class="form-check-label" for="validationFormCheck1">Cash</label>
+                <div id="Cash_error"></div>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="1 Year" required>
+                <label class="form-check-label" for="validationFormCheck1">1 Year</label>
+                <div id="1y_error"></div>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="2 Years" required>
+                <label class="form-check-label" for="validationFormCheck1">2 Years</label>
+                <div id="2y_error"></div>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="3 Years" required>
+                <label class="form-check-label" for="validationFormCheck1">3 Years</label>
+                <div id="3y_error"></div>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="Full Down" required>
+                <label class="form-check-label" for="validationFormCheck1">Full Down</label>
+                <div id="fd_error"></div>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="Reservation" required>
+                <label class="form-check-label" for="validationFormCheck1">Reservation</label>
+                <div id="Reservation_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Full Name" name="Full Name">Full Name</span>
+                <input type="text" class="form-control" placeholder="Full Name" name="fullname"  aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="FN_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Age" name="Age">Age</span>
+                <input type="text" class="form-control" placeholder="Age" name="age" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Age_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Gender" name="Gender">Gender</span>
+                <input type="text" class="form-control" placeholder="Gender" name="gender" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Gender_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
+                <input type="number"  class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
+                    <div id="Contacts_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Address" name="Address">Address</span>
+                <input type="text" class="form-control" placeholder="Address" name="address" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Address_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="Email" name="Email">Email</span>
+                <input type="text" class="form-control" placeholder="Email" name="email" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="Email_error"></div>
+            </div>
+            <div class="d-flex justify-content-center mt-5 button">
+                <button type="submit" class=" btn btn-primary rounded submit">Confirm</button>
+            </div>
         </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck2" required>
-            <label class="form-check-label" for="validationFormCheck2">1 Year</label>
-            <div id="1y_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck3" required>
-            <label class="form-check-label" for="validationFormCheck3">2 Years</label>
-            <div id="2y_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck4" required>
-            <label class="form-check-label" for="validationFormCheck4">3 Years</label>
-            <div id="3y_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck5" required>
-            <label class="form-check-label" for="validationFormCheck1">Full Down</label>
-            <div id="fd_error"></div>
-        </div>
-        <div class="form-check form-check-inline">
-            <input type="checkbox" class="form-check-input" id="validationFormCheck5" required>
-            <label class="form-check-label" for="validationFormCheck1">Reservation</label>
-            <div id="Reservation_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Full Name" name="Full Name">Full Name</span>
-            <input type="text" class="form-control" placeholder="Full Name"  aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="FN_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Age" name="Age">Age</span>
-            <input type="text" class="form-control" placeholder="Age" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Age_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Gender" name="Gender">Gender</span>
-            <input type="text" class="form-control" placeholder="Gender" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Gender_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
-            <input type="text" class="form-control" placeholder="Contacts" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Contacts_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Address" name="Address">Address</span>
-            <input type="text" class="form-control" placeholder="Address" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Address_error"></div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="Email" name="Email">Email</span>
-            <input type="text" class="form-control" placeholder="Email" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default" required>
-                <div id="Email_error"></div>
-        </div>
-        <div class="d-flex justify-content-center mt-5 button">
-            <input type="submit" onclick="myFunction()" value="CONFIRM" name="confirm" class="btn btn-secondary" />
-            <script>
-                function myFunction() {
-                    document.getElementById("frm1").reg();
-                }
-            </script>
-        </div>
-
-
-    </div>
+    </form>
 
 </body>
 

@@ -51,6 +51,7 @@ def Signup(request):
             pk = User.objects.filter(email=email).values_list('id', flat=True).first()
             print(pk)
             ApplicationFormModel.objects.create(id_id=pk)
+            BuyersFormModel.objects.create(id_id=pk)
             msg = 'User Created'
             return redirect('Login')
         else:
@@ -86,57 +87,71 @@ def ApplicationForm(request, pk):
             form = ApplicationFormForm(request.POST, instance=b)
             if form.is_valid():
                 form.save()
+                print('success')
     else:
         return redirect('Logout')
     return render(request, 'files/ApplicationForm.html',{'a':a, 'form':form})
 
 @login_required(login_url='/accounts/login/')
-def BillSummary(request):
+def BuyersForm(request, pk):
     if request.user.is_authenticated and request.user.is_client:
-        print ("Success")
+        print ("Buyers Form Page")
+        a = User.objects.filter(pk=pk)
+        b = BuyersFormModel.objects.get(id_id=pk)
+        form = BuyersFormForm(instance=b)
+        if request.method == 'POST':
+            form = BuyersFormForm(request.POST, instance=b)
+            if form.is_valid():
+                form.save()
+                print('Success')
     else:
         return redirect('Logout')
-    return render(request, 'files/BillSummary.html')
+    return render(request, 'files/BuyersForm.html', {'a':a, 'form':form})
 
 @login_required(login_url='/accounts/login/')
-def BookAppointment(request):
+def BillSummary(request, pk):
     if request.user.is_authenticated and request.user.is_client:
-        print ("Success")
+        print ("Bill SUmmary Page")
+        a = User.objects.filter(pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/BookAppointment.html')
+    return render(request, 'files/BillSummary.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
-def InstallmentBill(request):
+def InstallmentBill(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         print ("Success")
+        a = User.objects.filter(pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/InstallmentBill.html')
+    return render(request, 'files/InstallmentBill.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
-def BuyersForm(request):
+def PaymentHistory(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         print ("Success")
+        a = User.objects.filter(pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/BuyersForm.html')
+    return render(request, 'files/PaymentHistory.html', {'a':a})
 
 @login_required(login_url='/accounts/login/')
-def PaymentHistory(request):
+def BookAppointment(request,pk):
     if request.user.is_authenticated and request.user.is_client:
         print ("Success")
+        a = User.objects.filter(pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/PaymentHistory.html')
+    return render(request, 'files/BookAppointment.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
-def Property(request):
+def Property(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         print ("Success")
+        a = User.objects.filter(pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/Property.html')
+    return render(request, 'files/Property.html',{'a':a})
 # ---------- END CLIENT
 
 # ---------- ADMIN
