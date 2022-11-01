@@ -79,7 +79,6 @@ class ApplicationFormForm(forms.ModelForm):
         model = ApplicationFormModel
         fields = ('date','phase','block','lotno','fullname','age','gender','contacts','address','email')
 
-
 class BuyersFormForm(forms.ModelForm):
     lot_type_choices=[('Lawn Lot','Lawn Lot'),
                       ('Mausoleum','Mausoleum'),
@@ -108,6 +107,26 @@ class BuyersFormForm(forms.ModelForm):
     class Meta:
         model = BuyersFormModel
         fields = ('lot_type','phase','block','lotno','terms','fullname','age','gender','contacts','address','email')
+
+        def contacts(self):
+            n = self.cleaned_data.get('contacts')
+            allowed_characters = '0123456789'
+            for char in n:
+                if char not in allowed_characters:
+                    raise forms.ValidationError("Please only use numbers")
+            return n
+
+class BookAppointmentForm(forms.ModelForm):
+    pk = forms.IntegerField()
+    reason = forms.CharField()
+    fullname = forms.CharField()
+    contacts = forms.CharField()
+    email = forms.EmailField()
+    date = forms.DateField()
+
+    class Meta:
+        model = BookAppointmentModel
+        fields = ('reason', 'fullname','contacts','email','date')
 
         def contacts(self):
             n = self.cleaned_data.get('contacts')

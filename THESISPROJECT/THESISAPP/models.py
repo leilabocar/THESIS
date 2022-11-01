@@ -47,7 +47,7 @@ class ApplicationFormModel(models.Model):
     gender = models.CharField(max_length=30, verbose_name='gender', null=True)
     contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
     address = models.CharField(max_length=99, verbose_name='address', null=True)
-    email = models.EmailField(max_length=99, verbose_name='email', null=True, unique=True)
+    email = models.EmailField(max_length=99, verbose_name='email', null=True)
 
 class BuyersFormModel(models.Model):
     lot_type_choices=[('Lawn Lot','Lawn Lot'),
@@ -72,6 +72,16 @@ class BuyersFormModel(models.Model):
     gender = models.CharField(max_length=30, verbose_name='gender', null=True)
     contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
     address = models.CharField(max_length=99, verbose_name='address', null=True)
-    email = models.EmailField(max_length=99, verbose_name='email', null=True, unique=True)
+    email = models.EmailField(max_length=99, verbose_name='email', null=True)
+
+class BookAppointmentModel(models.Model):
+    id = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True,verbose_name='id')
+    reason = models.CharField(max_length=250, verbose_name='reason', null=True)
+    fullname = models.CharField(max_length=250, verbose_name='fullname', null=True)
+    contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
+    email = models.CharField(max_length=250, verbose_name='email', null=True)
+    date = models.DateField(verbose_name='date', null=True)
+
+
 
     

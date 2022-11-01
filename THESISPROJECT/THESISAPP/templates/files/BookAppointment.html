@@ -55,58 +55,49 @@
         </div>
     </nav>
 
-    <form name="vform" action="/book" onsubmit="return Validate()" method="post">
-
-
+    <form name="vform" onsubmit="return Validate()" method="post">{% csrf_token %}
         <div class="container">
             <!-- Content here -->
             <header class="heading"> BOOK APPOINTMENT</header>
             <hr>
             </hr>
+            <input type="hidden" name="pk" value="{{user.pk}}">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Reason for Visit</span>
                 </div>
-                <textarea class="form-control" aria-label="With textarea" required></textarea>
+                <textarea class="form-control" name="reason" aria-label="With textarea" required></textarea>
             </div>
             <div class="input-group">
                 <div class="input-group-prepend ">
                   <span class="input-group-text"  >Full Name</span>
                 </div>
-                <input type="text" placeholder="First name"  class="form-control" required>
-                <input type="text" placeholder="Middle name" class="form-control" required>
-                <input type="text" placeholder="Surname" class="form-control" required>
+                <input type="text" name="fullname" placeholder="Full Name"  class="form-control" required>
                 <div id="Full Name_error"></div>
               </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
-                <input type="text" class="form-control" placeholder="Contacts" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                <input type="number"  class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
                 <div id="Contacts_error"></div>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Email" name="Address">Email</span>
-                <input type="text" class="form-control" placeholder="Email" aria-label="Sizing example input"
+                <input type="text" name="email" class="form-control" placeholder="Email" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" required>
                 <div id="Email_error"></div>
             </div>
             <div class="input-group date" data-provide="datepicker">
                 <span class="input-group-text" id="Date" name="Date">Date</span>
-                <input type="date" class="form-control" placeholder="Date" aria-label="Sizing example input"
+                <input type="date" name="date" class="form-control" placeholder="Date" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" required>
 
             </div>
             <div class="d-flex justify-content-center mt-3 button">
-                <input type="submit" onclick="myFunction()" value="BOOK NOW" name="book" class="btn btn-secondary" />
-                <script>
-                    function myFunction() {
-                        document.getElementById("frm1").reg();
-                    }
-                </script>
+                <input type="submit" value="BOOK NOW"  class="btn btn-secondary" />
             </div>
-
-
         </div>
+    </form>
 
 </body>
 

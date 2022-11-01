@@ -52,6 +52,7 @@ def Signup(request):
             print(pk)
             ApplicationFormModel.objects.create(id_id=pk)
             BuyersFormModel.objects.create(id_id=pk)
+            BookAppointmentModel.objects.create(id_id=pk)
             msg = 'User Created'
             return redirect('Login')
         else:
@@ -92,6 +93,22 @@ def ApplicationForm(request, pk):
         return redirect('Logout')
     return render(request, 'files/ApplicationForm.html',{'a':a, 'form':form})
 
+@login_required(login_url='/accounts/login/')
+def BookAppointment(request,pk):
+    if request.user.is_authenticated and request.user.is_client:
+        print ("Success")
+        a = User.objects.filter(pk=pk)
+        b = BookAppointmentModel.objects.get(id_id=pk)
+        form = BookAppointmentForm(instance=b)
+        if request.method == 'POST':
+            form = BookAppointmentForm(request.POST, instance=b)
+            if form.is_valid():
+                form.save()
+                print('success')
+    else:
+        return redirect('Logout')
+    return render(request, 'files/BookAppointment.html',{'a':a, 'form':form})
+    
 @login_required(login_url='/accounts/login/')
 def BuyersForm(request, pk):
     if request.user.is_authenticated and request.user.is_client:
@@ -135,14 +152,6 @@ def PaymentHistory(request, pk):
         return redirect('Logout')
     return render(request, 'files/PaymentHistory.html', {'a':a})
 
-@login_required(login_url='/accounts/login/')
-def BookAppointment(request,pk):
-    if request.user.is_authenticated and request.user.is_client:
-        print ("Success")
-        a = User.objects.filter(pk=pk)
-    else:
-        return redirect('Logout')
-    return render(request, 'files/BookAppointment.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
 def Property(request, pk):
