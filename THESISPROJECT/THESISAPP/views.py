@@ -152,7 +152,6 @@ def PaymentHistory(request, pk):
         return redirect('Logout')
     return render(request, 'files/PaymentHistory.html', {'a':a})
 
-
 @login_required(login_url='/accounts/login/')
 def Property(request, pk):
     if request.user.is_authenticated and request.user.is_client:
@@ -279,6 +278,3 @@ def Logout(request):
     return redirect ('Login')
 
 # ---------- END NO LOGIN
-
-
-
