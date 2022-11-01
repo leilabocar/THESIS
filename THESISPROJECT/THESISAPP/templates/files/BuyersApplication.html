@@ -29,41 +29,49 @@
     </div> 
 </div>
 </nav>
-<div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
-    Search: 
-    <input type="text" class="form-control-sm float-md-right" id="usr">
-    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
-</div>
-<!--Table-->
-  <div style="overflow-x:auto;" class="col-sm-12">
-    <table class="table table-bordered table-dark table-hover">
-    <thead>
-      <tr>
-        <th>Lot Type</th>
-        <th>Location</th>
-        <th>Terms of Payment</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Contact</th>
-        <th>Address</th>
-        <th>Email</th>
-      </tr>
-      {% for buyers in buyers_table %}
-      <tr>
-        <td>{{buyers.lot_type}}</td>
-        <td>Phase:{{buyers.phase}} Block:{{buyers.block}} Lot:{{buyers.lotno}}</td>
-        <td>{{buyers.terms}}</td>
-        <td>{{buyers.fullname}}</td>
-        <td>{{buyers.age}}</td>
-        <td>{{buyers.gender}}</td>
-        <td>{{buyers.contacts}}</td>
-        <td>{{buyers.address}}</td>
-        <td>{{buyers.email}}</td>
-      </tr>
-      {% endfor %}
-    </thead>
-  </table><br><br>
+<form method="get"> 
+  {% csrf_token %}
+  <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
+      Search: 
+      {% render_field myFilter.form.lot_type class="form-control.d-sm-inline-flex" placeholder='Lot Type:' %}
+      {% render_field myFilter.form.phase class="form-control.d-sm-inline-flex" placeholder='Phase:' %}
+      {% render_field myFilter.form.block class="form-control.d-sm-inline-flex" placeholder='Block:' %}
+      {% render_field myFilter.form.lotno class="form-control.d-sm-inline-flex" placeholder='Lot:' %}
+      {% render_field myFilter.form.terms class="form-control.d-sm-inline-flex" placeholder='Terms of Payment' %}
+      {% render_field myFilter.form.fullname class="form-control.d-sm-inline-flex" placeholder='Name' %}
+      <button type="submit" class="btn btn-success float-sm-right">Search</button><br><br>
+  </div>
+  <!--Table-->
+    <div style="overflow-x:auto;" class="col-sm-12">
+      <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th>Lot Type</th>
+          <th>Location</th>
+          <th>Terms of Payment</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Email</th>
+        </tr>
+        {% for buyers in buyers_table %}
+        <tr>
+          <td>{{buyers.lot_type}}</td>
+          <td>Phase:{{buyers.phase}} Block:{{buyers.block}} Lot:{{buyers.lotno}}</td>
+          <td>{{buyers.terms}}</td>
+          <td>{{buyers.fullname}}</td>
+          <td>{{buyers.age}}</td>
+          <td>{{buyers.gender}}</td>
+          <td>{{buyers.contacts}}</td>
+          <td>{{buyers.address}}</td>
+          <td>{{buyers.email}}</td>
+        </tr>
+        {% endfor %}
+      </thead>
+    </table><br><br>
+  </form>
   <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
   </div>
 </body>

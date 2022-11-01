@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from django.http.response import HttpResponse
 from .filters import *
-from THESISPROJECT.THESISAPP.filters import buyersFilter
 from .forms import *
 from django.contrib.auth import authenticate,login,logout
 from django.utils.safestring import mark_safe
@@ -188,12 +187,13 @@ def BuyersApplication(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Buyers Application Page")
         a = User.objects.filter(pk=pk)
-        myFilter = buyersFilter(request.GET, queryset=student)
-        student = myFilter.qs
         buyers_table = BuyersFormModel.objects.all()
+        myFilter = buyersFilter(request.GET, queryset=buyers_table)
+        buyers_table = myFilter.qs
+        
     else:
         return redirect('Logout')
-    return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table})
+    return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table, 'myFilter': myFilter})
 
 @login_required(login_url='/accounts/login/')
 def Appointment(request, pk):
