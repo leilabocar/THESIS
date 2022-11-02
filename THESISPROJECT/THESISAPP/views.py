@@ -207,6 +207,19 @@ def Appointment(request, pk):
         return redirect('Logout')
     return render(request, 'files/Appointment.html',{'a':a, 'appointment_table':appointment_table, 'myFilter': myFilter})
 
+def AppointmentApprove(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin:
+        User.objects.filter(pk=pk)
+        b = BookAppointmentModel.objects.filter(email=email)
+        send_mail(
+                'Himlayang Cemetery',
+                'Your Apointment is Approve',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False,
+            )
+        BookAppointmentModel.objects.filter(pk=pk).delete()
+
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk):
     if request.user.is_authenticated and request.user.is_admin:

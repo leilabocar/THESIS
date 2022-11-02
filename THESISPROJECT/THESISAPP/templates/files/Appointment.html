@@ -57,6 +57,7 @@
           <th>Contact</th>
           <th>Email</th>
           <th>Reason for Visit</th>
+          <th>Action</th>
         </tr>
         {% for appo in appointment_table %}
         <tr>
@@ -64,6 +65,8 @@
           <td>{{appo.contacts}}</td>
           <td>{{appo.email}}</td>
           <td>{{appo.reason}}</td>
+          <td><a href="{% url 'AppointmentApprove' appo.pk appo.email %}"><button type="button" class="btn btn-secondary">Update</button></a>
+              <a href=""><button type="button" class="btn btn-danger">Delete</button></td>
         </tr>
         {% endfor %}
       </thead>
