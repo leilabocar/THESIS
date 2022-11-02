@@ -30,45 +30,47 @@
     </div> 
 </div>
 </nav>
-<div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
-    Search: 
-    {% render_field myFilter.form.fullname class="form-control.d-sm-inline-flex" placeholder='Name:' %}
-    {% render_field myFilter.form.contacts class="form-control.d-sm-inline-flex" placeholder='Contacts:' %}
-    {% render_field myFilter.form.email class="form-control.d-sm-inline-flex" placeholder='Email:' %}
-    {% render_field myFilter.form.reason class="form-control.d-sm-inline-flex" placeholder='Reason:' %}
-    <button type="submit" onclick="myFunction()" class="btn btn-success float-sm-right">Search</button><br><br>
-</div>
-<!--Table-->
-  <div style="overflow-x:auto;" class="col-sm-12">
-    <style>
-      table, th, td {
-        border: 1px solid white;
-        border-collapse: collapse;
-      }
-      th {
-        text-align: center;
-      }
-    </style>
-    <table class="table table-bordered table-dark table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Contact</th>
-        <th>Email</th>
-        <th>Reason for Visit</th>
-      </tr>
-      {% for appo in appointment_table %}
-      <tr>
-        <td>{{appo.fullname}}</td>
-        <td>{{appo.contacts}}</td>
-        <td>{{appo.email}}</td>
-        <td>{{appo.reason}}</td>
-      </tr>
-      {% endfor %}
-    </thead>
-      
-    </table><br><br>
-    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
+<form method="get">{% csrf_token %}
+  <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
+      Search: 
+      {% render_field myFilter.form.fullname class="form-control.d-sm-inline-flex" placeholder='Name:' %}
+      {% render_field myFilter.form.contacts class="form-control.d-sm-inline-flex" placeholder='Contacts:' %}
+      {% render_field myFilter.form.email class="form-control.d-sm-inline-flex" placeholder='Email:' %}
+      {% render_field myFilter.form.reason class="form-control.d-sm-inline-flex" placeholder='Reason:' %}
+      <button type="submit" onclick="myFunction()" class="btn btn-success float-sm-right">Search</button><br><br>
   </div>
+  <!--Table-->
+    <div style="overflow-x:auto;" class="col-sm-12">
+      <style>
+        table, th, td {
+          border: 1px solid white;
+          border-collapse: collapse;
+        }
+        th {
+          text-align: center;
+        }
+      </style>
+      <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact</th>
+          <th>Email</th>
+          <th>Reason for Visit</th>
+        </tr>
+        {% for appo in appointment_table %}
+        <tr>
+          <td>{{appo.fullname}}</td>
+          <td>{{appo.contacts}}</td>
+          <td>{{appo.email}}</td>
+          <td>{{appo.reason}}</td>
+        </tr>
+        {% endfor %}
+      </thead>
+        
+      </table><br><br>
+      <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
+    </div>
+</form>
 </body>
 </html>

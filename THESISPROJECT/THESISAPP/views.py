@@ -201,7 +201,7 @@ def Appointment(request, pk):
         print ("Appointment Page")
         a = User.objects.filter(pk=pk)
         appointment_table = BookAppointmentModel.objects.all()
-        myFilter = appointment_table(request.GET, queryset=appointment_table)
+        myFilter = appointmentFilter(request.GET, queryset=appointment_table)
         appointment_table = myFilter.qs
     else:
         return redirect('Logout')
