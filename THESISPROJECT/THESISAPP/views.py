@@ -200,7 +200,7 @@ def Appointment(request, pk,email):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Appointment Page")
         a = User.objects.filter(pk=pk)
-        appointment_table = BookAppointmentModel.objects.all()
+        appointment_table = BookAppointmentModel.objects.exclude(email=None)
         myFilter = appointmentFilter(request.GET, queryset=appointment_table)
         appointment_table = myFilter.qs
     else:
@@ -210,18 +210,23 @@ def Appointment(request, pk,email):
 def AppointmentApprove(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
-        b = BookAppointmentModel.objects.filter(email=email)
-        send_mail(
-                'Himlayang Cemetery',
-                'Your Apointment is Approve',
-                'andrewleilaraqueljustin@gmail.com',
-                [b],
-                fail_silently=False
-            )
-        BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
+        form = BookAppointmentForm(request.POST, instance=b)
+        if form.is_valid():
+            send_mail(
+                    'Himlayang Cemetery',
+                    'Your Apointment is Approve',
+                    'andrewleilaraqueljustin@gmail.com',
+                    [b],
+                    fail_silently=False
+                )
+            BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        else:
+            print('form error')
     else:
+        form = BookAppointmentForm()
         print('error')
-    return render(request, 'files/Appointment.html', {'a':a})
+    return render(request, 'files/Appointment.html', {'a':a,'form':form})
 
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk):
