@@ -211,22 +211,17 @@ def AppointmentApprove(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
-        form = BookAppointmentForm(request.POST, instance=b)
-        if form.is_valid():
-            send_mail(
-                    'Himlayang Cemetery',
-                    'Your Apointment is Approve',
-                    'andrewleilaraqueljustin@gmail.com',
-                    [b],
-                    fail_silently=False
-                )
-            BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
-        else:
-            print('form error')
+        send_mail(
+                'Himlayang Cemetery',
+                'Your Apointment is Approve',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
     else:
-        form = BookAppointmentForm()
         print('error')
-    return render(request, 'files/Appointment.html', {'a':a,'form':form})
+    return render(request, 'files/Appointment.html', {'a':a})
 
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk):
