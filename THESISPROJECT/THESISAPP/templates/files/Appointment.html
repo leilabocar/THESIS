@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +32,11 @@
 </nav>
 <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
     Search: 
-    <input type="text" class="form-control-sm float-md-right" id="usr">
-    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
+    {% render_field myFilter.form.fullname class="form-control.d-sm-inline-flex" placeholder='Name:' %}
+    {% render_field myFilter.form.contacts class="form-control.d-sm-inline-flex" placeholder='Contacts:' %}
+    {% render_field myFilter.form.email class="form-control.d-sm-inline-flex" placeholder='Email:' %}
+    {% render_field myFilter.form.reason class="form-control.d-sm-inline-flex" placeholder='Reason:' %}
+    <button type="submit" onclick="myFunction()" class="btn btn-success float-sm-right">Search</button><br><br>
 </div>
 <!--Table-->
   <div style="overflow-x:auto;" class="col-sm-12">
