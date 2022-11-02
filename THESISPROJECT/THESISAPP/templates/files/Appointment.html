@@ -39,6 +39,8 @@
       {% render_field myFilter.form.reason class="form-control.d-sm-inline-flex" placeholder='Reason:' %}
       <button type="submit" onclick="myFunction()" class="btn btn-success float-sm-right">Search</button><br><br>
   </div>
+</form>
+<form method="post">
   <!--Table-->
     <div style="overflow-x:auto;" class="col-sm-12">
       <style>
@@ -65,7 +67,7 @@
           <td>{{appo.contacts}}</td>
           <td>{{appo.email}}</td>
           <td>{{appo.reason}}</td>
-          <td><a href="{% url 'AppointmentApprove' appo.pk appo.email %}"><button type="button" class="btn btn-secondary">Update</button></a>
+          <td><a href="{% url 'AppointmentApprove' appo.pk appo.email %}"><button type="button" class="btn btn-secondary">Approve</button></a>
               <a href=""><button type="button" class="btn btn-danger">Delete</button></td>
         </tr>
         {% endfor %}

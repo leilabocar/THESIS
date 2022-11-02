@@ -21,7 +21,7 @@ urlpatterns = [
     #---------------ADMIN SIDE
     path('AdminHomepage/<str:username>', views.AdminHomepage, name='AdminHomepage'),
     path('Application/<int:pk>', views.Application, name='Application'),
-    path('Appointment/<int:pk>', views.Appointment, name='Appointment'),
+    path('Appointment/<int:pk>/<str:email>', views.Appointment, name='Appointment'),
     path('AppointmentApprove/<int:pk>/<str:email>', views.AppointmentApprove, name='AppointmentApprove'),
     path('BuyersApplication/<int:pk>', views.BuyersApplication, name='BuyersApplication'),  
     path('ClientPayment/<int:pk>', views.ClientPayment, name='ClientPayment'),

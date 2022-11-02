@@ -196,7 +196,7 @@ def BuyersApplication(request, pk):
     return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table, 'myFilter': myFilter})
 
 @login_required(login_url='/accounts/login/')
-def Appointment(request, pk):
+def Appointment(request, pk,email):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Appointment Page")
         a = User.objects.filter(pk=pk)
@@ -209,16 +209,19 @@ def Appointment(request, pk):
 
 def AppointmentApprove(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
-        User.objects.filter(pk=pk)
+        a = User.objects.filter(pk=pk)
         b = BookAppointmentModel.objects.filter(email=email)
         send_mail(
                 'Himlayang Cemetery',
                 'Your Apointment is Approve',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
-                fail_silently=False,
+                fail_silently=False
             )
-        BookAppointmentModel.objects.filter(pk=pk).delete()
+        BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+    else:
+        print('error')
+    return render(request, 'files/Appointment.html', {'a':a})
 
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk):
