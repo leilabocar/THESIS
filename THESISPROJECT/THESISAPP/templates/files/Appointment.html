@@ -68,7 +68,7 @@
           <td>{{appo.email}}</td>
           <td>{{appo.reason}}</td>
           <td><a href="{% url 'AppointmentApprove' appo.pk appo.email %}"><button type="button" class="btn btn-secondary">Approve</button></a>
-              <a href=""><button type="button" class="btn btn-danger">Delete</button></td>
+              <a href="{% url 'AppointmentReject' appo.pk appo.email %}"><button type="button" class="btn btn-danger">Reject</button></td>
         </tr>
         {% endfor %}
       </thead>

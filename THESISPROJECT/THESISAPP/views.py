@@ -210,15 +210,35 @@ def Appointment(request, pk,email):
 def AppointmentApprove(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
                 'Himlayang Cemetery',
-                'Your Apointment is Approve',
+                'Your Apointment is Approve. You may come to the Municipal of General Trias. Thank you',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
             )
         BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        return redirect('Appointment', pk=c, email=email)
+    else:
+        print('error')
+    return render(request, 'files/Appointment.html', {'a':a})
+
+def AppointmentReject(request,pk,email):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
+        send_mail(
+                'Himlayang Cemetery',
+                'Your Apointment is Reject, Please try another date. Thank you',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        return redirect('Appointment', pk=c, email=email)
     else:
         print('error')
     return render(request, 'files/Appointment.html', {'a':a})

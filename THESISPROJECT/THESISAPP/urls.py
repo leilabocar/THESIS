@@ -23,6 +23,7 @@ urlpatterns = [
     path('Application/<int:pk>', views.Application, name='Application'),
     path('Appointment/<int:pk>/<str:email>', views.Appointment, name='Appointment'),
     path('AppointmentApprove/<int:pk>/<str:email>', views.AppointmentApprove, name='AppointmentApprove'),
+    path('AppointmentReject/<int:pk>/<str:email>', views.AppointmentReject, name='AppointmentReject'),
     path('BuyersApplication/<int:pk>', views.BuyersApplication, name='BuyersApplication'),  
     path('ClientPayment/<int:pk>', views.ClientPayment, name='ClientPayment'),
     path('Notice/<int:pk>', views.Notice, name='Notice'),
