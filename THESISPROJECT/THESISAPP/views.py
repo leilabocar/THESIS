@@ -187,7 +187,7 @@ def BuyersApplication(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Buyers Application Page")
         a = User.objects.filter(pk=pk)
-        buyers_table = BuyersFormModel.objects.all()
+        buyers_table = BuyersFormModel.objects.exclude(fullname=None)
         myFilter = buyersFilter(request.GET, queryset=buyers_table)
         buyers_table = myFilter.qs
         
@@ -257,7 +257,7 @@ def Application(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Application Page")
         a = User.objects.filter(pk=pk)
-        applicants_table = ApplicationFormModel.objects.all()
+        applicants_table = ApplicationFormModel.objects.exclude(fullname=None)
     else:
         return redirect('Logout')
     return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table})
