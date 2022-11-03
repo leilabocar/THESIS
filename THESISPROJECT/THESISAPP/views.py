@@ -195,6 +195,7 @@ def BuyersApplication(request, pk, email):
         return redirect('Logout')
     return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table, 'myFilter': myFilter})
 
+@login_required(login_url='/accounts/login/')
 def BuyersApplicationApprove(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
@@ -212,8 +213,8 @@ def BuyersApplicationApprove(request, pk, email):
         return redirect('BuyersApplication', pk=c, email=email)
     else:
         print('error')
-    # return render(request, 'files/BuyersApplication.html', {'a':a})
 
+@login_required(login_url='/accounts/login/')
 def BuyersApplicationReject(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
@@ -231,7 +232,6 @@ def BuyersApplicationReject(request, pk, email):
         return redirect('BuyersApplication', pk=c, email=email)
     else:
         print('error')
-    # return render(request, 'files/BuyersApplication', {'a':a})
 
 @login_required(login_url='/accounts/login/')
 def Appointment(request, pk,email):
@@ -245,6 +245,7 @@ def Appointment(request, pk,email):
         return redirect('Logout')
     return render(request, 'files/Appointment.html',{'a':a, 'appointment_table':appointment_table, 'myFilter': myFilter})
 
+@login_required(login_url='/accounts/login/')
 def AppointmentApprove(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
@@ -261,8 +262,8 @@ def AppointmentApprove(request, pk, email):
         return redirect('Appointment', pk=c, email=email)
     else:
         print('error')
-    #return render(request, 'files/Appointment.html', {'a':a})
-
+ 
+@login_required(login_url='/accounts/login/')
 def AppointmentReject(request,pk,email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
@@ -279,7 +280,6 @@ def AppointmentReject(request,pk,email):
         return redirect('Appointment', pk=c, email=email)
     else:
         print('error')
-    #return render(request, 'files/Appointment.html', {'a':a})
 
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk):
@@ -300,6 +300,7 @@ def Application(request,pk,email):
         return redirect('Logout')
     return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table})
 
+@login_required(login_url='/accounts/login/')
 def ApplicationApprove(request,pk,email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
@@ -318,6 +319,7 @@ def ApplicationApprove(request,pk,email):
     else:
         print('error')
 
+@login_required(login_url='/accounts/login/')
 def ApplicationReject(request,pk,email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
