@@ -34,8 +34,8 @@
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk %}">Inquiry</a></li>
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment</a></li>
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk %}">Payments</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk %}">Application</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk %}">Buyers</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">Buyers</a></li>
           </ul>
         </li>
         <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Login' %}">Log out</a>

@@ -46,6 +46,7 @@
         <th>Contact</th>
         <th>Address</th>
         <th>Email</th>
+        <th>Action</th>
       </tr>
       {% for appli in applicants_table %}
       <tr>
@@ -57,6 +58,8 @@
         <td>{{appli.contacts}}</td>
         <td>{{appli.address}}</td>
         <td>{{appli.email}}</td>
+        <td><a href="{% url 'ApplicationApprove' appli.pk appli.email %}"><button type="button" class="btn btn-secondary">Approve</button></a>
+          <a href="{% url 'ApplicationReject' appli.pk appli.email %}"><button type="button" class="btn btn-danger">Reject</button></td>
       </tr>
       {% endfor %}
     </thead>

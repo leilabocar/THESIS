@@ -183,7 +183,7 @@ def ClientPayment(request, pk):
     return render(request, 'files/ClientPayment.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
-def BuyersApplication(request, pk):
+def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Buyers Application Page")
         a = User.objects.filter(pk=pk)
@@ -194,6 +194,44 @@ def BuyersApplication(request, pk):
     else:
         return redirect('Logout')
     return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table, 'myFilter': myFilter})
+
+def BuyersApplicationApprove(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        send_mail(
+                'Himlayang Cemetery',
+                'Your application is Approve. You may come to the Municipal of General Trias. Thank you',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BuyersFormModel.objects.filter(pk=pk).update(
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+        return redirect('BuyersApplication', pk=c, email=email)
+    else:
+        print('error')
+    # return render(request, 'files/BuyersApplication.html', {'a':a})
+
+def BuyersApplicationReject(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        send_mail(
+                'Himlayang Cemetery',
+                'Your application is Reject. You may come to the Municipal of General Trias. Thank you',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BuyersFormModel.objects.filter(pk=pk).update(
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+        return redirect('BuyersApplication', pk=c, email=email)
+    else:
+        print('error')
+    # return render(request, 'files/BuyersApplication', {'a':a})
 
 @login_required(login_url='/accounts/login/')
 def Appointment(request, pk,email):
@@ -213,7 +251,7 @@ def AppointmentApprove(request, pk, email):
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
-                'Himlayang Cemetery',
+                'Himlayang Cemetery - Appointment Approved',
                 'Your Apointment is Approve. You may come to the Municipal of General Trias. Thank you',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -223,7 +261,7 @@ def AppointmentApprove(request, pk, email):
         return redirect('Appointment', pk=c, email=email)
     else:
         print('error')
-    return render(request, 'files/Appointment.html', {'a':a})
+    #return render(request, 'files/Appointment.html', {'a':a})
 
 def AppointmentReject(request,pk,email):
     if request.user.is_authenticated and request.user.is_admin:
@@ -231,7 +269,7 @@ def AppointmentReject(request,pk,email):
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
-                'Himlayang Cemetery',
+                'Himlayang Cemetery - Appointment Rejected',
                 'Your Apointment is Reject, Please try another date. Thank you',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -241,7 +279,7 @@ def AppointmentReject(request,pk,email):
         return redirect('Appointment', pk=c, email=email)
     else:
         print('error')
-    return render(request, 'files/Appointment.html', {'a':a})
+    #return render(request, 'files/Appointment.html', {'a':a})
 
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk):
@@ -253,7 +291,7 @@ def Inquiry(request, pk):
     return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a})
 
 @login_required(login_url='/accounts/login/')
-def Application(request,pk):
+def Application(request,pk,email):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Application Page")
         a = User.objects.filter(pk=pk)
@@ -261,6 +299,42 @@ def Application(request,pk):
     else:
         return redirect('Logout')
     return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table})
+
+def ApplicationApprove(request,pk,email):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = ApplicationFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        send_mail(
+                'Himlayang Cemetery - Application of Appartments Approved',
+                'Your Application is Approve. You may come to the Municipal of General Trias. Thank you',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        ApplicationFormModel.objects.filter(pk=pk).update(
+            date=None,phase=None,block=None,lotno=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+        return redirect('Application', pk=c, email=email)
+    else:
+        print('error')
+
+def ApplicationReject(request,pk,email):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = ApplicationFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        send_mail(
+                'Himlayang Cemetery - Application of Appartments Rejected',
+                'Your Application is Reject. Try another slots. Thank you',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        ApplicationFormModel.objects.filter(pk=pk).update(
+            date=None,phase=None,block=None,lotno=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+        return redirect('Application', pk=c, email=email)
+    else:
+        print('error')
 
 @login_required(login_url='/accounts/login/')
 def Notice(request, pk):

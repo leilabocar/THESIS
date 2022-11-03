@@ -55,6 +55,7 @@
           <th>Contact</th>
           <th>Address</th>
           <th>Email</th>
+          <th>Action</th>
         </tr>
         {% for buyers in buyers_table %}
         <tr>
@@ -67,6 +68,8 @@
           <td>{{buyers.contacts}}</td>
           <td>{{buyers.address}}</td>
           <td>{{buyers.email}}</td>
+          <td><a href="{% url 'BuyersApplicationApprove' buyers.pk buyers.email %}"><button type="button" class="btn btn-secondary">Approve</button></a>
+            <a href="{% url 'BuyersApplicationReject' buyers.pk buyers.email %}"><button type="button" class="btn btn-danger">Reject</button></td>
         </tr>
         {% endfor %}
       </thead>
