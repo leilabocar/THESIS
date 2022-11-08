@@ -20,13 +20,17 @@
 <body>
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
-    <div class="container-fluid">
-          <a class="navbar-brand">
-              <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill float-sm-left">
-          </a>
-          <div style="text-align: left;" class="col-sm-12"><h3>HIMLAYANG GENERAL TRIAS</h3></div>
-    </div> 
+  <div class="container-fluid">
+    <a class="navbar-brand" >
+        <img src="{% static 'images/logo.jpg' %}" style="width:60px;" class="rounded-pill">
+    </a>
+    <h3>Himlayang General Trias</h3>
+
+    <ul class="navbar-nav ms-auto">
+        <a href="{% url 'AdminHomepage' user.username %}" class="btn btn-secondary">BACK</a>
+    </ul>
 </div>
+
 </nav>
 <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
     Search: 
@@ -44,26 +48,80 @@
         text-align: center;
       }
     </style>
-    <table class="table table-bordered table-dark table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Date Paid</th>
-        <th>Due Date</th>
-        <th>Amount to be Paid</th>
-        <th>Actions</th>
-      </tr>
-      <tr>
-        <td>asd</td>
-        <td>asd</td>
-        <td>asd</td>
-        <td>asd</td>
-        <td><input type="button" onclick="myFunction()" value="Update" class="btn btn-success"><a href="{% url 'Notifier' user.pk %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
-      </tr>
-    </thead>
-      
-    </table><br><br>
-    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
+    <form name="vform" action="/confirm" onsubmit="return Validate()" method="post">
+
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Lot Type</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Terms of Payment</th>
+                    <th scope="col">Date Paid</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col">Amount to be Paid</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a href="{% url 'PropertyManagement' user.pk %}"><input type="button" onclick="myFunction()" value="Manage" class="btn btn-secondary"><a href="{% url 'Notifier' user.pk %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
+                    
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+            </tbody>
+        </table><br><br>
   </div>
 </body>
 </html>

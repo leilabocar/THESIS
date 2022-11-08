@@ -33,6 +33,7 @@ urlpatterns = [
     path('Notice/<int:pk>', views.Notice, name='Notice'),
     path('Notifier/<int:pk>', views.Notifier, name='Notifier'),
     path('Inquiry/<int:pk>', views.Inquiry, name='Inquiry'),
+    path('PropertyManagement/<int:pk>', views.PropertyManagement, name='PropertyManagement'),
     #---------------END ADMIN SIDE
     #---------------CLIENT SIDE
     path('Client/<str:username>', views.Client, name='Client'),

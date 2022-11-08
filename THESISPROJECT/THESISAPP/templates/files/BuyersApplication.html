@@ -21,12 +21,15 @@
 <body>
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
-    <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'Homepage' %}">
-              <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
-          </a>
-          <div style="text-align: left;" class="col-sm-12"><h3>HIMLAYANG GENERAL TRIAS</h3></div>
-    </div> 
+  <div class="container-fluid">
+    <a class="navbar-brand" >
+        <img src="{% static 'images/logo.jpg' %}" style="width:60px;" class="rounded-pill">
+    </a>
+    <h3>Himlayang General Trias</h3>
+
+    <ul class="navbar-nav ms-auto">
+        <a href="{% url 'AdminHomepage' user.username %}" class="btn btn-secondary">BACK</a>
+    </ul>
 </div>
 </nav>
 <form method="get"> 
@@ -75,7 +78,6 @@
       </thead>
     </table><br><br>
   </form>
-  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AdminHomepage' user.username %}">Back</a>
   </div>
 </body>
 </html>

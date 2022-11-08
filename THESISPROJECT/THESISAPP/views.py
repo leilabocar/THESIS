@@ -183,6 +183,15 @@ def ClientPayment(request, pk):
     return render(request, 'files/ClientPayment.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
+def PropertyManagement(request, pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("PropertyManagement Page")
+        a = User.objects.filter(pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/PropertyManagement.html',{'a':a})
+
+@login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Buyers Application Page")
@@ -402,7 +411,7 @@ def Mausoleum(request):
 
 def Apartment(request):
     return render(request, 'files/Apartment.html')
-
+    
 def Logout(request):
     logout(request)
     return redirect ('Login')
