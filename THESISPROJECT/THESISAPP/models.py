@@ -82,6 +82,39 @@ class BookAppointmentModel(models.Model):
     email = models.CharField(max_length=250, verbose_name='email', null=True)
     date = models.DateField(verbose_name='date', null=True)
 
+class Product(models.Model):
+    lot_choices = [('Lawn Lot','Lawn Lot'),
+                      ('Mausoleum','Mausoleum'),
+                      ('Niche','Niche'),
+                      ('Apartment', 'Apartment')]
+    
+    terms_choices=[('Cash','Cash'),
+                   ('1 Year','1 Year'),
+                   ('2 Years','2 Years'),
+                   ('3 Years','3 Years'),
+                   ('Full Down','Full Down'),
+                   ('Reservation','Reservation')]
+
+    lot = models.CharField(max_length=50,choices=lot_choices ,null=True, verbose_name='lot')
+    terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms')
+    phase = models.CharField(max_length=200, null=True, verbose_name='phase')
+    block = models.CharField(max_length=30, null=True, verbose_name='block')
+    lotno = models.CharField(max_length=30, null=True, verbose_name='lot_no.')
+    price = models.FloatField(null=True, verbose_name='price')
+    pay = models.FloatField(null=True, verbose_name='pay')
+    due_date = models.DateTimeField(null=True,verbose_name='due date')
+    date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
+    
+class LotOrder(models.Model):
+    STATUS = [
+        ('Fully Paid', 'Fully Paid'),
+        ('Partially Paid','Partially Paid')]
+
+    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer')
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product')
+    date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
+    status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status')
+
 
 
     
