@@ -74,13 +74,13 @@
             <h3>Himlayang General Trias</h3>
 
             <ul class="navbar-nav ms-auto">
-                <a href="{% url 'Client' user.username %}" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'Client' user.pk %}" class="btn btn-secondary">BACK</a>
             </ul>
         </div>
         </div>
     </nav>
 
-    <form name="vform" action="/confirm" onsubmit="return Validate()" method="post">
+    <form name="vform" onsubmit="return Validate()" method="post">
 
         <table class="table table-bordered">
             <thead class="table-dark">
@@ -94,31 +94,16 @@
                 </tr>
             </thead>
             <tbody>
+                {% for order in orders %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{order.date_created}}</td>
+                    <td>{{order.product.lot}}</td>
+                    <td>{{order.status}}</td>
+                    <td>{{order.product.price}}</td>
+                    <td>{{order.product.pay}}</td>
+                    <td>{{order.product.price}} </td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
+                {% endfor %}
             </tbody>
         </table>
 

@@ -9,3 +9,5 @@ class registeradmin(UserAdmin):
         }),
     )
 admin.site.register(User, registeradmin)
+admin.site.register(Product)
+admin.site.register(LotOrder)

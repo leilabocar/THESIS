@@ -36,11 +36,11 @@ urlpatterns = [
     path('PropertyManagement/<int:pk>', views.PropertyManagement, name='PropertyManagement'),
     #---------------END ADMIN SIDE
     #---------------CLIENT SIDE
-    path('Client/<str:username>', views.Client, name='Client'),
+    path('Client/<int:pk>', views.Client, name='Client'),
     path('InstallmentBill/<int:pk>', views.InstallmentBill, name='InstallmentBill'),
     path('PaymentHistory/<int:pk>', views.PaymentHistory, name='PaymentHistory'),
     path('BuyersForm/<int:pk>', views.BuyersForm, name='BuyersForm'),
-    path('BillSummary/<int:pk>', views.BillSummary, name='BillSummary'),
+    path('BillSummary/<str:pk>', views.BillSummary, name='BillSummary'),
     path('ApplicationForm/<int:pk>', views.ApplicationForm, name='ApplicationForm'),
     path('BookAppointment/<int:pk>', views.BookAppointment, name='BookAppointment'),
     path('Property/<int:pk>', views.Property, name='Property'),

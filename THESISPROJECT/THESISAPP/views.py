@@ -35,7 +35,7 @@ def Login(request):
                 return redirect(f'AdminHomepage/{user.username}')
             elif user is not None and user.is_client:
                 login(request, user)
-                return redirect(f'Client/{user.username}')
+                return redirect(f'Client/{user.pk}')
             else:
                 msg= 'Invalid Credentials'
         else:
@@ -70,10 +70,10 @@ def Signup(request):
 
 # --------------- CLIENT
 @login_required(login_url='/accounts/login/')
-def Client(request,username):
+def Client(request,pk):
     if request.user.is_authenticated and request.user.is_client:
         print("Client Page")
-        a = User.objects.filter(username=username)
+        a = User.objects.get(pk=pk)
     else:
         return redirect('Logout')
     return render(request, 'files/Client.html', {'a':a})
@@ -130,10 +130,11 @@ def BuyersForm(request, pk):
 def BillSummary(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         print ("Bill SUmmary Page")
-        a = User.objects.filter(pk=pk)
+        a = User.objects.get(id=pk)
+        orders = a.lotorder_set.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/BillSummary.html',{'a':a})
+    return render(request, 'files/BillSummary.html',{'a':a,'orders':orders})
 
 @login_required(login_url='/accounts/login/')
 def InstallmentBill(request, pk):
