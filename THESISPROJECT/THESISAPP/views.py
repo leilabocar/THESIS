@@ -127,14 +127,14 @@ def BuyersForm(request, pk):
     return render(request, 'files/BuyersForm.html', {'a':a, 'form':form})
 
 @login_required(login_url='/accounts/login/')
-def BillSummary(request, pk):
+def BillSummary(request, pk, pay, balance):
     if request.user.is_authenticated and request.user.is_client:
-        print ("Bill SUmmary Page")
+        print ("Bill Summary Page")
         a = User.objects.get(id=pk)
         orders = a.lotorder_set.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/BillSummary.html',{'a':a,'orders':orders})
+    return render(request, 'files/BillSummary.html',{'a':a,'orders':orders, 'pay':pay, 'balance':balance})
 
 @login_required(login_url='/accounts/login/')
 def InstallmentBill(request, pk):
@@ -188,6 +188,10 @@ def PropertyManagement(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("PropertyManagement Page")
         a = User.objects.filter(pk=pk)
+        pay = LotOrder.objects.filter(pay=pay).values_list('pay', flat=True).first()
+        balance = LotOrder.objects.filter(balance=balance).values_list('balance', flat=True).first()
+        result = pay-balance
+        LotOrder.objects.update(pk=pk).update(balance=result)
     else:
         return redirect('Logout')
     return render(request, 'files/PropertyManagement.html',{'a':a})
