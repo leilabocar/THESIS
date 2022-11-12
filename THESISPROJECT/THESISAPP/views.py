@@ -134,7 +134,7 @@ def BillSummary(request, pk, pay, balance):
         orders = a.lotorder_set.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/BillSummary.html',{'a':a,'orders':orders, 'pay':pay, 'balance':balance})
+    return render(request, 'files/BillSummary.html',{'a':a,'orders':orders})
 
 @login_required(login_url='/accounts/login/')
 def InstallmentBill(request, pk):
@@ -188,13 +188,14 @@ def PropertyManagement(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("PropertyManagement Page")
         a = User.objects.filter(pk=pk)
-        pay = LotOrder.objects.filter(pay=pay).values_list('pay', flat=True).first()
-        balance = LotOrder.objects.filter(balance=balance).values_list('balance', flat=True).first()
-        result = pay-balance
-        LotOrder.objects.update(pk=pk).update(balance=result)
+        form = LotOrderForm
+        if request.method == 'POST':
+            form = LotOrderForm(request.POST)
+            if form.is_valid():
+                form.save()
     else:
         return redirect('Logout')
-    return render(request, 'files/PropertyManagement.html',{'a':a})
+    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form})
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):

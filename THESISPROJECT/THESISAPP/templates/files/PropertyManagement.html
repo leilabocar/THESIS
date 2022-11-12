@@ -60,8 +60,7 @@
             <!-- Content here -->
             <header class="heading"> Client Property Management</header>
             <hr>
-            </hr>
-            <input type="hidden" name="pk" value="{{user.pk}}">
+            </hr>{{form.as_table}}
             <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type :</p>
             <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot_type" value="Lawn Lot" required>
