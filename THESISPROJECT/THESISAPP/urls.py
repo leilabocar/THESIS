@@ -30,6 +30,7 @@ urlpatterns = [
     path('BuyersApplicationApprove/<int:pk>/<str:email>', views.BuyersApplicationApprove, name='BuyersApplicationApprove'), 
     path('BuyersApplicationReject/<int:pk>/<str:email>', views.BuyersApplicationReject, name='BuyersApplicationReject'),  
     path('ClientPayment/<int:pk>', views.ClientPayment, name='ClientPayment'),
+    path('Addnew/<int:pk>', views.AddNew, name='AddNew'),
     path('Notice/<int:pk>', views.Notice, name='Notice'),
     path('Notifier/<int:pk>', views.Notifier, name='Notifier'),
     path('Inquiry/<int:pk>', views.Inquiry, name='Inquiry'),

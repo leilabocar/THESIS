@@ -27,9 +27,10 @@
     <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
     
       <ul class="navbar-nav ms-auto">
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
-              data-bs-toggle="dropdown">Inquiry</a>
+              data-bs-toggle="dropdown">Transactions</a>
           <ul class="dropdown-menu">
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk %}">Inquiry</a></li>
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment</a></li>
@@ -47,9 +48,11 @@
     <div style="float:left;margin: 10px;">
         <p><b>Deceased Person</b></p>
         </div>
+        
     Search For: 
     <input type="text" class="form-control-sm float-md-right" id="usr">
-    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
+    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right">
+    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AddNew' user.pk %}">Add New</a><br><br>
 </div>
 <!--Table-->
   <div style="overflow-x:auto;" class="col-sm-12">
@@ -61,23 +64,12 @@
         <th>Born</th>
         <th>Died</th>
         <th>Location</th>
-        <th>Picture of Location</th>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Kordapyo</td>
-        <td>Sept 1, 1888</td>
-        <td>Sept 2, 1888</td>
-        <td>Phase 1 Block 1 Lot 1</td>
-        <td><img src="{% static 'images/location.png' %}" style="width:100px;"></td>
       </tr>
     </thead>
   </table>
   </div>
 </table>
-<div style="text-align: right;" class="col-sm-12">
-  <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Notice' user.pk %}">Notice</a>
-</div>
+
 
 </body>
 </html>
