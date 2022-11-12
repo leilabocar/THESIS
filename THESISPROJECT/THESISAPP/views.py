@@ -197,6 +197,15 @@ def PropertyManagement(request, pk):
     return render(request, 'files/PropertyManagement.html',{'a':a})
 
 @login_required(login_url='/accounts/login/')
+def AddNew(request, pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        print ("Adding Lots Page")
+        a = User.objects.filter(pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddNew.html',{'a':a})
+
+@login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Buyers Application Page")
