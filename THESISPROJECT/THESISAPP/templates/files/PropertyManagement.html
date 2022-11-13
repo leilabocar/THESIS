@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!doctype html>
 <html lang="en">
 
@@ -26,7 +27,8 @@
             box-shadow: 2px 5px 5px 0px #eee;
             max-width: 700px;
             padding-top: 5px;
-            height: 940px;
+            height: auto;
+            padding-bottom: 20px;
             margin-top: 50px;
         }
         .heading {
@@ -54,130 +56,52 @@
         </div>
     </nav>
 
-	<form name="vform" onsubmit="return Validate()" method="post">
+	<form name="vform" onsubmit="return Validate()" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         <div class="container">
             <!-- Content here -->
             <header class="heading"> Client Property Management</header>
             <hr>
-            </hr>{{form.as_table}}
-            <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type :</p>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot_type" value="Lawn Lot" required>
-                <label class="form-check-label" for="validationFormCheck1">Lawn Lot</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot_type" value="Mausoleum" required>
-                <label class="form-check-label" for="validationFormCheck1">Mausoleum</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck2" name="lot_type" value="Apartment" required>
-                <label class="form-check-label" for="validationFormCheck2">Apartment</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck2" name="lot_type" value="Niche" required>
-                <label class="form-check-label" for="validationFormCheck2">Niche</label>
-            </div>
-            <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
-            <div class="input-group">
-                <div class="input-group-prepend ">
-                <span class="input-group-text"  >Location</span>
-                </div>
-                <input type="text" placeholder="Phase"  class="form-control" name="phase" required>
-                <input type="text" placeholder="Block" class="form-control" name="block" required>
-                <input type="text" placeholder="Lot No." class="form-control" name="lotno" required>
-                <div id="Phase_error"></div>
-            </div>
-            <p class="text-center" style="font-size: 25px; font-family: verdana;">Terms of Payment :</p>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="Cash" required>
-                <label class="form-check-label" for="validationFormCheck1">Cash</label>
-                <div id="Cash_error"></div>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="1 Year" required>
-                <label class="form-check-label" for="validationFormCheck1">1 Year</label>
-                <div id="1y_error"></div>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="2 Years" required>
-                <label class="form-check-label" for="validationFormCheck1">2 Years</label>
-                <div id="2y_error"></div>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="3 Years" required>
-                <label class="form-check-label" for="validationFormCheck1">3 Years</label>
-                <div id="3y_error"></div>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="Full Down" required>
-                <label class="form-check-label" for="validationFormCheck1">Full Down</label>
-                <div id="fd_error"></div>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="Reservation" required>
-                <label class="form-check-label" for="validationFormCheck1">Reservation</label>
-                <div id="Reservation_error"></div>
-            </div>
+            </hr>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Full Name" name="Full Name">Full Name</span>
-                <input type="text" class="form-control" placeholder="Full Name" name="fullname"  aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                <span class="input-group-text" id="Full Name" name="Full Name">Customer Name:</span>
+                {{ form.customer|attr:'class:form-control' }}
                     <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Age" name="Age">Age</span>
-                <input type="text" class="form-control" placeholder="Age" name="age" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-                    <div id="Age_error"></div>
+                <span class="input-group-text" id="Full Name" name="Full Name">Product</span>
+                {{ form.product|attr:'class:form-control' }}
+                    <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Gender" name="Gender">Gender</span>
-                <input type="text" class="form-control" placeholder="Gender" name="gender" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-                    <div id="Gender_error"></div>
+                <span class="input-group-text" id="Full Name" name="Full Name">Terms of Payment</span>
+                {{ form.terms|attr:'class:form-control' }}
+                    <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
-                <input type="number"  class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
-                    <div id="Contacts_error"></div>
+                <span class="input-group-text" id="Full Name" name="Full Name">Due Date</span>
+                {{ form.due_date|attr:'class:form-control' }}
+                    <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Address" name="Address">Address</span>
-                <input type="text" class="form-control" placeholder="Address" name="address" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-                    <div id="Address_error"></div>
+                <span class="input-group-text" id="Full Name" name="Full Name">Amount Paid</span>
+                {{ form.pay|attr:'class:form-control' }}
+                    <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Email" name="Email">Email</span>
-                <input type="text" class="form-control" placeholder="Email" name="email" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-                    <div id="Email_error"></div>
-            </div>
-            <div class="input-group date mb-3" data-provide="datepicker">
-                <span class="input-group-text" id="Date" name="DatePaid">Date Paid</span>
-                <input type="date" name="DatePaid" class="form-control" placeholder="Date" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-
-            </div>
-            <div class="input-group date mb-3" data-provide="datepicker">
-                <span class="input-group-text" id="DueDate" name="DueDate">Due Date</span>
-                <input type="date" name="DueDate" class="form-control" placeholder="Date" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-
+                <span class="input-group-text" id="Full Name" name="Full Name">Date Paid</span>
+                {{ form.paid_date|attr:'class:form-control' }}
+                    <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="AmountPaid" name="AmountPaid">Amount Paid</span>
-                <input type="text" class="form-control" placeholder="Php:" name="AmountPaid" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-                    <div id="Email_error"></div>
+                <span class="input-group-text" id="Full Name" name="Full Name">Amount to be Paid</span>
+                {{ form.balance|attr:'class:form-control' }}
+                    <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="AmounttobePaid" name="AmounttobePaid">Amount to be Paid</span>
-                <input type="text" class="form-control" placeholder="Php:" name="AmounttobePaid" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-                    <div id="Email_error"></div>
+                <span class="input-group-text" id="Full Name" name="Full Name">Status</span>
+                {{ form.status|attr:'class:form-control' }}
+                    <div id="FN_error"></div>
             </div>
             <div class="d-flex justify-content-center mt-3 button">
                 <button type="submit" class=" btn btn-primary rounded submit">Confirm</button>

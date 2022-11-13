@@ -11,6 +11,10 @@ class User(AbstractUser):
     is_admin = models.BooleanField('Is admin', default=False)
     is_client = models.BooleanField('Is client', default=False)
 
+    def __str__(self):
+        return f'Username: {self.username} | Name:{self.first_name} {self.last_name}'
+    
+
 class InquiryFormModel(models.Model):
     lot_type_choices=[('Lawn Lot','Lawn Lot'),
                       ('Mausoleum','Mausoleum'),
@@ -95,6 +99,9 @@ class Product(models.Model):
     block = models.CharField(max_length=30, null=True, verbose_name='block')
     lotno = models.CharField(max_length=30, null=True, verbose_name='lot_no.')
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
+
+    def __str__(self):
+        return f'{self.lot} P{self.phase} B{self.block} L{self.lotno}'
     
 class LotOrder(models.Model):
     STATUS = [
@@ -110,12 +117,25 @@ class LotOrder(models.Model):
 
     customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer')
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product')
-    status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status')
     terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms')
     pay = models.FloatField(null=True, verbose_name='pay')
     balance = models.FloatField(null=True, verbose_name='balance')
+    paid_date = models.DateTimeField(null=True,verbose_name='paid date')
+    status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status')
     due_date = models.DateTimeField(null=True,verbose_name='due date')
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
+
+    def calculate(self):
+        pay = self.pay
+        amount = self.balance
+
+        balance = amount-pay
+
+        return balance
+    
+    def save(self,*args,**kwargs):
+        self.balance = float(self.calculate())
+        super().save(*args, **kwargs)
 
 
     

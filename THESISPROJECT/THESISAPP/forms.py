@@ -137,20 +137,7 @@ class BookAppointmentForm(forms.ModelForm):
             return n
 
 class LotOrderForm(forms.ModelForm):
-    terms_choices=[('Cash','Cash'),
-                   ('1 Year','1 Year'),
-                   ('2 Years','2 Years'),
-                   ('3 Years','3 Years'),
-                   ('Full Down','Full Down'),
-                   ('Reservation','Reservation')]
-
-
-    terms = forms.ChoiceField(choices= terms_choices)
-
+    
     class Meta:
         model=LotOrder
-        fields = ('customer','product','status','terms','pay','balance','due_date')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['product'].queryset = Product.objects.none()
+        fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')
