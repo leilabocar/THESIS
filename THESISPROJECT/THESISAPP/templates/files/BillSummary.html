@@ -85,23 +85,25 @@
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Date</th>
                     <th scope="col">Memorial Type</th>
+                    <th scope="col">Terms of Payment</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Amount</th>
                     <th scope="col">Payment</th>
+                    <th scope="col">Date Paid</th>
                     <th scope="col">Balance</th>
+                    <th scope="col">Due Date</th>
                 </tr>
             </thead>
             <tbody>
                 {% for order in orders %}
                 <tr>
-                    <td>{{order.date_created}}</td>
                     <td>{{order.product.lot}}</td>
+                    <td>{{order.terms}}</td>
                     <td>{{order.status}}</td>
-                    <td>{{order.product.price}}</td>
-                    <td>{{order.product.pay}}</td>
-                    <td>{{order.product.price}} </td>
+                    <td>{{order.pay}}</td>
+                    <td>{{order.paid_date}}</td>
+                    <td>{{order.balance}} </td>
+                    <td>{{order.due_date}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

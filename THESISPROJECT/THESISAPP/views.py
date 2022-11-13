@@ -127,7 +127,7 @@ def BuyersForm(request, pk):
     return render(request, 'files/BuyersForm.html', {'a':a, 'form':form})
 
 @login_required(login_url='/accounts/login/')
-def BillSummary(request, pk, pay, balance):
+def BillSummary(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         print ("Bill Summary Page")
         a = User.objects.get(id=pk)
