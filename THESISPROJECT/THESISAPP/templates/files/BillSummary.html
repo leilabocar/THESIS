@@ -80,12 +80,12 @@
         </div>
     </nav>
 
-    <form name="vform" onsubmit="return Validate()" method="post">
+    <form name="vform" method="post">
 
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Memorial Type</th>
+                    <th scope="col">Acquired Lots</th>
                     <th scope="col">Terms of Payment</th>
                     <th scope="col">Description</th>
                     <th scope="col">Payment</th>
@@ -97,7 +97,7 @@
             <tbody>
                 {% for order in orders %}
                 <tr>
-                    <td>{{order.product.lot}}</td>
+                    <td>{{order.product.lot}} | Phase:{{order.product.phase}} Block:{{order.product.block}} Lot:{{order.product.lotno}}</td>
                     <td>{{order.terms}}</td>
                     <td>{{order.status}}</td>
                     <td>{{order.pay}}</td>

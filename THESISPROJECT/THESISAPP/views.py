@@ -74,9 +74,10 @@ def Client(request,pk):
     if request.user.is_authenticated and request.user.is_client:
         print("Client Page")
         a = User.objects.get(pk=pk)
+        orders = a.lotorder_set.exclude(balance=0)
     else:
         return redirect('Logout')
-    return render(request, 'files/Client.html', {'a':a})
+    return render(request, 'files/Client.html', {'a':a,'orders':orders})
 
 @login_required(login_url='/accounts/login/')
 def ApplicationForm(request, pk):
@@ -196,6 +197,18 @@ def PropertyManagement(request, pk):
     else:
         return redirect('Logout')
     return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form})
+
+def PropertyManagementUpdate(request, pk):
+    a = User.objects.filter(pk=pk)
+    order = LotOrder.objects.get(id=pk)
+    form = LotOrderForm(instance=order)
+
+    if request.method == 'POST':
+        form = LotOrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+
+    return render(request, 'files/ClientPayment.html',{'a':a, 'form':form})
 
 @login_required(login_url='/accounts/login/')
 def AddNew(request, pk):

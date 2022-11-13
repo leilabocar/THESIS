@@ -130,12 +130,20 @@
     </div>
 
     <form method="POST">
+        {% csrf_token %}
         <div class="bg-img"><br><br>
             <div class="container2">
                 <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> TOTAL AMOUNT DUE:</p>
-                <p class="text-center" id="receives" style="font-size: 25px; font-family: sans-serif;color: black;">30,000</p> <br><br>
+                <p class="text-center" id="receives" style="font-size: 25px; font-family: sans-serif;color: black;">
+                    {% for i in orders %}
+                     [{{i.balance}}]
+                    {% endfor %}</p> <br><br>
                 <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> DUE DATE:</p>
-                <p class="text-center" id="returns" style="font-size: 25px; font-family: sans-serif;color: black; ">Immediately</p>
+                <p class="text-center" id="returns" style="font-size: 25px; font-family: sans-serif;color: black; ">
+                    {% for e in orders %}
+                    [{{e.due_date}}]
+                    {% endfor %}
+                </p>
             </div>
         </div>
     </form>
