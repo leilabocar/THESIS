@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
 from django.template.loader import render_to_string
@@ -201,15 +202,13 @@ def PropertyManagement(request, pk):
 
 def PropertyManagementUpdate(request, pk):
     a = User.objects.filter(pk=pk)
-    order = LotOrder.objects.get(id=pk)
+    order = LotOrder.objects.get(pk=pk)
     form = LotOrderForm(instance=order)
-
     if request.method == 'POST':
         form = LotOrderForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-
-    return render(request, 'files/ClientPayment.html',{'a':a, 'form':form})
+    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
 
 @login_required(login_url='/accounts/login/')
 def AddNew(request, pk):

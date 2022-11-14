@@ -16,7 +16,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=99, verbose_name='address', null=True)
 
     def __str__(self):
-        return f'Username: {self.username} | Name:{self.first_name} {self.last_name}'
+        return self.username
     
 
 class InquiryFormModel(models.Model):
