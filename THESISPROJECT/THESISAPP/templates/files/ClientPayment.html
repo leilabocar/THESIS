@@ -50,34 +50,31 @@
       }
     </style>
     <form name="vform" action="/confirm" onsubmit="return Validate()" method="post">
-
+        {% csrf_token %}
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
+                    <th scope="col">Username</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Contact</th>
                     <th scope="col">Address</th>
                     <th scope="col">Email</th>
                     <th scope="col">Lot Type</th>
                     <th scope="col">Location</th>
                     <th scope="col">Terms of Payment</th>
-                    <th scope="col">Date Paid</th>
-                    <th scope="col">Due Date</th>
                     <th scope="col">Amount Paid</th>
+                    <th scope="col">Date Paid</th>
                     <th scope="col">Amount to be Paid</th>
+                    <th scope="col">Due Date</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+              {% for order in orders %}
                 <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{order.customer.username}}</td>
+                    <td>{{order.customer.first_name}} {{order.customer.last_name}}</td>
+                    <td>{{order.customer.email}}</td>
+                    <td>{{order.product.lot}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -87,6 +84,7 @@
                     <td></td>
                     <td><a href="{% url 'PropertyManagementUpdate' user.pk %}"><input type="button" value="Manage" class="btn btn-secondary"></a><a href="{% url 'Notifier' user.pk %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
                 </tr>
+              {% endfor %}
             </tbody>
         </table><br><br>
   </div>

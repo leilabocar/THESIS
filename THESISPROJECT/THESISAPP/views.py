@@ -179,10 +179,11 @@ def AdminHomepage(request, username):
 def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Client Payment Page")
-        a = User.objects.filter(pk=pk)
+        a = User.objects.get(id=pk)
+        orders = LotOrder.objects.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/ClientPayment.html',{'a':a})
+    return render(request, 'files/ClientPayment.html',{'a':a,'orders':orders})
 
 @login_required(login_url='/accounts/login/')
 def PropertyManagement(request, pk):

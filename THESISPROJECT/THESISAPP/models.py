@@ -10,6 +10,10 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_admin = models.BooleanField('Is admin', default=False)
     is_client = models.BooleanField('Is client', default=False)
+    age = models.IntegerField(verbose_name='age', null=True)
+    gender = models.CharField(max_length=30, verbose_name='gender', null=True)
+    contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
+    address = models.CharField(max_length=99, verbose_name='address', null=True)
 
     def __str__(self):
         return f'Username: {self.username} | Name:{self.first_name} {self.last_name}'

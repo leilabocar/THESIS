@@ -15,10 +15,14 @@ class SignupForm(UserCreationForm):
     password1 = forms.CharField()
     password2 = forms.CharField(label="Confirm Password")
     is_client = forms.BooleanField(initial=True, required=True)
+    age = forms.IntegerField()
+    gender = forms.CharField()
+    contacts = forms.CharField()
+    address = forms.CharField()
 
     class Meta:
         model = User
-        fields = ('first_name','last_name','username','email','password1','password2','is_admin','is_client')
+        fields = ('first_name','last_name','username','email','password1','password2','is_admin','age','gender','contacts','address','is_client')
 
 class InquiryFormForm(forms.ModelForm):
     lot_type_choices=[('Lawn Lot','Lawn Lot'),
