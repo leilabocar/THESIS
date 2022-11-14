@@ -26,7 +26,7 @@
             box-shadow: 2px 5px 5px 0px #eee;
             max-width: 700px;
             padding-top: 5px;
-            height: 560px;
+            height: 640px;
             margin-top: 50px;
             border-radius: 20px;
         }
@@ -99,7 +99,7 @@
 
             </div>
             <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
-            <div class="input-group">
+            <div class="input-group mb-3">
                 <div class="input-group-prepend ">
                 <span class="input-group-text"  >Location</span>
                 </div>
@@ -109,8 +109,14 @@
                 <div id="Phase_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Full Name" name="Full Name">Coordinates</span>
-                <input type="text" class="form-control" placeholder="Coordinates" name="Coordinates"  aria-label="Sizing example input"
+                <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
+                <input type="text" class="form-control" placeholder="" name="latitude"  aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" required>
+                    <div id="FN_error"></div>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
+                <input type="text" class="form-control" placeholder="" name="longitude"  aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" required>
                     <div id="FN_error"></div>
             </div>
