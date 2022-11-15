@@ -194,7 +194,7 @@ def PropertyManagement(request, pk):
         form = LotOrderForm
         if request.method == 'POST':
             form = LotOrderForm(request.POST)
-            if form.is_valid():
+            if form.is_valid(commit=False):
                 form.save()
     else:
         return redirect('Logout')
@@ -210,7 +210,7 @@ def PropertyManagementUpdate(request, pk):
         if request.method == 'POST':
             form = LotOrderForm(request.POST, instance=order)
             if form.is_valid():
-                form.save()
+                form.save(commit=False)
         return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
     return render(request, 'files/PropertyManagement.html',{'a':a})
 @login_required(login_url='/accounts/login/')

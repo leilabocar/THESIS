@@ -141,7 +141,6 @@ class BookAppointmentForm(forms.ModelForm):
             return n
 
 class LotOrderForm(forms.ModelForm):
-    
     class Meta:
         model=LotOrder
         fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')
