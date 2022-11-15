@@ -84,7 +84,12 @@
                     <td>{{order.paid_date}}</td>
                     <td>{{order.balance}}</td>
                     <td>{{order.due_date}}</td>
-                    <td><a href="{% url 'PropertyManagementUpdate' order.id %}"><input type="button" value="Manage" class="btn btn-secondary"></a><a href="{% url 'Notifier' user.pk %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
+                    <td>
+                      <div class="btn-group-vertical">
+                      <a href="{% url 'PropertyManagementUpdate' order.id %}"><input type="button" value="Manage" class="btn btn-primary btn-sm"></a>
+                      <a href="{% url 'Notifier' user.pk %}"><input type="button" value="Notify" class="btn btn-secondary btn-sm"></a>
+                      <a href="{% url 'PropertyManagementDelete' order.id %}"><input type="button" value="Delete" class="btn btn-danger btn-sm"></a></td>
+                      </div>
                 </tr>
               {% endfor %}
             </tbody>

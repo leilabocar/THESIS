@@ -2,6 +2,7 @@ from enum import unique
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
+from .widget import DatePickerInput, TimePickerInput, DateTimePickerInput
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="username")
@@ -141,6 +142,9 @@ class BookAppointmentForm(forms.ModelForm):
             return n
 
 class LotOrderForm(forms.ModelForm):
+    paid_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
+    due_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
+
     class Meta:
         model=LotOrder
         fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')

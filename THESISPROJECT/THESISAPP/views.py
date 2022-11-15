@@ -194,25 +194,36 @@ def PropertyManagement(request, pk):
         form = LotOrderForm
         if request.method == 'POST':
             form = LotOrderForm(request.POST)
-            if form.is_valid(commit=False):
+            if form.is_valid():
                 form.save()
     else:
         return redirect('Logout')
     return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form})
 
 def PropertyManagementUpdate(request, pk):
-    a = User.objects.filter(pk=pk)
-    check = LotOrder.objects.filter(id=pk)
-    print(check,len(check))
-    if len(check)>0:
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
         order = LotOrder.objects.get(id=pk)
         form = LotOrderForm(instance=order)
         if request.method == 'POST':
             form = LotOrderForm(request.POST, instance=order)
             if form.is_valid():
-                form.save(commit=False)
-        return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
-    return render(request, 'files/PropertyManagement.html',{'a':a})
+                form.save()
+    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
+
+def Notifier(request,pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Notifier.html', {'a':a})
+
+def PropertyManagementDelete(request,pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        b = LotOrder.objects.filter(id=pk).delete()
+        orders = LotOrder.objects.all()
+    
+    return render(request, 'files/ClientPayment.html',{'b':b,'orders':orders})
 @login_required(login_url='/accounts/login/')
 def AddNew(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
@@ -407,13 +418,6 @@ def Notice(request, pk):
 # ---------- NO LOGIN
 def Niche(request):
     return render(request, 'files/Niche.html')
-
-def Notifier(request,pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        a = User.objects.filter(pk=pk)
-    else:
-        return redirect('Logout')
-    return render(request, 'files/Notifier.html', {'a':a})
 
 def TermsofPayment(request):
     return render(request, 'files/TermsofPayment.html')
