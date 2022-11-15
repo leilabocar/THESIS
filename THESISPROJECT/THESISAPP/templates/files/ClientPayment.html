@@ -84,7 +84,7 @@
                     <td>{{order.paid_date}}</td>
                     <td>{{order.balance}}</td>
                     <td>{{order.due_date}}</td>
-                    <td><a href="{% url 'PropertyManagementUpdate' user.pk %}"><input type="button" value="Manage" class="btn btn-secondary"></a><a href="{% url 'Notifier' user.pk %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
+                    <td><a href="{% url 'PropertyManagementUpdate' order.id %}"><input type="button" value="Manage" class="btn btn-secondary"></a><a href="{% url 'Notifier' user.pk %}"><input type="button" onclick="myFunction()" value="Notifier" class="btn btn-secondary"></a><input type="button" onclick="myFunction()" value="Delete" class="btn btn-warning"></td>
                 </tr>
               {% endfor %}
             </tbody>

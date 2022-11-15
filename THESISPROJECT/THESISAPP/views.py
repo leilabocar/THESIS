@@ -202,14 +202,17 @@ def PropertyManagement(request, pk):
 
 def PropertyManagementUpdate(request, pk):
     a = User.objects.filter(pk=pk)
-    order = LotOrder.objects.get(pk=pk)
-    form = LotOrderForm(instance=order)
-    if request.method == 'POST':
-        form = LotOrderForm(request.POST, instance=order)
-        if form.is_valid():
-            form.save()
-    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
-
+    check = LotOrder.objects.filter(id=pk)
+    print(check,len(check))
+    if len(check)>0:
+        order = LotOrder.objects.get(id=pk)
+        form = LotOrderForm(instance=order)
+        if request.method == 'POST':
+            form = LotOrderForm(request.POST, instance=order)
+            if form.is_valid():
+                form.save()
+        return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
+    return render(request, 'files/PropertyManagement.html',{'a':a})
 @login_required(login_url='/accounts/login/')
 def AddNew(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
