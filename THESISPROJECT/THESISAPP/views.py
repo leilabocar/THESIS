@@ -181,7 +181,7 @@ def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Client Payment Page")
         a = User.objects.get(id=pk)
-        orders = LotOrder.objects.order_by('customer')
+        orders = LotOrder.objects.order_by('due_date')
         myFilter = clientpaymentFilter(request.GET, queryset=orders)
         orders = myFilter.qs
     else:
@@ -355,13 +355,49 @@ def AppointmentReject(request,pk,email):
         print('error')
 
 @login_required(login_url='/accounts/login/')
-def Inquiry(request, pk):
+def Inquiry(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         inq_table = inquire.objects.all()
     else:
         return redirect('Logout')
     return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a})
+@login_required(login_url='/accounts/login/')
+
+def InquiryApprove(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin:
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        send_mail(
+                'Himlayang Cemetery - Lot Available',
+                f'Dear Customer,\n \nThe lot you had inquire is Available. You may create an account and buy your chosen lot. Thank you\n \n Himlayang Cemetery Marketing Department ',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        InquiryFormModel.objects.filter(id=pk).delete()
+        inq_table = inquire.objects.all()
+        return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
+    else:
+        print('error')
+
+@login_required(login_url='/accounts/login/')
+def InquiryReject(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin:
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        send_mail(
+                'Himlayang Cemetery - Lot Unavailable',
+                f'Dear Customer,\n \nThe lot you had inquire is unavailable. Try to inquire other lots. Thank you\n \n Himlayang Cemetery Marketing Department ',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        InquiryFormModel.objects.filter(id=pk).delete()
+        inq_table = inquire.objects.all()
+        return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
+    else:
+        print('error')
 
 @login_required(login_url='/accounts/login/')
 def Application(request,pk,email):

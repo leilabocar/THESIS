@@ -102,7 +102,7 @@ class Product(models.Model):
     phase = models.CharField(max_length=200, null=True, verbose_name='phase')
     block = models.CharField(max_length=30, null=True, verbose_name='block')
     lotno = models.CharField(max_length=30, null=True, verbose_name='lot_no.')
-    date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
+    date_created = models.DateField(auto_now_add=True, null=True, verbose_name='date created')
 
     def __str__(self):
         return f'{self.lot} P{self.phase} B{self.block} L{self.lotno}'
@@ -124,9 +124,9 @@ class LotOrder(models.Model):
     terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms')
     pay = models.FloatField(null=True, verbose_name='pay')
     balance = models.FloatField(null=True, verbose_name='balance')
-    paid_date = models.DateTimeField(null=True,verbose_name='paid date')
+    paid_date = models.DateField(null=True,verbose_name='paid date')
     status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status')
-    due_date = models.DateTimeField(null=True,verbose_name='due date')
+    due_date = models.DateField(null=True,verbose_name='due date')
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
 
     def calculate(self):

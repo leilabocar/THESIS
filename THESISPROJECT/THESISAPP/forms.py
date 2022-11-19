@@ -153,4 +153,4 @@ class NotifierForm(forms.Form):
     email = forms.CharField()
     name = forms.CharField()
     totalamountdue = forms.FloatField()
-    duedate = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
+    duedate = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}))
