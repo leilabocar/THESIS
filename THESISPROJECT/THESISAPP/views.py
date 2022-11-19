@@ -200,6 +200,7 @@ def PropertyManagement(request, pk):
         return redirect('Logout')
     return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form})
 
+@login_required(login_url='/accounts/login/')
 def PropertyManagementUpdate(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
@@ -211,13 +212,32 @@ def PropertyManagementUpdate(request, pk):
                 form.save()
     return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
 
-def Notifier(request,pk):
+@login_required(login_url='/accounts/login/')
+def Notifier(request):
     if request.user.is_authenticated and request.user.is_admin:
-        a = User.objects.filter(pk=pk)
+        form = NotifierForm()
+        if request.method == 'POST':
+            form = NotifierForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data.get('email')
+                name = form.cleaned_data.get('name')
+                totalamountdue = form.cleaned_data.get('totalamountdue')
+                duedate = form.cleaned_data.get('duedate')
+                send_mail(
+                'Himlayang Cemetery Billing', 
+                f'Good day {name}, \n \n You need to pay your monthy fee. Your due date is {duedate} with a total balance of {totalamountdue}. Thank you! \n\n Himlayang Cemetery Marketing Department \n' ,
+                'andrewleilaraqueljustin@gmail.com',
+                [email],
+                fail_silently=False
+            )
+                print(email,name,totalamountdue,duedate)
+            else:
+                print("ERROR")
     else:
         return redirect('Logout')
-    return render(request, 'files/Notifier.html', {'a':a})
+    return render(request, 'files/Notifier.html',{'form':form})
 
+@login_required(login_url='/accounts/login/')
 def PropertyManagementDelete(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
         b = LotOrder.objects.filter(id=pk).delete()

@@ -15,6 +15,9 @@
     .row i{
         font-size: small;
     }
+    .btn-space{
+      margin-right: 5px;
+    }
 </style>
 </head>
 <body>
@@ -27,8 +30,9 @@
     <h3>Himlayang General Trias</h3>
 
     <ul class="navbar-nav ms-auto">
-        <a href="{% url 'PropertyManagement' user.pk %}" class="btn btn-primary">Create</a>
-        <a href="{% url 'AdminHomepage' user.username %}" class="btn btn-secondary">BACK</a>
+        <a href="{% url 'PropertyManagement' user.pk %}" class="btn btn-space btn btn-primary">Create</a>
+        <a href="{% url 'Notifier' %}"><input type="button" value="Notify" class="btn btn-space btn btn-secondary btn"></a>
+        <a href="{% url 'AdminHomepage' user.username %}" class="btn btn-space btn btn-danger">BACK</a>
     </ul>
 </div>
 
@@ -85,11 +89,8 @@
                     <td>{{order.balance}}</td>
                     <td>{{order.due_date}}</td>
                     <td>
-                      <div class="btn-group-vertical">
                       <a href="{% url 'PropertyManagementUpdate' order.id %}"><input type="button" value="Manage" class="btn btn-primary btn-sm"></a>
-                      <a href="{% url 'Notifier' user.pk %}"><input type="button" value="Notify" class="btn btn-secondary btn-sm"></a>
                       <a href="{% url 'PropertyManagementDelete' order.id %}"><input type="button" value="Delete" class="btn btn-danger btn-sm"></a></td>
-                      </div>
                 </tr>
               {% endfor %}
             </tbody>

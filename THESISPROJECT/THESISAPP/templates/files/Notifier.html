@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!doctype html>
 <html lang="en">
 
@@ -26,8 +27,9 @@
             box-shadow: 2px 5px 5px 0px #eee;
             max-width: 500px;
             padding-top: 5px;
-            height: 280px;
+            height: auto;
             margin-top: 50px;
+            padding-bottom: 20px;
         }
         .heading {
             text-decoration: bold;
@@ -55,39 +57,40 @@
         </div>
     </nav>
 
-    <form name="vform" action="/send" onsubmit="return Validate()" method="post">
-
-
+    <form method="post" onsubmit="return Validate()"> {% csrf_token %}
         <div class="container">
             <!-- Content here -->
             <header class="heading"> NOTIFIER</header>
             <hr>
             </hr>
+            <div class="input-group mb-3">
+                <span class="input-group-text" name="email">Email</span>
+                {{ form.email |attr:'class:form-control' }}
+                <div id="FN_error"></div>
+            </div>
 
             <div class="input-group mb-3">
-                <span class="input-group-text" id="totalamountdue" name="totalamountdue">Total Amount Due</span>
-                <input type="text" class="form-control" placeholder="Total Amount Due" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                <span class="input-group-text" name="name">Name</span>
+                {{ form.name|attr:'class:form-control' }}
+                <div id="FN_error"></div>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" name="totalamountdue">Total Amount Due</span>
+                {{ form.totalamountdue|attr:'class:form-control' }}
                 <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="DueDate" name="DueDate">Due Date</span>
-                <input type="text" class="form-control" placeholder="DueDate" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                <span class="input-group-text" name="duedate">Due Date</span>
+                {{ form.duedate }}
                 <div id="Email_error"></div>
             </div>
 
             <div class="d-flex justify-content-center mt-3 button">
-                <input type="submit" onclick="myFunction()" value="ADD" name="add" class="btn btn-secondary" />
-                <script>
-                    function myFunction() {
-                        document.getElementById("frm1").reg();
-                    }
-                </script>
+                <input type="submit" value="Submit" name="Submit" class="btn btn-secondary" />
             </div>
-
-
         </div>
+    </form>
 
 </body>
 

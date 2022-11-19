@@ -148,3 +148,9 @@ class LotOrderForm(forms.ModelForm):
     class Meta:
         model=LotOrder
         fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')
+
+class NotifierForm(forms.Form):
+    email = forms.CharField()
+    name = forms.CharField()
+    totalamountdue = forms.FloatField()
+    duedate = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
