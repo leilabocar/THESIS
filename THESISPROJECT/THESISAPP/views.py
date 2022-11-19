@@ -181,10 +181,12 @@ def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Client Payment Page")
         a = User.objects.get(id=pk)
-        orders = LotOrder.objects.all()
+        orders = LotOrder.objects.order_by('customer')
+        myFilter = clientpaymentFilter(request.GET, queryset=orders)
+        orders = myFilter.qs
     else:
         return redirect('Logout')
-    return render(request, 'files/ClientPayment.html',{'a':a,'orders':orders})
+    return render(request, 'files/ClientPayment.html',{'a':a,'orders':orders,'myFilter':myFilter})
 
 @login_required(login_url='/accounts/login/')
 def PropertyManagement(request, pk):

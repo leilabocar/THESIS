@@ -11,4 +11,9 @@ class appointmentFilter(django_filters.FilterSet):
     class Meta:
         model = BookAppointmentModel
         fields = '__all__'
+
+class clientpaymentFilter(django_filters.FilterSet):
+    class Meta:
+        model = LotOrder
+        fields = '__all__'
         

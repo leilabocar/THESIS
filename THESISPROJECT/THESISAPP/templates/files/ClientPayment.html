@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,11 +38,16 @@
 </div>
 
 </nav>
+<form method="get">
 <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
     Search: 
-    <input type="text" class="form-control-sm float-md-right" id="usr">
-    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
+    {% render_field myFilter.form.customer class="form-control.d-sm-inline-flex" placeholder='Lot Type:' %}
+    {% render_field myFilter.form.product class="form-control.d-sm-inline-flex" placeholder='Phase:' %}
+    {% render_field myFilter.form.status class="form-control.d-sm-inline-flex" placeholder='Block:' %}
+    {% render_field myFilter.form.product.phase class="form-control.d-sm-inline-flex" placeholder='Phase:' %}
+    <button type="submit" class="btn btn-success float-sm-right">Search</button>
 </div>
+</form><br>
 <!--Table-->
   <div style="overflow-x:auto;" class="col-sm-12">
     <style>
