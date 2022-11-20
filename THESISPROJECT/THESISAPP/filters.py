@@ -16,4 +16,9 @@ class clientpaymentFilter(django_filters.FilterSet):
     class Meta:
         model = LotOrder
         fields = '__all__'
+
+class inquiryFilter(django_filters.FilterSet):
+    class Meta:
+        model = InquiryFormModel
+        fields = '__all__'
         

@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +35,11 @@
 <form method="get">{% csrf_token %}
   <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
       Search: 
-      <input type="text" class="form-control-sm float-md-right" id="usr">
-      <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
+      {% render_field myFilter.form.lot_type class="form-control.d-sm-inline-flex" placeholder='Lot Type:' %}
+      {% render_field myFilter.form.phase class="form-control.d-sm-inline-flex" placeholder='Phase:' %}
+      {% render_field myFilter.form.block class="form-control.d-sm-inline-flex" placeholder='Block:' %}
+      {% render_field myFilter.form.lotno class="form-control.d-sm-inline-flex" placeholder='Lot:' %}
+      <button type="submit" class="btn btn-success float-sm-right">Search</button><br><br>
   </div>
   <!--Table-->
     <div style="overflow-x:auto;" class="col-sm-12">

@@ -359,9 +359,11 @@ def Inquiry(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         inq_table = inquire.objects.all()
+        myFilter = inquiryFilter(request.GET, queryset=inq_table)
+        inq_table = myFilter.qs
     else:
         return redirect('Logout')
-    return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a})
+    return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a,'myFilter':myFilter})
 @login_required(login_url='/accounts/login/')
 
 def InquiryApprove(request, pk, email):
