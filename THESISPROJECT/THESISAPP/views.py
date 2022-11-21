@@ -295,7 +295,7 @@ def BuyersApplicationReject(request, pk, email):
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
                 'Himlayang Cemetery',
-                'Your application is Reject. You may come to the Municipal of General Trias. Thank you',
+                'Your application is Reject. Please try another slots. Thank you',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
