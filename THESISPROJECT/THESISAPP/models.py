@@ -96,12 +96,15 @@ class Product(models.Model):
                       ('Niche','Niche'),
                       ('Apartment', 'Apartment')]
     
-    
-
     lot = models.CharField(max_length=50,choices=lot_choices ,null=True, verbose_name='lot')
     phase = models.CharField(max_length=200, null=True, verbose_name='phase')
     block = models.CharField(max_length=30, null=True, verbose_name='block')
     lotno = models.CharField(max_length=30, null=True, verbose_name='lot_no.')
+    latitude = models.CharField(max_length=200, null=True, verbose_name='latitude.')
+    longitude = models.CharField(max_length=200, null=True, verbose_name='longitude.')
+    deceased = models.CharField(max_length=200, blank=True, null=True,default=None, verbose_name='deceased.')
+    born = models.DateField(null=True,blank=True,default=None, verbose_name='born.')
+    died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
     date_created = models.DateField(auto_now_add=True, null=True, verbose_name='date created')
 
     def __str__(self):

@@ -63,13 +63,26 @@
 </div>
 <div style="overflow-x:auto;" class="col-sm-12">
   <table class="table table-bordered table-dark table-hover">
-  <thead>
-    <th>Date of Burial</th>
-    <th>Name of Deceased</th>
-    <th>Grave</th>
-    <th>Section</th>
-    <th>Lot</th>
+  <tr>
+    <thead>
+      <th>Name of Deceased</th>
+      <th>Date of Birth</th>
+      <th>Date of Burial</th>
+      <th>Lot Type</th>
+      <th>Address</th>
+      <th>Location</th>
     </thead>
+  </tr>
+  {% for i in prod %}
+  <tr>
+    <td>{{i.deceased}}</td>
+    <td>{{i.born}}</td>
+    <td>{{i.died}}</td>
+    <td>{{i.lot}}</td>
+    <td>Phase:{{i.phase}} Block:{{i.block}} Lot No.:{{i.lotno}}</td>
+    <td><a href="">{{i.longitude}},{{i.latitude}}</a></td>
+  </tr>
+  {% endfor %}
 </table>
 </div>
 <!-- FOOTER -->

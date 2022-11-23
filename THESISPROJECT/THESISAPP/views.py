@@ -251,6 +251,14 @@ def AddNew(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Adding Lots Page")
         a = User.objects.filter(pk=pk)
+        form = ProductForm()
+        if request.method == 'POST':
+            form = ProductForm(request.POST)
+            if form.is_valid():
+                form.save()
+                print('Success')
+            else:
+                print('Error')
     else:
         return redirect('Logout')
     return render(request, 'files/AddNew.html',{'a':a})
@@ -483,7 +491,8 @@ def TermsofPayment(request):
     return render(request, 'files/TermsofPayment.html')
 
 def GraveFinder(request):
-    return render(request, 'files/GraveFinder.html')
+    prod = Product.objects.all()
+    return render(request, 'files/GraveFinder.html',{'prod':prod})
 
 def InquiryForm(request):
     form = InquiryFormForm()

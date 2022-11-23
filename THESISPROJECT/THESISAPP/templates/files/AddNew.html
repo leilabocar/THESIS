@@ -27,7 +27,7 @@
             max-width: 700px;
             padding-top: 5px;
             height: 640px;
-            margin-top: 50px;
+            margin-top: 30px;
             border-radius: 20px;
         }
         .heading {
@@ -62,43 +62,23 @@
             <header class="heading"> Adding Lots</header>
             <hr>
             </hr>
-            <input type="hidden" name="pk" value="{{user.pk}}">
-            <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type :</p>
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type & Location:</p>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot_type" value="Lawn Lot" required>
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot" value="Lawn Lot" required>
                 <label class="form-check-label" for="validationFormCheck1">Lawn Lot</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot_type" value="Mausoleum" required>
+                <input type="radio" class="form-check-input" id="validationFormCheck1" name="lot" value="Mausoleum" required>
                 <label class="form-check-label" for="validationFormCheck1">Mausoleum</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck2" name="lot_type" value="Apartment" required>
+                <input type="radio" class="form-check-input" id="validationFormCheck2" name="lot" value="Apartment" required>
                 <label class="form-check-label" for="validationFormCheck2">Apartment</label>
             </div>
             <div class="form-check form-check-inline mb-3">
-                <input type="radio" class="form-check-input" id="validationFormCheck2" name="lot_type" value="Niche" required>
+                <input type="radio" class="form-check-input" id="validationFormCheck2" name="lot" value="Niche" required>
                 <label class="form-check-label" for="validationFormCheck2">Niche</label>
             </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="Full Name" name="Full Name">Name of Deceased</span>
-                <input type="text" class="form-control" placeholder="Full Name" name="fullname"  aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-                    <div id="FN_error"></div>
-            </div>
-            <div class="input-group date mb-3" data-provide="datepicker">
-                <span class="input-group-text" id="Date" name="DateBorn">Date Born</span>
-                <input type="date" name="DateBorn" class="form-control" placeholder="Date" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-
-            </div>
-            <div class="input-group date mb-3" data-provide="datepicker">
-                <span class="input-group-text" id="DateDied" name="DateDied">Date Died</span>
-                <input type="date" name="DateDied" class="form-control" placeholder="Date" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
-
-            </div>
-            <p class="text-center" style="font-size: 25px; font-family: verdana;">Location :</p>
             <div class="input-group mb-3">
                 <div class="input-group-prepend ">
                 <span class="input-group-text"  >Location</span>
@@ -110,15 +90,34 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
-                <input type="text" class="form-control" placeholder="" name="latitude"  aria-label="Sizing example input"
+                <input type="text" class="form-control" name="latitude"  aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" required>
                     <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
-                <input type="text" class="form-control" placeholder="" name="longitude"  aria-label="Sizing example input"
+                <input type="text" class="form-control" name="longitude"  aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" required>
                     <div id="FN_error"></div>
+            </div>
+            <p class="text-center" style="font-size: 25px; font-family: verdana;">Deceased Person Information:</p>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="deceased" name="Full Name">Name of Deceased</span>
+                <input type="text" class="form-control" placeholder="Full Name" name="deceased"  aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+                    <div id="FN_error"></div>
+            </div>
+            <div class="input-group date mb-3" data-provide="datepicker">
+                <span class="input-group-text" id="Date" name="DateBorn">Date Born</span>
+                <input type="date" name="born" class="form-control" placeholder="Date" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+
+            </div>
+            <div class="input-group date mb-3" data-provide="datepicker">
+                <span class="input-group-text" id="DateDied" name="DateDied">Date Died</span>
+                <input type="date" name="died" class="form-control" placeholder="Date" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+
             </div>
             <div class="d-flex justify-content-center mt-3 button">
                 <button type="submit" class=" btn btn-primary rounded submit">Confirm</button>

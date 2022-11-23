@@ -154,3 +154,19 @@ class NotifierForm(forms.Form):
     name = forms.CharField()
     totalamountdue = forms.FloatField()
     duedate = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}))
+
+class ProductForm(forms.ModelForm):
+    lot_type_choices=[('Lawn Lot','Lawn Lot'),
+                      ('Mausoleum','Mausoleum'),
+                      ('Niche','Niche'),
+                      ('Apartment','Apartment')]
+
+    lot = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect, required=True)
+    deceased = forms.CharField(required=False)
+    born = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),required=False)
+    died = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),required=False)
+
+    class Meta:
+        model = Product
+        fields = ('lot','phase','block','lotno','latitude','longitude','deceased','born','died')
+    
