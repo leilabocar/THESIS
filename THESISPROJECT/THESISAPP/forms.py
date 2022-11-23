@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from .widget import DatePickerInput, TimePickerInput, DateTimePickerInput
+from django.utils.safestring import mark_safe
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="username")
@@ -161,12 +162,11 @@ class ProductForm(forms.ModelForm):
                       ('Niche','Niche'),
                       ('Apartment','Apartment')]
 
-    lot = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect, required=True)
+    lot = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect(attrs={'class':'form-check-inline'}), required=True)
     deceased = forms.CharField(required=False)
-    born = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),required=False)
-    died = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),required=False)
+    born = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
+    died = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
 
     class Meta:
         model = Product
         fields = ('lot','phase','block','lotno','latitude','longitude','deceased','born','died')
-    

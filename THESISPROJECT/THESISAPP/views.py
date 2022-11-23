@@ -269,15 +269,15 @@ def AddNew(request, pk):
 @login_required(login_url='/accounts/login/')
 def AddNewUpdate(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
-        p = Product.objects.get(id=pk)
-        form = ProductForm(instance=p)
+        prod= Product.objects.get(id=pk)
+        form = ProductForm(instance=prod)
         if request.method == 'POST':
-            form = LotOrderForm(request.POST, instance=p)
+            form = ProductForm(request.POST, instance=prod)
             if form.is_valid():
                 form.save()
     else:
         return redirect('Logout')
-    return render(request, 'files/AddNew.html',{'form':form,'p':p})
+    return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
