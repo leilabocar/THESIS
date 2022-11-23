@@ -22,3 +22,7 @@ class inquiryFilter(django_filters.FilterSet):
         model = InquiryFormModel
         fields = '__all__'
         
+class productFilter(django_filters.FilterSet):
+    class Meta:
+        model = Product
+        fields = '__all__'

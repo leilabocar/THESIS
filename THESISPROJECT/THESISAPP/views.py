@@ -172,9 +172,12 @@ def AdminHomepage(request, username):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Admin Homepage")
         a = User.objects.filter(username=username)
+        prod = Product.objects.all()
+        myFilter = productFilter(request.GET, queryset=prod)
+        prod = myFilter.qs
     else:
         return redirect('Logout')
-    return render(request, 'files/AdminHomepage.html', {'a':a})
+    return render(request, 'files/AdminHomepage.html', {'a':a,'prod':prod,'myFilter':myFilter})
 
 @login_required(login_url='/accounts/login/')
 def ClientPayment(request, pk):
@@ -492,7 +495,10 @@ def TermsofPayment(request):
 
 def GraveFinder(request):
     prod = Product.objects.all()
-    return render(request, 'files/GraveFinder.html',{'prod':prod})
+    myFilter = productFilter(request.GET, queryset=prod)
+    prod = myFilter.qs
+
+    return render(request, 'files/GraveFinder.html',{'prod':prod,'myFilter':myFilter})
 
 def InquiryForm(request):
     form = InquiryFormForm()

@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,10 @@
     }
     .row i{
         font-size: small;
+    }
+    .float-right{
+      text-align: right;
+      padding-top: 30px;
     }
 </style>
 </head>
@@ -39,32 +44,50 @@
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">Buyers</a></li>
           </ul>
         </li>
-        <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
+        <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
       </ul>
     </div> 
 </div>
 </nav>
-<div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
-    <div style="float:left;margin: 10px;">
-        <p><b>Deceased Person</b></p>
+<form method="get">
+        <div class="float-right">
+          <div class="d-sm-inline-block">{% render_field myFilter.form.deceased class="form-control d-sm-inline-flex" placeholder='Deceased Person:' %}</div>
+          <div class="d-sm-inline-block">{% render_field myFilter.form.lot class="form-control d-sm-inline-flex" placeholder='Lot Type:' %}</div>
+          <div class="d-sm-inline-block">{% render_field myFilter.form.phase class="form-control d-sm-inline-flex" placeholder='Phase:' %}</div>
+          <div class="d-sm-inline-block">{% render_field myFilter.form.block class="form-control d-sm-inline-flex" placeholder='Block:' %}</div>
+          <div class="d-sm-inline-block">{% render_field myFilter.form.lotno class="form-control d-sm-inline-flex" placeholder='Lot No.:' %}</div>
+          <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
+          <div class="d-sm-inline-block"><a class="btn btn-secondary" href="{% url 'AddNew' user.pk %}">Add New</a></div><br><br>
         </div>
-        
-    Search For: 
-    <input type="text" class="form-control-sm float-md-right" id="usr">
-    <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right">
-    <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AddNew' user.pk %}">Add New</a><br><br>
 </div>
+</form>
 <!--Table-->
   <div style="overflow-x:auto;" class="col-sm-12">
     <table class="table table-bordered table-dark table-hover">
     <thead>
       <tr>
-        <th>Grave No.</th>
-        <th>Name of Deceased</th>
-        <th>Born</th>
-        <th>Died</th>
-        <th>Location</th>
+        <thead>
+          <th>Name of Deceased</th>
+          <th>Date of Birth</th>
+          <th>Date of Burial</th>
+          <th>Lot Type</th>
+          <th>Address</th>
+          <th>Location</th>
+          <th>Action</th>
+        </thead>
       </tr>
+      {% for i in prod %}
+      <tr>
+        <td>{{i.deceased}}</td>
+        <td>{{i.born}}</td>
+        <td>{{i.died}}</td>
+        <td>{{i.lot}}</td>
+        <td>Phase:{{i.phase}} Block:{{i.block}} Lot No.:{{i.lotno}}</td>
+        <td>{{i.longitude}},{{i.latitude}}</td>
+        <td><a class="btn btn-primary" style="font-size: 15px;" href="">Update</a>
+          <a class="btn btn-danger" style="font-size: 15px;" href="">Delete</a></td>
+      </tr>
+      {% endfor %}
     </thead>
   </table>
   </div>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,11 @@
 <style>
     h3{
         color: black;
+    }
+    .float-right{
+      text-align: right;
+      padding-top: 30px;
+      padding-bottom: 20px;
     }
 </style>
 </head>
@@ -57,10 +63,17 @@
   </div>
 </nav>
 
-<div style="overflow-x:auto; text-align: right;" class="col-sm-12">
-  <input type="text" class="form-control-sm float-md-right" id="usr">
-  <input type="button" onclick="myFunction()" value="Search" class="btn btn-success float-sm-right"><br><br>
+<form method="get">
+  <div class="float-right">
+    <div class="d-sm-inline-block">{% render_field myFilter.form.deceased class="form-control d-sm-inline-flex" placeholder='Deceased Person:' %}</div>
+    <div class="d-sm-inline-block">{% render_field myFilter.form.lot class="form-control d-sm-inline-flex" placeholder='Lot Type:' %}</div>
+    <div class="d-sm-inline-block">{% render_field myFilter.form.phase class="form-control d-sm-inline-flex" placeholder='Phase:' %}</div>
+    <div class="d-sm-inline-block">{% render_field myFilter.form.block class="form-control d-sm-inline-flex" placeholder='Block:' %}</div>
+    <div class="d-sm-inline-block">{% render_field myFilter.form.lotno class="form-control d-sm-inline-flex" placeholder='Lot No.:' %}</div>
+    <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
+  </div>
 </div>
+</form>
 <div style="overflow-x:auto;" class="col-sm-12">
   <table class="table table-bordered table-dark table-hover">
   <tr>
