@@ -278,6 +278,16 @@ def AddNewUpdate(request,pk):
     else:
         return redirect('Logout')
     return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
+
+@login_required(login_url='/accounts/login/')
+def AddNewDelete(request,pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        b = Product.objects.filter(id=pk).delete()
+        orders = Product.objects.all()
+        return render(request, 'files/AdminHomepage.html',{'b':b,'orders':orders})
+    else:
+        return redirect('Logout')
+
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
