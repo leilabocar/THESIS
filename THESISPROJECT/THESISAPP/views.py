@@ -264,7 +264,7 @@ def AddNew(request, pk):
                 print('Error')
     else:
         return redirect('Logout')
-    return render(request, 'files/AddNew.html',{'a':a})
+    return render(request, 'files/AddNew.html',{'a':a,'form':form})
 
 @login_required(login_url='/accounts/login/')
 def AddNewUpdate(request,pk):

@@ -69,48 +69,29 @@
             </hr>
             <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type & Location:</p>
             {{ form.lot|add_class:"d-sm-inline-flex" }}
-            <!-- <div class="form-check form-check-inline">
-                <input type="radio" value="{{form.lot.value}}" class="form-check-input" id="validationFormCheck1" name="lot"  required>
-                <label class="form-check-label" for="validationFormCheck1">Lawn Lot</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" value="{{form.lot.value}}" class="form-check-input" id="validationFormCheck1" name="lot"  required>
-                <label class="form-check-label" for="validationFormCheck1">Mausoleum</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" value="{{form.lot.value}}" class="form-check-input" id="validationFormCheck2" name="lot" required>
-                <label class="form-check-label" for="validationFormCheck2">Apartment</label>
-            </div>
-            <div class="form-check form-check-inline mb-3">
-                <input type="radio" value="{{form.lot.value}}" class="form-check-input" id="validationFormCheck2" name="lot"  required>
-                <label class="form-check-label" for="validationFormCheck2">Niche</label>
-            </div> -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend ">
                 <span class="input-group-text"  >Location</span>
                 </div>
-                <input type="text" value="{{form.phase.value}}" placeholder="Phase"  class="form-control" name="phase" required>
-                <input type="text" value="{{form.block.value}}" placeholder="Block" class="form-control" name="block" required>
-                <input type="text" value="{{form.lotno.value}}" placeholder="Lot No." class="form-control" name="lotno" required>
+                {% render_field form.phase class="form-control" placeholder="Phase" %}
+                {% render_field form.block class="form-control" placeholder="Block" %}
+                {% render_field form.lotno class="form-control" placeholder="Lot no.:" %}
                 <div id="Phase_error"></div>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
-                <input type="text" value="{{form.latitude.value}}" class="form-control" name="latitude"  aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                {% render_field form.latitude class="form-control" placeholder="Latitude" %}
                     <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
-                <input type="text" value="{{form.longitude.value}}" class="form-control" name="longitude"  aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                {% render_field form.longitude class="form-control" placeholder="Longitude" %}
                     <div id="FN_error"></div>
             </div>
             <p class="text-center" style="font-size: 25px; font-family: verdana;">Deceased Person Information:</p>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="deceased" name="Full Name">Name of Deceased</span>
-                <input type="text" value="{{form.deceased.value}}" class="form-control" placeholder="Full Name" name="deceased" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default">
+                {% render_field form.deceased class="form-control" placeholder="Deceased" %}
                     <div id="FN_error"></div>
             </div>
             <div class="input-group date mb-3" data-provide="datepicker">
