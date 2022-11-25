@@ -19,7 +19,7 @@ urlpatterns = [
     path('accounts/login/', views.Logout),
     path('InquiryForm', views.InquiryForm, name='InquiryForm'),
     #---------------ADMIN SIDE
-    path('AdminHomepage/<str:username>', views.AdminHomepage, name='AdminHomepage'),
+    path('AdminHomepage/<int:pk>', views.AdminHomepage, name='AdminHomepage'),
     path('Application/<int:pk>/<str:email>', views.Application, name='Application'),
     path('ApplicationApprove/<int:pk>/<str:email>', views.ApplicationApprove, name='ApplicationApprove'),
     path('ApplicationReject/<int:pk>/<str:email>', views.ApplicationReject, name='ApplicationReject'),

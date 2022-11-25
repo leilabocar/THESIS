@@ -33,7 +33,7 @@ def Login(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_admin:
                 login(request, user)
-                return redirect(f'AdminHomepage/{user.username}')
+                return redirect(f'AdminHomepage/{user.pk}')
             elif user is not None and user.is_client:
                 login(request, user)
                 return redirect(f'Client/{user.pk}')
@@ -168,10 +168,10 @@ def Property(request, pk):
 
 # ---------- ADMIN
 @login_required(login_url='/accounts/login/')
-def AdminHomepage(request, username):
+def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Admin Homepage")
-        a = User.objects.filter(username=username)
+        a = User.objects.filter(pk=pk)
         prod = Product.objects.all()
         myFilter = productFilter(request.GET, queryset=prod)
         prod = myFilter.qs
@@ -183,13 +183,12 @@ def AdminHomepage(request, username):
 def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Client Payment Page")
-        a = User.objects.get(id=pk)
         orders = LotOrder.objects.order_by('due_date')
         myFilter = clientpaymentFilter(request.GET, queryset=orders)
         orders = myFilter.qs
     else:
         return redirect('Logout')
-    return render(request, 'files/ClientPayment.html',{'a':a,'orders':orders,'myFilter':myFilter})
+    return render(request, 'files/ClientPayment.html',{'orders':orders,'myFilter':myFilter})
 
 @login_required(login_url='/accounts/login/')
 def PropertyManagement(request, pk):
@@ -245,10 +244,10 @@ def Notifier(request):
 @login_required(login_url='/accounts/login/')
 def PropertyManagementDelete(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
-        b = LotOrder.objects.filter(id=pk).delete()
-        orders = LotOrder.objects.all()
-    
-    return render(request, 'files/ClientPayment.html',{'b':b,'orders':orders})
+        LotOrder.objects.filter(id=pk).delete()
+        return redirect('ClientPayment',pk=pk)
+    else:
+        return redirect('Logout')
 @login_required(login_url='/accounts/login/')
 def AddNew(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
@@ -282,9 +281,8 @@ def AddNewUpdate(request,pk):
 @login_required(login_url='/accounts/login/')
 def AddNewDelete(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
-        b = Product.objects.filter(id=pk).delete()
-        orders = Product.objects.all()
-        return render(request, 'files/AdminHomepage.html',{'b':b,'orders':orders})
+        Product.objects.filter(id=pk).delete()
+        return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
 
