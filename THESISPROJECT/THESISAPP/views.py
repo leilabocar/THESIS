@@ -306,8 +306,11 @@ def BuyersApplicationApprove(request, pk, email):
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
-                'Himlayang Cemetery',
-                'Your application is Approve. You may come to the Municipal of General Trias. Thank you',
+                'Himlayang Cemetery - Lot Approved',
+                f'Dear Customer,\n\nGood day!\n\n' +
+                'We want to inform you that we have approved your request upon checking on it. The lot you are about to buy is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
@@ -325,8 +328,11 @@ def BuyersApplicationReject(request, pk, email):
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
-                'Himlayang Cemetery',
-                'Your application is Reject. Please try another slots. Thank you',
+                'Himlayang Cemetery - Lot Declined ',
+                f'Dear Customer,\n\nGood day!\n\n' +
+                'We want to inform you that we have declined your request upon checking on it. The lot you are about to buy is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
@@ -357,7 +363,10 @@ def AppointmentApprove(request, pk, email):
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
                 'Himlayang Cemetery - Appointment Approved',
-                'Your Apointment is Approve. You may come to the Municipal of General Trias. Thank you',
+                f'Dear Customer,\n\nGood day!\n\n' +
+                'We want to inform you that we have declined your request upon checking on it. The lot you are about to buy is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
@@ -403,7 +412,10 @@ def InquiryApprove(request, pk, email):
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
                 'Himlayang Cemetery - Lot Available',
-                f'Dear Customer,\n \nThe lot you had inquire is Available. You may create an account and buy your chosen lot. Thank you\n \n Himlayang Cemetery Marketing Department ',
+                f'Dear Customer,\n\nGood day!\n\n' +
+                'We want to inform you that we have approved your request upon checking on it. The lot that you inquire about is available. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
@@ -421,7 +433,10 @@ def InquiryReject(request, pk, email):
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
                 'Himlayang Cemetery - Lot Unavailable',
-                f'Dear Customer,\n \nThe lot you had inquire is unavailable. Try to inquire other lots. Thank you\n \n Himlayang Cemetery Marketing Department ',
+                f'Dear Customer,\n\nGood day!\n\n' +
+                'We want to inform you that we have declined your request upon checking on it. The lot that you inquire about is already taken, try to inquire other lots. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
