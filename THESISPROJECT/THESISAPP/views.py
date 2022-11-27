@@ -394,7 +394,7 @@ def AppointmentReject(request,pk,email):
         BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
         return redirect('Appointment', pk=c, email=email)
     else:
-        print('error')
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk, email):
