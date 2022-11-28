@@ -359,15 +359,16 @@ def Appointment(request, pk,email):
     return render(request, 'files/Appointment.html',{'a':a, 'appointment_table':appointment_table, 'myFilter': myFilter})
 
 @login_required(login_url='/accounts/login/')
-def AppointmentApprove(request, pk, email):
+def AppointmentApprove(request, pk, email,date,fullname):
     if request.user.is_authenticated and request.user.is_admin:
-        a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
+        date = BookAppointmentModel.objects.filter(date=date).values_list('date', flat=True).first()
+        fname = BookAppointmentModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Appointment Approved',
-                f'Dear Customer\n\nGood day!\n\n'+
-                'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the (date and time specified). Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
+                'From Himlayang General Trias Management',
+                f'Dear {fname},\n\nGood day!\n\n'+
+                f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the {date}. Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Sincery,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
@@ -386,7 +387,7 @@ def AppointmentReject(request,pk,email):
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Appointment Declined',
+                'From Himlayang General Trias Management',
                 f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the (date and time specified). Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Sincery,\n\nGeneral Trias Managemanent',

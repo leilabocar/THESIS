@@ -71,7 +71,7 @@
           <td>{{appo.email}}</td>
           <td>{{appo.reason}}</td>
           <td>{{appo.date}}</td>
-          <td><a href="{% url 'AppointmentApprove' appo.pk appo.email %}"><button type="button" class="btn btn-secondary">Approve</button></a>
+          <td><a href="{% url 'AppointmentApprove' appo.pk appo.email appo.date appo.fullname %}"><button type="button" class="btn btn-secondary">Approve</button></a>
               <a href="{% url 'AppointmentReject' appo.pk appo.email %}"><button type="button" class="btn btn-danger">Reject</button></td>
         </tr>
         {% endfor %}
