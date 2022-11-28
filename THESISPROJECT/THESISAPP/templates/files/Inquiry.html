@@ -68,8 +68,8 @@
           <td>{{inq.contacts}}</td>
           <td>{{inq.address}}</td>
           <td>{{inq.email}}</td>
-          <td><a href="{% url 'InquiryApprove' inq.id inq.email %}"><button type="button" class="btn btn-secondary">Approve</button></a>
-            <a href="{% url 'InquiryReject' inq.id inq.email %}"><button type="button" class="btn btn-danger">Reject</button></td>
+          <td><a href="{% url 'InquiryApprove' inq.id inq.email inq.lot_type inq.phase inq.block inq.lotno inq.fullname %}"><button type="button" class="btn btn-secondary">Approve</button></a>
+            <a href="{% url 'InquiryReject' inq.id inq.email inq.lot_type inq.phase inq.block inq.lotno inq.fullname %}"><button type="button" class="btn btn-danger">Reject</button></td>
         </tr>
         {% endfor %}
 

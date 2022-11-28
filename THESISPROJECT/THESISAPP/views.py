@@ -16,6 +16,7 @@ from django.shortcuts import get_object_or_404
 from django.core.mail import EmailMultiAlternatives,send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.core.mail import EmailMessage
 #MODELS
 from .models import *
 from .models import InquiryFormModel as inquire
@@ -410,14 +411,20 @@ def Inquiry(request, pk, email):
     return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a,'myFilter':myFilter})
 @login_required(login_url='/accounts/login/')
 
-def InquiryApprove(request, pk, email):
+def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = InquiryFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = InquiryFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = InquiryFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = InquiryFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        product = (lot + ' Phase:'+p+ ' Block:'+b1+ ' Lot:'+l + ' is Available')
+        fname = InquiryFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Lot Available',
-                f'Dear Customer,\n\nGood day!\n\n' +
-                'We want to inform you that we have approved your request upon checking on it. The lot that you inquire about is available. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                'From Himlayang General Trias Management',
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have approved your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is available. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -425,20 +432,24 @@ def InquiryApprove(request, pk, email):
                 fail_silently=False
             )
         InquiryFormModel.objects.filter(id=pk).delete()
-        inq_table = inquire.objects.all()
-        return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
+        return redirect('Inquiry',pk=pk, email=email)
     else:
         return redirect('Logout')
-
 @login_required(login_url='/accounts/login/')
-def InquiryReject(request, pk, email):
+def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = InquiryFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = InquiryFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = InquiryFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = InquiryFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        product = (lot + ' Phase:'+p+ ' Block:'+b1+ ' Lot:'+l + ' is Unavailable')
+        fname = InquiryFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Lot Unavailable',
-                f'Dear Customer,\n\nGood day!\n\n' +
-                'We want to inform you that we have declined your request upon checking on it. The lot that you inquire about is already taken, try to inquire other lots. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                'From Himlayang General Trias Management',
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have declined your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is already taken, try to inquire other lots. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -446,8 +457,7 @@ def InquiryReject(request, pk, email):
                 fail_silently=False
             )
         InquiryFormModel.objects.filter(id=pk).delete()
-        inq_table = inquire.objects.all()
-        return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
+        return redirect('Inquiry',pk=pk, email=email)
     else:
         return redirect('Logout')
 
