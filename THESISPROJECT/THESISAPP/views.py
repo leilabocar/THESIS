@@ -159,11 +159,11 @@ def PaymentHistory(request, pk):
 @login_required(login_url='/accounts/login/')
 def Property(request, pk):
     if request.user.is_authenticated and request.user.is_client:
-        print ("Success")
-        a = User.objects.filter(pk=pk)
+        a = User.objects.get(pk=pk)
+        display = a.lotorder_set.exclude(balance=0)
     else:
         return redirect('Logout')
-    return render(request, 'files/Property.html',{'a':a})
+    return render(request, 'files/Property.html',{'a':a,'display':display})
 # ---------- END CLIENT
 
 # ---------- ADMIN
@@ -214,6 +214,8 @@ def PropertyManagementUpdate(request, pk):
             form = LotOrderForm(request.POST, instance=order)
             if form.is_valid():
                 form.save()
+    else:
+        return redirect('Logout')
     return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
 
 @login_required(login_url='/accounts/login/')
@@ -319,7 +321,7 @@ def BuyersApplicationApprove(request, pk, email):
             lot_type=None,phase=None,block=None,terms=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
         return redirect('BuyersApplication', pk=c, email=email)
     else:
-        print('error')
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplicationReject(request, pk, email):
@@ -341,7 +343,7 @@ def BuyersApplicationReject(request, pk, email):
             lot_type=None,phase=None,block=None,terms=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
         return redirect('BuyersApplication', pk=c, email=email)
     else:
-        print('error')
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def Appointment(request, pk,email):
@@ -374,7 +376,7 @@ def AppointmentApprove(request, pk, email):
         BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
         return redirect('Appointment', pk=c, email=email)
     else:
-        print('error')
+        return redirect('Logout')
  
 @login_required(login_url='/accounts/login/')
 def AppointmentReject(request,pk,email):
@@ -426,7 +428,7 @@ def InquiryApprove(request, pk, email):
         inq_table = inquire.objects.all()
         return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
     else:
-        print('error')
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def InquiryReject(request, pk, email):
@@ -447,7 +449,7 @@ def InquiryReject(request, pk, email):
         inq_table = inquire.objects.all()
         return render(request, 'files/Inquiry.html',{'inq_table': inq_table})
     else:
-        print('error')
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def Application(request,pk,email):
@@ -479,7 +481,7 @@ def ApplicationApprove(request,pk,email):
             date=None,phase=None,block=None,lotno=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
         return redirect('Application', pk=c, email=email)
     else:
-        print('error')
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def ApplicationReject(request,pk,email):
@@ -498,7 +500,7 @@ def ApplicationReject(request,pk,email):
             date=None,phase=None,block=None,lotno=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
         return redirect('Application', pk=c, email=email)
     else:
-        print('error')
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def Notice(request, pk):

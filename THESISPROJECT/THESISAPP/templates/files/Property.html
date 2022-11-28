@@ -20,18 +20,19 @@
         h3 {
             color: black;
         }
-        .container{
+        .container2{
             font-family: Roboto, sans-serif;
             border-style: 1px solid grey;
             background-color: rgb(174, 199, 192);
-            margin: 0 auto;
-            text-align: left;
+            margin: 50px 10px 10px 10px;
             opacity: 0.8;
             box-shadow: 2px 5px 5px 0px #eee;
             max-width: 500px;
-            padding-top: 7px;
+            padding: 7px 7px 7px 7px;
             height: 330px;
-            margin-top: 50px;
+            display: inline-block;
+            border-radius: 10px;
+            
         }
         .heading {
             text-decoration: bold;
@@ -60,8 +61,6 @@
     </nav>
 
     <form name="vform" action="/register" onsubmit="return Validate()" method="post">
-
-        <!-- CAROUSEL -->
         <div class="container1">
             <h2 class="text-center" style="font-size: 35px;">OWNED LOTS</h2>
 
@@ -98,21 +97,25 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-
-            <div style="width: 500px;" class="container">
-                <!-- Content here -->
-                <h2 class="text-center" style="font-size: 35px;">CLIENT INFORMATION</h2>
-                <hr>
-                </hr>
-                <p style="font-size: 18px;">Full Name :</p>
-                <p style="font-size: 18px;">Age :</p>
-                <p style="font-size: 18px;">Gender :</p>
-                <p style="font-size: 18px;">Contacts :</p>
-                <p style="font-size: 18px;">Address :</p>
-                <p style="font-size: 18px;">Email :</p>
-                <p style="font-size: 18px;">Location :</p>
-                <br>
-
-            </div>
-
         </div>
+        {% for i in display %}
+            <div class="container2">
+                <div class="container2-1">
+                    <div class="container2-2">
+                        <!-- Content here -->
+                        <h2 class="text-center" style="font-size: 35px;">CLIENT INFORMATION</h2>
+                        <hr>
+                        </hr>
+                        <p style="font-size: 18px;">Full Name :{{i.customer.first_name}} {{i.customer.last_name}}</p>
+                        <p style="font-size: 18px;">Age {{i.customer.age}}:</p>
+                        <p style="font-size: 18px;">Gender :{{i.customer.gender}}</p>
+                        <p style="font-size: 18px;">Contacts :{{i.customer.contacts}}</p>
+                        <p style="font-size: 18px;">Address :{{i.customer.address}}</p>
+                        <p style="font-size: 18px;">Email :{{i.customer.email}}</p>
+                        <p style="font-size: 18px;">Lot/s :{{i.product}}</p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </form>
