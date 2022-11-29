@@ -402,7 +402,7 @@ def AppointmentReject(request,pk,email,fullname):
                 f'Hello {fname},\n\n'+
                 'Thanks for reaching out to us. We appreciate your interest in Himlayang Gen. Trias Cemetery. After reviewing your request date. It turned out that we were fully booked on that day. We regret to inform you that your appointment request has been denied. \n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
-                'Sincery,\n\nGeneral Trias Managemanent',
+                'Sincerely,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
