@@ -314,7 +314,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
         l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
         fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Lot Approved',
+                'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have approved your request upon checking on it. {lot} Phase:{p} Block{b1} Lot:{l} is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
@@ -341,7 +341,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
         l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
         fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Lot Declined ',
+                'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have declined your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
@@ -400,7 +400,7 @@ def AppointmentReject(request,pk,email,fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Hello {fname},\n\n'+
-                'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the (date and time specified). Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
+                'Thanks for reaching out to us. We appreciate your interest in Himlayang Gen. Trias Cemetery. After reviewing your request date. It turned out that we were fully booked on that day. We regret to inform you that your appointment request has been denied. \n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Sincery,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
@@ -480,9 +480,11 @@ def Application(request,pk,email):
         print ("Application Page")
         a = User.objects.filter(pk=pk)
         applicants_table = ApplicationFormModel.objects.exclude(fullname=None)
+        myFilter = applicationFilter(request.GET, queryset=applicants_table)
+        applicants_table = myFilter.qs
     else:
         return redirect('Logout')
-    return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table})
+    return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table, 'myFilter':myFilter})
 
 @login_required(login_url='/accounts/login/')
 def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
@@ -495,7 +497,7 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
         l= ApplicationFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
         fname = ApplicationFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Application of Appartments Approved',
+                'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have approved your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
@@ -521,7 +523,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
         l= ApplicationFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
         fname = ApplicationFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
-                'Himlayang Cemetery - Application of Appartments Rejected',
+                'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have declined your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
@@ -547,7 +549,7 @@ def Notice(request, pk):
                 receiver = form.cleaned_data.get('receiver')
                 content = form.cleaned_data.get('content')
                 send_mail(
-                'Himlayang Cemetery',
+                'From Himlayang General Trias Management',
                 content,
                 'andrewleilaraqueljustin@gmail.com',
                 [receiver],

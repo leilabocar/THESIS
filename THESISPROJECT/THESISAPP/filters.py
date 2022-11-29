@@ -26,3 +26,8 @@ class productFilter(django_filters.FilterSet):
     class Meta:
         model = Product
         fields = '__all__'
+
+class applicationFilter(django_filters.FilterSet):
+    class Meta:
+        model = ApplicationFormModel
+        fields = '__all__'
