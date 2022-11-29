@@ -71,8 +71,8 @@
           <td>{{buyers.contacts}}</td>
           <td>{{buyers.address}}</td>
           <td>{{buyers.email}}</td>
-          <td><a href="{% url 'BuyersApplicationApprove' buyers.pk buyers.email %}"><button type="button" class="btn btn-secondary">Approve</button></a>
-            <a href="{% url 'BuyersApplicationReject' buyers.pk buyers.email %}"><button type="button" class="btn btn-danger">Reject</button></td>
+          <td><a href="{% url 'BuyersApplicationApprove' buyers.pk buyers.email buyers.lot_type buyers.phase buyers.block buyers.lotno buyers.fullname %}"><button type="button" class="btn btn-secondary">Approve</button></a>
+            <a href="{% url 'BuyersApplicationReject' buyers.pk buyers.email buyers.lot_type buyers.phase buyers.block buyers.lotno buyers.fullname %}"><button type="button" class="btn btn-danger">Reject</button></td>
         </tr>
         {% endfor %}
       </thead>

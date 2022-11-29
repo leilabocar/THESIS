@@ -303,15 +303,20 @@ def BuyersApplication(request, pk, email):
     return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table, 'myFilter': myFilter})
 
 @login_required(login_url='/accounts/login/')
-def BuyersApplicationApprove(request, pk, email):
+def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
                 'Himlayang Cemetery - Lot Approved',
-                f'Dear Customer,\n\nGood day!\n\n' +
-                'We want to inform you that we have approved your request upon checking on it. The lot you are about to buy is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have approved your request upon checking on it. {lot} Phase:{p} Block{b1} Lot:{l} is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -325,15 +330,20 @@ def BuyersApplicationApprove(request, pk, email):
         return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
-def BuyersApplicationReject(request, pk, email):
+def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
                 'Himlayang Cemetery - Lot Declined ',
-                f'Dear Customer,\n\nGood day!\n\n' +
-                'We want to inform you that we have declined your request upon checking on it. The lot you are about to buy is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have declined your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -381,14 +391,16 @@ def AppointmentApprove(request, pk, email,date,fullname):
         return redirect('Logout')
  
 @login_required(login_url='/accounts/login/')
-def AppointmentReject(request,pk,email):
+def AppointmentReject(request,pk,email,fullname):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
+        fname = BookAppointmentModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
-                f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the (date and time specified). Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
+                f'Hello {fname},\n\n'+
+                'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the (date and time specified). Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Sincery,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
@@ -473,15 +485,19 @@ def Application(request,pk,email):
     return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table})
 
 @login_required(login_url='/accounts/login/')
-def ApplicationApprove(request,pk,email):
+def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = ApplicationFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        p = ApplicationFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = ApplicationFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l= ApplicationFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = ApplicationFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
                 'Himlayang Cemetery - Application of Appartments Approved',
-                f'Dear Customer,\n\nGood day!\n\n' +
-                'We want to inform you that we have approved your request upon checking on it. The lot you are about to buy is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have approved your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -495,14 +511,21 @@ def ApplicationApprove(request,pk,email):
         return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
-def ApplicationReject(request,pk,email):
+def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
     if request.user.is_authenticated and request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = ApplicationFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        p = ApplicationFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = ApplicationFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l= ApplicationFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = ApplicationFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
                 'Himlayang Cemetery - Application of Appartments Rejected',
-                'Your Application is Reject. Try another slots. Thank you',
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have declined your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
