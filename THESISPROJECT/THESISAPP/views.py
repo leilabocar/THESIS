@@ -20,6 +20,7 @@ from django.core.mail import EmailMessage
 #MODELS
 from .models import *
 from .models import InquiryFormModel as inquire
+from .models import PaymentHistory as PaymentHistory2
 
 def Homepage(request):
     return render(request, 'files/Homepage.html')
@@ -152,10 +153,11 @@ def InstallmentBill(request, pk):
 def PaymentHistory(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         print ("Success")
-        a = User.objects.filter(pk=pk)
+        a = User.objects.get(pk=pk)
+        history = a.paymenthistory_set.all()
     else:
         return redirect('Logout')
-    return render(request, 'files/PaymentHistory.html', {'a':a})
+    return render(request, 'files/PaymentHistory.html', {'a':a,'history':history})
 
 @login_required(login_url='/accounts/login/')
 def Property(request, pk):
@@ -197,27 +199,32 @@ def PropertyManagement(request, pk):
         print ("PropertyManagement Page")
         a = User.objects.filter(pk=pk)
         form = LotOrderForm
+        form1 = PaymentHistoryForm
         if request.method == 'POST':
             form = LotOrderForm(request.POST)
-            if form.is_valid():
+            form1 = PaymentHistoryForm(request.POST)
+            if form.is_valid() and form1.is_valid():
                 form.save()
+                form1.save()
     else:
         return redirect('Logout')
-    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form})
+    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'form1':form1})
 
 @login_required(login_url='/accounts/login/')
 def PropertyManagementUpdate(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
-        a = User.objects.filter(pk=pk)
         order = LotOrder.objects.get(id=pk)
         form = LotOrderForm(instance=order)
+        form1 = PaymentHistoryForm()
         if request.method == 'POST':
             form = LotOrderForm(request.POST, instance=order)
-            if form.is_valid():
+            form1 = PaymentHistoryForm(request.POST)
+            if form.is_valid() and form1.is_valid():
                 form.save()
+                form1.save()
     else:
         return redirect('Logout')
-    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'order':order})
+    return render(request, 'files/PropertyManagement.html',{'form':form,'order':order, 'form1':form1})
 
 @login_required(login_url='/accounts/login/')
 def Notifier(request):
@@ -343,7 +350,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have declined your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                f'We want to inform you that we have declined your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. We highly appreciate your interest on purchasing a lot at Himlayang General Trias Cemetery and we are terribly sorry for the inconvenience.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -525,7 +532,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have declined your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                f'We want to inform you that we have declined your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. We highly appreciate your interest on purchasing a lot at Himlayang General Trias Cemetery and we are terribly sorry for the inconvenience.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',

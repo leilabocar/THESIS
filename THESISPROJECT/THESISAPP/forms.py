@@ -170,3 +170,11 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ('lot','phase','block','lotno','latitude','longitude','deceased','born','died')
+
+class PaymentHistoryForm(forms.ModelForm):
+    paid_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
+    due_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
+
+    class Meta:
+        model=PaymentHistory
+        fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')

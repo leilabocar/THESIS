@@ -82,52 +82,32 @@
     </nav>
 
     <form name="vform" action="/confirm" onsubmit="return Validate()" method="post">
-
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Payment For</th>
-                    <th scope="col">Due Date</th>
+                    <th scope="col">Acquired Lots</th>
+                    <th scope="col">Terms of Payment</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Payment</th>
                     <th scope="col">Date Paid</th>
-                    <th scope="col">Status</th>
                     <th scope="col">Balance</th>
+                    <th scope="col">Due Date</th>
                 </tr>
             </thead>
             <tbody>
+                {% for order in history %}
                 <tr>
-                    <th scope="row">1</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{order.product.lot}} | Phase:{{order.product.phase}} Block:{{order.product.block}} Lot:{{order.product.lotno}}</td>
+                    <td>{{order.terms}}</td>
+                    <td>{{order.status}}</td>
+                    <td>{{order.pay}}</td>
+                    <td>{{order.paid_date}}</td>
+                    <td>{{order.balance}} </td>
+                    <td>{{order.due_date}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
+                {% endfor %}
             </tbody>
         </table>
-
-        <div class="col-xs-3">
-            <label for="ex2">Total:</label>
-            <input type="text" placeholder="total" class="form-control-sm float-md-right" id="usr">
-          </div>
-
 </body>
 
 </html>
