@@ -21,7 +21,8 @@ from django.core.mail import EmailMessage
 from .models import *
 from .models import InquiryFormModel as inquire
 from .models import PaymentHistory as PaymentHistory2
-
+#paginator
+from django.core.paginator import Paginator
 def Homepage(request):
     return render(request, 'files/Homepage.html')
 
@@ -580,10 +581,15 @@ def TermsofPayment(request):
 
 def GraveFinder(request):
     prod = Product.objects.all()
+    p = Paginator(prod, per_page=14)
+    page = request.GET.get('page')
+    if page == None or page == "":
+        page = "1"
+    prods = p.get_page(page)
+    prods.adjusted_elided_pages = p.get_elided_page_range(page)
     myFilter = productFilter(request.GET, queryset=prod)
     prod = myFilter.qs
-
-    return render(request, 'files/GraveFinder.html',{'prod':prod,'myFilter':myFilter})
+    return render(request, 'files/GraveFinder.html',{'prod':prod,'myFilter':myFilter,'prods':prods})
 
 def InquiryForm(request):
     form = InquiryFormForm()
