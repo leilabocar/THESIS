@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
+
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
 from django.template.loader import render_to_string
@@ -587,6 +588,10 @@ def GraveFinder(request):
 
 def InquiryForm(request):
     form = InquiryFormForm()
+    avail = LotOrder.objects.all().filter(terms=None)
+    paginator = Paginator(avail,18)
+    page_number = request.GET.get('page')
+    avail = paginator.get_page(page_number)
     if request.method == 'POST':
         form = InquiryFormForm(request.POST)
         if form.is_valid():
@@ -596,7 +601,7 @@ def InquiryForm(request):
         else:
             print('Error')
             return redirect('InquiryForm')
-    return render(request, 'files/InquiryForm.html',{'form':form})
+    return render(request, 'files/InquiryForm.html',{'form':form,'avail':avail})
 
 def Lawn(request):
     return render(request, 'files/Lawn.html')

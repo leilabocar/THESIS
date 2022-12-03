@@ -62,7 +62,6 @@
     </div>
 </nav>
 
-<img src="{% static 'images/termsofpayment.png' %}" class="d-block mx-auto" style="width:80%">
 <div class="main-container">
     <div class="container"><form name="vform" onsubmit="return Validate()" method="post">
         {% csrf_token %}
@@ -179,51 +178,34 @@
                 <th>Address</th>
                 </thead>
             </tr>
+            {% for i in avail%}
             <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
+                <td>{{i.product.lot}}</td>
+                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
             </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
-            <tr>
-                <td>Mausoleum</td>
-                <td>Phase:1 Block:1 Lot:1A</td>
-            </tr>
+            {% endfor %}
             </thead>
         </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if avail.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ avail.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ avail.number }} of {{ avail.paginator.num_pages }}.
+                </span>
+        
+                {% if avail.has_next %}
+                    <a href="?page={{ avail.next_page_number }}">next</a>
+                    <a href="?page={{ avail.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 </div>
-
+<img src="{% static 'images/termsofpayment.png' %}" class="d-block mx-auto" style="width:80%">
 </body>
 
 </html>

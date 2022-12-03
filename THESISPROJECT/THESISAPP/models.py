@@ -122,27 +122,35 @@ class LotOrder(models.Model):
                    ('Full Down','Full Down'),
                    ('Reservation','Reservation')]
 
-    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer')
-    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product')
-    terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms')
-    pay = models.FloatField(null=True, verbose_name='pay')
-    balance = models.FloatField(null=True, verbose_name='balance')
-    paid_date = models.DateField(null=True,verbose_name='paid date')
-    status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status')
-    due_date = models.DateField(null=True,verbose_name='due date')
+    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer', blank=True,default=None)
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product', blank=True,default=None)
+    terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms', blank=True)
+    pay = models.FloatField(null=True, verbose_name='pay', blank=True,default=None)
+    balance = models.FloatField(null=True, verbose_name='balance', blank=True,default=None)
+    paid_date = models.DateField(null=True,verbose_name='paid date', blank=True,default=None)
+    status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status', blank=True,default=None)
+    due_date = models.DateField(null=True,verbose_name='due date', blank=True,default=None)
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
 
     def calculate(self):
         pay = self.pay
         amount = self.balance
 
-        balance = amount-pay
+        if pay == None and amount == None:
+            print("None")
+        else:
+            balance = amount-pay
 
-        return balance
+            return balance
+
     
     def save(self,*args,**kwargs):
-        self.balance = float(self.calculate())
-        super().save(*args, **kwargs)
+        if self.pay == None and self.balance == None:
+            print("None")
+            super().save(*args, **kwargs)
+        else:
+            self.balance = float(self.calculate())
+            super().save(*args, **kwargs)
 
 class PaymentHistory(models.Model):
     STATUS = [
@@ -156,24 +164,31 @@ class PaymentHistory(models.Model):
                    ('Full Down','Full Down'),
                    ('Reservation','Reservation')]
 
-    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer')
-    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product')
-    terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms')
-    pay = models.FloatField(null=True, verbose_name='pay')
-    balance = models.FloatField(null=True, verbose_name='balance')
-    paid_date = models.DateField(null=True,verbose_name='paid date')
-    status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status')
-    due_date = models.DateField(null=True,verbose_name='due date')
+    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer', blank=True,default=None)
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product', blank=True,default=None)
+    terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms', blank=True)
+    pay = models.FloatField(null=True, verbose_name='pay', blank=True,default=None)
+    balance = models.FloatField(null=True, verbose_name='balance', blank=True,default=None)
+    paid_date = models.DateField(null=True,verbose_name='paid date', blank=True,default=None)
+    status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status', blank=True,default=None)
+    due_date = models.DateField(null=True,verbose_name='due date', blank=True,default=None)
     date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
 
     def calculate(self):
         pay = self.pay
         amount = self.balance
 
-        balance = amount-pay
+        if pay == None and amount == None:
+            print("None")
+        else:
+            balance = amount-pay
 
-        return balance
+            return balance
 
     def save(self,*args,**kwargs):
-        self.balance = float(self.calculate())
-        super().save(*args, **kwargs)
+        if self.pay == None and self.balance == None:
+            print("None")
+            super().save(*args, **kwargs)
+        else:
+            self.balance = float(self.calculate())
+            super().save(*args, **kwargs)

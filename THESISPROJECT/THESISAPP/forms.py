@@ -143,8 +143,9 @@ class BookAppointmentForm(forms.ModelForm):
             return n
 
 class LotOrderForm(forms.ModelForm):
-    paid_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
-    due_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
+    paid_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
+    due_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
+
 
     class Meta:
         model=LotOrder
@@ -172,8 +173,8 @@ class ProductForm(forms.ModelForm):
         fields = ('lot','phase','block','lotno','latitude','longitude','deceased','born','died')
 
 class PaymentHistoryForm(forms.ModelForm):
-    paid_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
-    due_date = forms.DateTimeField(widget=DatePickerInput(attrs={'class':'form-control'}))
+    paid_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
+    due_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
 
     class Meta:
         model=PaymentHistory
