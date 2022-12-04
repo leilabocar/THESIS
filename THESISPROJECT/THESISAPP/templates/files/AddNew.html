@@ -13,7 +13,12 @@
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQVmcMjxpC9weEbkB8mBZZh0bXDbJhnsc"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+  <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}">
     <style>
         h3 {
             color: black;
@@ -59,55 +64,64 @@
             </ul>
         </div>
     </nav>
-
-	<form name="vform" onsubmit="return Validate()" method="post">
-        {% csrf_token %}
-        <div class="container">
-            <!-- Content here -->
-            <header class="heading"> Adding Lots</header>
-            <hr>
-            </hr>
-            <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type & Location:</p>
-            {{ form.lot|add_class:"d-sm-inline-flex" }}
-            <div class="input-group mb-3">
-                <div class="input-group-prepend ">
-                <span class="input-group-text"  >Location</span>
+    <div class="flex-container">
+        <div>
+            <!-- onsubmit="return Validate()" -->
+            <form name="vform" id="form"  method="post">
+                {% csrf_token %}
+                <div class="container">
+                    <!-- Content here -->
+                    <header class="heading"> Adding Lots</header>
+                    <hr>
+                    </hr>
+                    <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type & Location:</p>
+                    {{ form.lot|add_class:"d-sm-inline-flex" }}
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend ">
+                        <span class="input-group-text"  >Location</span>
+                        </div>
+                        {% render_field form.phase class="form-control" placeholder="Phase" %}
+                        {% render_field form.block class="form-control" placeholder="Block" %}
+                        {% render_field form.lotno class="form-control" placeholder="Lot no.:" %}
+                        <div id="Phase_error"></div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
+                        {% render_field form.latitude id="lat" class="form-control" placeholder="Latitude" %}
+                            <div id="FN_error"></div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
+                        {% render_field form.longitude id="lng" class="form-control" placeholder="Longitude" %}
+                            <div id="FN_error"></div>
+                    </div>
+                    <p class="text-center" style="font-size: 25px; font-family: verdana;">Deceased Person Information:</p>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="deceased" name="Full Name">Name of Deceased</span>
+                        {% render_field form.deceased class="form-control" placeholder="Deceased Person" %}
+                            <div id="FN_error"></div>
+                    </div>
+                    <div class="input-group date mb-3" data-provide="datepicker">
+                        <span class="input-group-text" id="Date" name="DateBorn">Date Born</span>
+                        {{form.born}}
+                    </div>
+                    <div class="input-group date mb-3" data-provide="datepicker">
+                        <span class="input-group-text" id="DateDied" name="DateDied">Date Died</span>
+                        {{form.died}}
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 button">
+                        
+                        <button type="submit" class=" btn btn-primary rounded submit">Confirm</button>
+                    </div>
                 </div>
-                {% render_field form.phase class="form-control" placeholder="Phase" %}
-                {% render_field form.block class="form-control" placeholder="Block" %}
-                {% render_field form.lotno class="form-control" placeholder="Lot no.:" %}
-                <div id="Phase_error"></div>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
-                {% render_field form.latitude class="form-control" placeholder="Latitude" %}
-                    <div id="FN_error"></div>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
-                {% render_field form.longitude class="form-control" placeholder="Longitude" %}
-                    <div id="FN_error"></div>
-            </div>
-            <p class="text-center" style="font-size: 25px; font-family: verdana;">Deceased Person Information:</p>
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="deceased" name="Full Name">Name of Deceased</span>
-                {% render_field form.deceased class="form-control" placeholder="Deceased Person" %}
-                    <div id="FN_error"></div>
-            </div>
-            <div class="input-group date mb-3" data-provide="datepicker">
-                <span class="input-group-text" id="Date" name="DateBorn">Date Born</span>
-                {{form.born}}
-            </div>
-            <div class="input-group date mb-3" data-provide="datepicker">
-                <span class="input-group-text" id="DateDied" name="DateDied">Date Died</span>
-                {{form.died}}
-            </div>
-            <div class="d-flex justify-content-center mt-3 button">
-                <button type="submit" class=" btn btn-primary rounded submit">Confirm</button>
-            </div>
+                
+            </form>
         </div>
-    </form>
-
+        <div class="mapContainer" class="mapAdmin">
+            <span>Click on the map to populate Latitude and Longitude</span>
+            <div id="mapAdmin"></div>
+        </div>
+    </div>
 </body>
 
 </html>
