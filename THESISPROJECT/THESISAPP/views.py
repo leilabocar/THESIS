@@ -431,8 +431,8 @@ def Inquiry(request, pk, email):
     else:
         return redirect('Logout')
     return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a,'myFilter':myFilter})
-@login_required(login_url='/accounts/login/')
 
+@login_required(login_url='/accounts/login/')
 def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
@@ -441,7 +441,6 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
         p = InquiryFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
         b1 = InquiryFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l = InquiryFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
-        product = (lot + ' Phase:'+p+ ' Block:'+b1+ ' Lot:'+l + ' is Available')
         fname = InquiryFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
@@ -589,7 +588,7 @@ def GraveFinder(request):
     prods = p.get_page(page)
     prods.adjusted_elided_pages = p.get_elided_page_range(page)
     myFilter = productFilter(request.GET, queryset=prod)
-    prods = myFilter.qs
+    p = myFilter.qs
     return render(request, 'files/GraveFinder.html',{'prod':prod,'myFilter':myFilter,'prods':prods})
 
 def InquiryForm(request):

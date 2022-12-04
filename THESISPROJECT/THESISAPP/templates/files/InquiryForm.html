@@ -176,12 +176,14 @@
                 <thead>
                 <th>Lot Type</th>
                 <th>Address</th>
+                <th>Coordinates</th>
                 </thead>
             </tr>
             {% for i in avail%}
             <tr>
                 <td>{{i.product.lot}}</td>
                 <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
+                <td>{{i.product.longitude}}{{i.product.latitude}}</td>
             </tr>
             {% endfor %}
             </thead>
