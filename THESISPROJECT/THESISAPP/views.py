@@ -589,7 +589,7 @@ def GraveFinder(request):
     prods = p.get_page(page)
     prods.adjusted_elided_pages = p.get_elided_page_range(page)
     myFilter = productFilter(request.GET, queryset=prod)
-    prod = myFilter.qs
+    prods = myFilter.qs
     return render(request, 'files/GraveFinder.html',{'prod':prod,'myFilter':myFilter,'prods':prods})
 
 def InquiryForm(request):
