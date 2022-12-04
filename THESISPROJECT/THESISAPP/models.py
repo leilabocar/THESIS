@@ -108,7 +108,7 @@ class Product(models.Model):
     date_created = models.DateField(auto_now_add=True, null=True, verbose_name='date created')
 
     def __str__(self):
-        return f'{self.lot} P{self.phase} B{self.block} L{self.lotno}'
+        return f'{self.lot} {self.phase} {self.block} {self.lotno}'
     
 class LotOrder(models.Model):
     STATUS = [

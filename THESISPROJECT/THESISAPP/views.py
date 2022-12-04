@@ -188,7 +188,7 @@ def AdminHomepage(request, pk):
 def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Client Payment Page")
-        orders = LotOrder.objects.order_by('due_date')
+        orders = LotOrder.objects.order_by('-product')
         myFilter = clientpaymentFilter(request.GET, queryset=orders)
         orders = myFilter.qs
     else:
