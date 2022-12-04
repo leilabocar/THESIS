@@ -18,10 +18,10 @@
     h3{
         color: black;
     }
-    .float-right{
-      text-align: right;
-      padding-top: 30px;
-      padding-bottom: 20px;
+    .float-left{
+      text-align: left;
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
 </style>
 </head>
@@ -61,18 +61,14 @@
             <a class="nav-link" href="{% url 'TermsofPayment' %}">Terms of Payment</a>
         </li>  
       </ul>
-      <ul class="navbar-nav ms-auto">
-        <a href="#" class="btn btn-primary">MAP</a>
-      </ul>
     </div> 
   </div>
 </nav>
 
 <form method="get">
-  <div class="float-right">
-    <div class="d-sm-inline-block">{% render_field myFilter.form.deceased class="form-control d-sm-inline-flex" placeholder='Name:' %}</div>
-    <div class="d-sm-inline-block">{% render_field myFilter.form.lot class="form-control d-sm-inline-flex" placeholder='Lot Type:' %}</div>
+  <div class="float-left">
     <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
+    <div class="d-sm-inline-block"><input type="text" name="q" class="form-control" placeholder="Search" /></div>
   </div>
 </div>
 </form>

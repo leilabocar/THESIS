@@ -580,16 +580,18 @@ def TermsofPayment(request):
     return render(request, 'files/TermsofPayment.html')
 
 def GraveFinder(request):
-    prod = Product.objects.all()
+    if 'q' in request.GET:
+        q=request.GET['q']
+        prod = Product.objects.filter(deceased__icontains=q).order_by('-lot')
+    else:
+        prod = Product.objects.order_by('-lot')
     p = Paginator(prod, per_page=14)
     page = request.GET.get('page')
     if page == None or page == "":
         page = "1"
     prods = p.get_page(page)
     prods.adjusted_elided_pages = p.get_elided_page_range(page)
-    myFilter = productFilter(request.GET, queryset=prod)
-    p = myFilter.qs
-    return render(request, 'files/GraveFinder.html',{'prod':prod,'myFilter':myFilter,'prods':prods})
+    return render(request, 'files/GraveFinder.html',{'prod':prod,'prods':prods})
 
 def InquiryForm(request):
     form = InquiryFormForm()
