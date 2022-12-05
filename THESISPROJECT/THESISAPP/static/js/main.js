@@ -5,9 +5,11 @@ var directionsService = new google.maps.DirectionsService();
 var marker;
 var markers =  [];
 var marker1 = [];
+var infoStart =[];
+var infoEnd = [];
 var step = [];
 $(function() {
-	clickTd();
+	// clickTd();
 	initMap();
 	// getMapLatLong();
 });
@@ -15,37 +17,59 @@ function initMap(){
 	map = new google.maps.Map(document.getElementById("map"), {
 		center: { lat: 14.3642225, lng: 120.9093891 },
 		zoom: 18.5,
-		zoomControl: false,
-		gestureHandling: "none",
+		zoomControl: true,
+		// gestureHandling: "none",
+		disableDoubleClickZoom: true,
 		mapTypeId: "terrain",
 		provideRouteAlternatives: false,
 
 	});
 }
 
-function clickTd(){
-	$("tr#trclick").on('click',function(e){
-		// e.stopPropagation();
-		removeMarkersAndLines();
-		// himlayan of general trias gate coordinates = 14.3638833,120.9090871
-		var latlong = $(this).closest("tr").find(".latlong").text();
-		var seperateLatLong = latlong.split(",");
-		var lat= seperateLatLong[0];
-		var long = seperateLatLong[1];
-		var m1 = new google.maps.Marker({
-			map: map,
-			title: "start",
-			position: new google.maps.LatLng(14.3636834,120.9092979)
-		  });
-		var m2 = new google.maps.Marker({
-			map: map,
-			title: "end",
-			position: new google.maps.LatLng(lat,long)
-		  });
-		markers.push(m2);
-		marker1.push(m1);
-		calcRoute(new google.maps.LatLng(14.3636834,120.9092979),new google.maps.LatLng(lat,long));
+function clickViewButton(lat,long){
+	// $("tr#trclick").on('click',function(e){
+		
+	// });
+	// e.stopPropagation();
+	removeMarkersAndLines();
+	// himlayan of general trias gate coordinates = 14.3638833,120.9090871
+	// var latlong = $(this).closest("tr").find(".latlong").text();
+	// var seperateLatLong = latlong.split(",");
+	// var lat= seperateLatLong[0];
+	// var long = seperateLatLong[1];
+	var m1 = new google.maps.Marker({
+		map: map,
+		title: "start",
+		position: new google.maps.LatLng(14.3636834,120.9092979)
+	  });
+	var m2 = new google.maps.Marker({
+		map: map,
+		title: "end",
+		position: new google.maps.LatLng(lat,long)
+	  });
+	var startInfo= "Start here";
+	var endInfo= "Here is the Destination";
+	var info1 = new google.maps.InfoWindow({
+		content: startInfo,
+		ariaLabel: "Uluru",
+	})
+	var info2 = new google.maps.InfoWindow({
+		content: endInfo,
+		ariaLabel: "Uluru",
+	})
+	infoStart.push(info1);
+	infoEnd.push(info2);
+	markers.push(m2);
+	marker1.push(m1);
+	info1.open({
+		anchor: m1,
+		map,
+	  });
+	info2.open({
+		anchor: m2,
+		map,
 	});
+	calcRoute(new google.maps.LatLng(14.3636834,120.9092979),new google.maps.LatLng(lat,long));
 }
 function setMapOnAll(map) {
 	for (let i = 0; i < marker.length; i++) {
@@ -71,21 +95,21 @@ function calcRoute(start,end) {
 	  });
   }
   var polylineOptions = {
-	strokeColor: '#C83939',
+	strokeColor: '#FFC300',
 	strokeOpacity: 1,
 	strokeWeight: 4
   };
   var walkingPolylineOptions = {
-	strokeColor: '#C83939',
+	strokeColor: '#FFC300',
 	strokeOpacity: 0,
 	strokeWeight: 4,
 	icons: [{
 	  icon: {
 		path: google.maps.SymbolPath.CIRCLE,
-		fillColor: '#C83939',
+		fillColor: '#FFC300',
 		fillOpacity: 1,
 		scale: 2,
-		strokeColor: '#C83939',
+		strokeColor: '#FFC300',
 		strokeOpacity: 1,
 	  },
 	  offset: '0',
@@ -93,16 +117,16 @@ function calcRoute(start,end) {
 	}]
   };
   var walkingPolylineOptions2 = {
-	strokeColor: '#C83939',
+	strokeColor: '#FFC300',
 	strokeOpacity: 0,
 	strokeWeight: 4,
 	icons: [{
 	  icon: {
 		path: google.maps.SymbolPath.CIRCLE,
-		fillColor: '#808080',
+		fillColor: '#FFC300',
 		fillOpacity: 1,
 		scale: 2,
-		strokeColor: '#808080',
+		strokeColor: '#FFC300',
 		strokeOpacity: 1,
 	  },
 	  offset: '0',
@@ -187,6 +211,18 @@ function calcRoute(start,end) {
 		if(step.length != 0 || step != null || step != undefined || step != []){
 			for(var i=0; i < step.length; i++){
 				step[i].setMap(null);
+			}
+				
+		}
+		if(infoStart.length != 0 || infoStart != null || infoStart != undefined || steinfoStartp != []){
+			for(var i=0; i < infoStart.length; i++){
+				infoStart[i].setMap(null);
+			}
+				
+		}
+		if(infoEnd.length != 0 || infoEnd != null || infoEnd != undefined || infoEnd != []){
+			for(var i=0; i < infoEnd.length; i++){
+				infoEnd[i].setMap(null);
 			}
 				
 		}

@@ -65,9 +65,9 @@
         </div>
     </nav>
     <div class="flex-container">
-        <div>
+        <div class="flex-start-admin">
             <!-- onsubmit="return Validate()" -->
-            <form name="vform" id="form"  method="post">
+            <form name="vform" id="form" onsubmit="return submitForm()" method="post">
                 {% csrf_token %}
                 <div class="container">
                     <!-- Content here -->
@@ -110,7 +110,6 @@
                         {{form.died}}
                     </div>
                     <div class="d-flex justify-content-center mt-3 button">
-                        
                         <button type="submit" class=" btn btn-primary rounded submit">Confirm</button>
                     </div>
                 </div>
