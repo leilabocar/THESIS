@@ -16,10 +16,10 @@
     .row i{
         font-size: small;
     }
-    /* .float-right{
-      text-align: right;
+    .float-right{
       padding-top: 10px;
-    } */
+      display: inline-flex;
+    }
     .pagination{
     display: flex;
     justify-content: center;
@@ -39,13 +39,15 @@
       color: white;
     }
     .search{
-      display: inline-block;
+      display: inline-flex;
+      justify-content: space-between;
+      gap: 50px;
     }
 
-    /* .addnew {
-      display:inline-block;
-      text-align: left;
-    } */
+    .addnew {
+      display:inline-flex;
+      text-align: right;
+    }
 </style>
 </head>
 <body>
@@ -79,7 +81,6 @@
 <div class="search">
   <form method="get">
     <div class="float-right">
-      
       <div><input type="text" class="form-control" name="name" placeholder="Name"></div>
       <div>
         <select name="lots" class="form-control">
@@ -91,7 +92,7 @@
         </select></div>
       <div><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
     </div>
-    <div><button type="submit" class="btn btn-success"></button></div>
+    <div class="addnew"><button type="submit" class="btn btn-success"></button></div>
   </form>
 </div>
 
