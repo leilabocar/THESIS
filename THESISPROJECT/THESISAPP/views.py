@@ -603,7 +603,7 @@ def TermsofPayment(request):
 def GraveFinder(request):
     if 'q' in request.GET:
         q=request.GET['q']
-        prod = Product.objects.filter(deceased__icontains=q).order_by('-lot')
+        prod = Product.objects.filter(deceased__icontains=q).order_by('desc')
     else:
         prod = Product.objects.order_by('-lot')
     p = Paginator(prod, per_page=14)
