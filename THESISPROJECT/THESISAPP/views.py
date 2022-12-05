@@ -165,7 +165,7 @@ def PaymentHistory(request, pk):
 def Property(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         a = User.objects.get(pk=pk)
-        display = a.lotorder_set.exclude(balance=0)
+        display = a.lotorder_set.filter(balance=0)
     else:
         return redirect('Logout')
     return render(request, 'files/Property.html',{'a':a,'display':display})
@@ -177,12 +177,12 @@ def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Admin Homepage")
         a = User.objects.filter(pk=pk)
-        if 'name' in request.GET:
-            q=request.GET['name']
-            prod = Product.objects.filter(deceased__icontains=q).order_by('-lot')
         if 'lots' in request.GET:
             q=request.GET['lots']
             prod = Product.objects.filter(lot__icontains=q).order_by('-lot')
+        if 'name' in request.GET:
+            q=request.GET['name']
+            prod = Product.objects.filter(deceased__icontains=q).order_by('-lot')
         else:
             prod = Product.objects.order_by('-lot')
         p = Paginator(prod, per_page=10)

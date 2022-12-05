@@ -16,10 +16,6 @@
     .row i{
         font-size: small;
     }
-    .float-right{
-      padding-top: 10px;
-      display: inline-flex;
-    }
     .pagination{
     display: flex;
     justify-content: center;
@@ -38,15 +34,14 @@
       background-color: #4CAF50;
       color: white;
     }
-    .search{
-      display: inline-flex;
-      justify-content: space-between;
-      gap: 50px;
+    .alignleft {
+      float: left;
+      padding: 10px 0px 10px 10px;
+      
     }
-
-    .addnew {
-      display:inline-flex;
-      text-align: right;
+    .alignright {
+      float: right;
+      padding: 10px 10px 0px 10px;
     }
 </style>
 </head>
@@ -77,24 +72,29 @@
     </div> 
 </div>
 </nav>
-
-<div class="search">
-  <form method="get">
-    <div class="float-right">
-      <div><input type="text" class="form-control" name="name" placeholder="Name"></div>
-      <div>
+<div id="textbox">
+  <div class="alignright">
+    <form method="get">
+      <div class="d-sm-inline-block">
+        <input type="text" name="name" placeholder="Name" class="form-control">
+      </div>
+      <div class="d-sm-inline-block">
         <select name="lots" class="form-control">
         <option value="" disabled selected hidden>Lot Types</option>
         <option value="Niche">Niche</option>
         <option value="Mausoleum">Mausoleum</option>
         <option value="Apartment">Apartment</option>
         <option value="Lawn Lot">Lawn Lot</option>
-        </select></div>
-      <div><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
-    </div>
-    <div class="addnew"><button type="submit" class="btn btn-success"></button></div>
-  </form>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success">Search</button>
+    </form>
+  </div>
+  <div class="alignleft">
+    <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'AddNew' user.pk %}">Add New</a>
+  </div>
 </div>
+
 
 
 <!--Table-->
