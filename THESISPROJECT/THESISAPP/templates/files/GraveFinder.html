@@ -80,20 +80,25 @@
 </div>
 </form>
 
-<div class="flex-container">
-  <div >
+<div class="flex-container-public">
+  <div class="table-container">
     <table class="table table-bordered table-dark table-hover">
     <tr>
       <thead>
-        <th>Name of Deceased</th>
+        <th>Name</th>
         <th>Location</th>
+        <th>View destination</th>
       </thead>
     </tr>
-    {% for kw in prods %}
+    {% for kw in prod %}
     <tr id="trclick" class="">
         <td id="kw.deceased">{{kw.deceased}}</td>
         <td>{{kw.phase}} Block:{{kw.block}} Lot No.:{{kw.lotno}}</td>
-        <td class="latlong">{{kw.latitude}},{{kw.longitude}}</td>
+        <td>
+          <button class="buttonView buttonView2" onclick="clickViewButton('{{kw.latitude}}','{{kw.longitude}}')">
+            View Destination
+          </button>
+        </td>
     </tr>
     {% endfor %}
   </table>
@@ -104,27 +109,27 @@
   </div>
 </div>
 <div class="pagination">
-  {% if prods.has_previous %}
-      <a href="?page={{prods.previous_page_number}}">
+  {% if prod.has_previous %}
+      <a href="?page={{prod.previous_page_number}}">
         Previous Page
     </a>
   {% endif%}
-  {% for page_number in prods.adjusted_elided_pages %}
+  {% for page_number in prod.adjusted_elided_pages %}
 
-      {% if page_number == prods.paginator.ELLIPSIS %}
+      {% if page_number == prod.paginator.ELLIPSIS %}
           {{page_number}}
       {% else %}
           <a
               href="?page={{page_number}}"
-              class="{% if page_number == prods.number %}active{% endif %}"
+              class="{% if page_number == prod.number %}active{% endif %}"
           >
               {{page_number}}
           </a>
       {% endif %}
   
   {% endfor %}
-  {% if prods.has_next %}
-      <a href="?page={{prods.next_page_number}}">
+  {% if prod.has_next %}
+      <a href="?page={{prod.next_page_number}}">
           Next Page
       </a>
   {% endif%}
