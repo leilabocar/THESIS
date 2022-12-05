@@ -19,6 +19,29 @@
     .btn-space{
       margin-right: 5px;
     }
+    .pagination{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+    .pagination a {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 8px 16px;
+      transition: background-color .3s;
+      text-decoration: none;
+    }
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .pagination a.active {
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+    }
+    .float-right{
+      margin-bottom: 10px;
+      margin-top:10px;
+      text-align: right;
+    }
 </style>
 </head>
 <body>
@@ -38,15 +61,19 @@
 
 </nav>
 <form method="get">
-<div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
-    Search: 
-    {% render_field myFilter.form.customer class="form-control.d-sm-inline-flex" placeholder='Lot Type:' %}
-    {% render_field myFilter.form.product class="form-control.d-sm-inline-flex" placeholder='Phase:' %}
-    {% render_field myFilter.form.status class="form-control.d-sm-inline-flex" placeholder='Block:' %}
-    {% render_field myFilter.form.instance.product_phase class="form-control.d-sm-inline-flex" placeholder='Phase:' %}
-    <button type="submit" class="btn btn-success float-sm-right">Search</button>
+  <div class="float-right">
+    <div class="d-sm-inline-block"><input type="text" name="name" class="form-control" placeholder="Username" /></div>
+    <div class="d-sm-inline-block"><select name="lots" class="form-control">
+                                    <option value="" disabled selected hidden>Lot Types</option>
+                                    <option value="Niche">Niche</option>
+                                    <option value="Mausoleum">Mausoleum</option>
+                                    <option value="Apartment">Apartment</option>
+                                    <option value="Lawn Lot">Lawn Lot</option>
+                                  </select></div>
+    <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
+  </div>
 </div>
-</form><br>
+</form>
 <!--Table-->
   <div style="overflow-x:auto;" class="col-sm-12">
     <style>
@@ -99,7 +126,33 @@
                 </tr>
               {% endfor %}
             </tbody>
-        </table><br><br>
+        </table>
+        <div class="pagination">
+          {% if orders.has_previous %}
+              <a href="?page={{orders.previous_page_number}}">
+                Previous Page
+            </a>
+          {% endif%}
+          {% for page_number in orders.adjusted_elided_pages %}
+        
+              {% if page_number == orders.paginator.ELLIPSIS %}
+                  {{page_number}}
+              {% else %}
+                  <a
+                      href="?page={{page_number}}"
+                      class="{% if page_number == orders.number %}active{% endif %}"
+                  >
+                      {{page_number}}
+                  </a>
+              {% endif %}
+          
+          {% endfor %}
+          {% if orders.has_next %}
+              <a href="?page={{orders.next_page_number}}">
+                  Next Page
+              </a>
+          {% endif%}
+        </div>
   </div>
 </body>
 </html>

@@ -177,23 +177,44 @@ def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Admin Homepage")
         a = User.objects.filter(pk=pk)
-        prod = Product.objects.all()
-        myFilter = productFilter(request.GET, queryset=prod)
-        prod = myFilter.qs
+        if 'name' in request.GET:
+            q=request.GET['name']
+            prod = Product.objects.filter(deceased__icontains=q).order_by('-lot')
+        if 'lots' in request.GET:
+            q=request.GET['lots']
+            prod = Product.objects.filter(lot__icontains=q).order_by('-lot')
+        else:
+            prod = Product.objects.order_by('-lot')
+        p = Paginator(prod, per_page=10)
+        page = request.GET.get('page')
+        if page == None or page == "":
+            page = "1"
+        prods = p.get_page(page)
+        prods.adjusted_elided_pages = p.get_elided_page_range(page)
     else:
         return redirect('Logout')
-    return render(request, 'files/AdminHomepage.html', {'a':a,'prod':prod,'myFilter':myFilter})
+    return render(request, 'files/AdminHomepage.html', {'a':a,'prod':prod,'prods':prods})
 
 @login_required(login_url='/accounts/login/')
 def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Client Payment Page")
-        orders = LotOrder.objects.order_by('-product')
-        myFilter = clientpaymentFilter(request.GET, queryset=orders)
-        orders = myFilter.qs
+        if 'name' in request.GET:
+            q=request.GET['name']
+            order = LotOrder.objects.filter(customer_id__username__icontains=q).order_by('-product')
+        if 'lots' in request.GET:
+            q=request.GET['lots']
+            order = LotOrder.objects.filter(product_id__lot__icontains=q).order_by('-product')
+        else:
+            order = LotOrder.objects.order_by('-product')
+        p = Paginator(order, per_page=11)
+        page = request.GET.get('page')
+        if page == None or page == "":
+            page = "1"
+        orders = p.get_page(page)
+        orders.adjusted_elided_pages = p.get_elided_page_range(page)
     else:
         return redirect('Logout')
-    return render(request, 'files/ClientPayment.html',{'orders':orders,'myFilter':myFilter})
+    return render(request, 'files/ClientPayment.html',{'order':order,'orders':orders})
 
 @login_required(login_url='/accounts/login/')
 def PropertyManagement(request, pk):
@@ -595,10 +616,17 @@ def GraveFinder(request):
 
 def InquiryForm(request):
     form = InquiryFormForm()
-    avail = LotOrder.objects.all().filter(terms=None)
-    paginator = Paginator(avail,18)
-    page_number = request.GET.get('page')
-    avail = paginator.get_page(page_number)
+    if 'lots' in request.GET:
+        q=request.GET['lots']
+        available = LotOrder.objects.filter(product_id__lot__icontains=q,terms=None).order_by('-product')
+    else:
+        available = LotOrder.objects.all().filter(terms=None).order_by('-product')
+    p = Paginator(available, per_page=16)
+    page = request.GET.get('page')
+    if page == None or page == "":
+        page = "1"
+    avail = p.get_page(page)
+    avail.adjusted_elided_pages = p.get_elided_page_range(page)
     if request.method == 'POST':
         form = InquiryFormForm(request.POST)
         if form.is_valid():
@@ -608,7 +636,7 @@ def InquiryForm(request):
         else:
             print('Error')
             return redirect('InquiryForm')
-    return render(request, 'files/InquiryForm.html',{'form':form,'avail':avail})
+    return render(request, 'files/InquiryForm.html',{'form':form,'available':available,'avail':avail})
 
 def Lawn(request):
     return render(request, 'files/Lawn.html')

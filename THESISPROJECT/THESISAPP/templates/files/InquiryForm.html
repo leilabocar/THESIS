@@ -25,10 +25,11 @@
         box-shadow: 2px 5px 5px 0px #eee;
         width: 1300px;
         padding-top: 5px;
-        height: 800px; 
+        height: 740px; 
         }
         .table1{
             width: 1300px;
+            display: block;
 
         }
         .heading {
@@ -43,6 +44,28 @@
             gap: 20px;
             padding-left: 20px;
             padding-right: 20px;
+        }
+        .search{
+            text-align: right;
+            margin: 10px 0px 10px 0px;
+        }
+        .pagination{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        }
+        .pagination a {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 16px;
+            transition: background-color .3s;
+            text-decoration: none;
+        }
+        .pagination a:hover:not(.active) {background-color: #ddd;}
+        .pagination a.active {
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
         }
     </style>
 </head>
@@ -61,7 +84,21 @@
         </ul>
     </div>
 </nav>
-
+<div class="search">
+    <form method="get">
+        <div class="float-right">
+          <div class="d-sm-inline-block"><select name="lots" class="form-control">
+                                          <option value="" disabled selected hidden>Lot Types</option>
+                                          <option value="Niche">Niche</option>
+                                          <option value="Mausoleum">Mausoleum</option>
+                                          <option value="Apartment">Apartment</option>
+                                          <option value="Lawn Lot">Lawn Lot</option>
+                                        </select></div>
+          <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
+        </div>
+      </div>
+      </form>
+</div>
 <div class="main-container">
     <div class="container"><form name="vform" onsubmit="return Validate()" method="post">
         {% csrf_token %}
@@ -164,9 +201,8 @@
                     aria-describedby="inputGroup-sizing-default" required>
                     <div id="Email_error"></div>
             </div>
-            <div class="d-flex justify-content-center mt-5 button">
                 <button type="submit" class="btn btn-primary rounded submit px-3">Submit</button>
-            </div>
+
         </div>
     </form>
     <div class="table1">
@@ -189,22 +225,31 @@
             </thead>
         </table>
         <div class="pagination">
-            <span class="step-links">
-                {% if avail.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ avail.previous_page_number }}">previous</a>
+            {% if avail.has_previous %}
+                <a href="?page={{avail.previous_page_number}}">
+                  Previous Page
+              </a>
+            {% endif%}
+            {% for page_number in avail.adjusted_elided_pages %}
+          
+                {% if page_number == avail.paginator.ELLIPSIS %}
+                    {{page_number}}
+                {% else %}
+                    <a
+                        href="?page={{page_number}}"
+                        class="{% if page_number == avail.number %}active{% endif %}"
+                    >
+                        {{page_number}}
+                    </a>
                 {% endif %}
-        
-                <span class="current">
-                    Page {{ avail.number }} of {{ avail.paginator.num_pages }}.
-                </span>
-        
-                {% if avail.has_next %}
-                    <a href="?page={{ avail.next_page_number }}">next</a>
-                    <a href="?page={{ avail.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
+            
+            {% endfor %}
+            {% if avail.has_next %}
+                <a href="?page={{avail.next_page_number}}">
+                    Next Page
+                </a>
+            {% endif%}
+          </div>
     </div>
 </div>
 <img src="{% static 'images/termsofpayment.png' %}" class="d-block mx-auto" style="width:80%">
