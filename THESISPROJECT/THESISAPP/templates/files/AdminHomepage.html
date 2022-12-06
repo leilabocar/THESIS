@@ -108,7 +108,6 @@
           <th>Date of Burial</th>
           <th>Lot Type</th>
           <th>Address</th>
-          <th>Location</th>
           <th>Action</th>
         </thead>
       </tr>
@@ -119,7 +118,6 @@
         <td>{{i.died}}</td>
         <td>{{i.lot}}</td>
         <td>Phase:{{i.phase}} Block:{{i.block}} Lot No.:{{i.lotno}}</td>
-        <td>{{i.longitude}},{{i.latitude}}</td>
         <td><a class="btn btn-primary" style="font-size: 15px;" href="{% url 'AddNewUpdate' i.pk %}">Update</a>
           <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'AddNewDelete' i.pk %}">Delete</a></td>
       </tr>

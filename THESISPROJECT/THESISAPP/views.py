@@ -177,14 +177,15 @@ def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Admin Homepage")
         a = User.objects.filter(pk=pk)
-        if 'lots' in request.GET:
-            q=request.GET['lots']
-            prod = Product.objects.filter(lot__icontains=q).order_by('-lot')
+        prod = Product.objects.order_by('-id')
         if 'name' in request.GET:
             q=request.GET['name']
-            prod = Product.objects.filter(deceased__icontains=q).order_by('-lot')
+            prod = Product.objects.filter(deceased__icontains=q)
+        if 'lots' in request.GET:
+            q=request.GET['lots']
+            prod = Product.objects.filter(lot__icontains=q)
         else:
-            prod = Product.objects.order_by('-lot')
+            pass
         p = Paginator(prod, per_page=10)
         page = request.GET.get('page')
         if page == None or page == "":
@@ -291,9 +292,11 @@ def AddNew(request, pk):
             form = ProductForm(request.POST)
             if form.is_valid():
                 form.save()
-                print('Success')
+                messages.success(request, 'Successfully Added'),
+                fail_silently=True
+                return redirect('AddNew', pk=pk)
             else:
-                print('Error')
+                messages.error(request,'Invalid Input')
     else:
         return redirect('Logout')
     return render(request, 'files/AddNew.html',{'a':a,'form':form})
@@ -307,6 +310,11 @@ def AddNewUpdate(request,pk):
             form = ProductForm(request.POST, instance=prod)
             if form.is_valid():
                 form.save()
+                messages.success(request, 'Successfully Updated'),
+                fail_silently=True
+            else:
+                messages.error(request, 'Invalid Input'),
+                fail_silently=True
     else:
         return redirect('Logout')
     return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
@@ -604,9 +612,9 @@ def GraveFinder(request):
     q = ""
     if 'q' in request.GET:
         q=request.GET['q']
-        prod = Product.objects.filter(deceased__icontains=q).order_by('desc')
+        prod = Product.objects.filter(deceased__icontains=q).order_by('-id')
     else:
-        prod = Product.objects.order_by('-lot')
+        prod = Product.objects.order_by('-id')
     p = Paginator(prod, per_page=8)
     page = request.GET.get('page')
     if page == None or page == "":
@@ -632,10 +640,12 @@ def InquiryForm(request):
         form = InquiryFormForm(request.POST)
         if form.is_valid():
             form.save()
-            print('Success')
+            messages.success(request, 'Success'),
+            fail_silently=True,
             return redirect('InquiryForm')
         else:
-            print('Error')
+            messages.error(request, 'Error'),
+            fail_silently=True,
             return redirect('InquiryForm')
     return render(request, 'files/InquiryForm.html',{'form':form,'available':available,'avail':avail})
 

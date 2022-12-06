@@ -32,7 +32,9 @@
     </ul>
 </div>
 </nav>
-<form method="get">{% csrf_token %}
+{% csrf_token %}
+
+<form method="get">
   <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
       Search: 
       {% render_field myFilter.form.lot_type class="form-control.d-sm-inline-flex" placeholder='Lot Type:' %}
