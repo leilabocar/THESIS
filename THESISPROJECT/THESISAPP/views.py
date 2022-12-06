@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
@@ -177,26 +177,35 @@ def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         print ("Admin Homepage")
         a = User.objects.filter(pk=pk)
-        prod = Product.objects.order_by('-id')
-        q=''
-        w=''
-        if 'name' in request.GET:
-            q=request.GET['name']
-            prod = Product.objects.filter(deceased__icontains=q)
-        if 'lots' in request.GET:
-            w=request.GET['lots']
-            prod = Product.objects.filter(lot__icontains=w)
-        else:
-            pass
-        p = Paginator(prod, per_page=10)
-        page = request.GET.get('page')
-        if page == None or page == "":
-            page = "1"
-        prods = p.get_page(page)
-        prods.adjusted_elided_pages = p.get_elided_page_range(page)
+        # prod = Product.objects.order_by('-id')
+        # q=''
+        # w=''
+        # if 'name' in request.GET:
+        #     q=request.GET['name']
+        #     prod = Product.objects.filter(deceased__icontains=q)
+        # if 'lots' in request.GET:
+        #     w=request.GET['lots']
+        #     prod = Product.objects.filter(lot__icontains=w)
+        # else:
+        #     pass
+        # p = Paginator(prod, per_page=10)
+        # page = request.GET.get('page')
+        # if page == None or page == "":
+        #     page = "1"
+        # prods = p.get_page(page)
+        # prods.adjusted_elided_pages = p.get_elided_page_range(page)
+        context= {}
+        filter_all = productFilter(request.GET, queryset=Product.objects.order_by('-id'))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 10)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
     else:
         return redirect('Logout')
-    return render(request, 'files/AdminHomepage.html', {'a':a,'prod':prod,'prods':prods,'q':q,'w':w})
+    return render(request, 'files/AdminHomepage.html', context=context)
 
 @login_required(login_url='/accounts/login/')
 def ClientPayment(request, pk):

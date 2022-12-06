@@ -72,9 +72,11 @@
     </div> 
 </div>
 </nav>
+
 <div id="textbox">
   <div class="alignright">
     <form method="get">
+      {{ filter_all.form.as_p}}
       <div class="d-sm-inline-block">
         <input type="text" name="name" placeholder="Name" class="form-control">
       </div>
@@ -111,7 +113,7 @@
           <th>Action</th>
         </thead>
       </tr>
-      {% for i in prods %}
+      {% for i in all_page_obj %}
       <tr>
         <td>{{i.deceased}}</td>
         <td>{{i.born}}</td>
@@ -124,32 +126,23 @@
       {% endfor %}
     </thead>
   </table>
-  <div class="pagination">
-    {% if prods.has_previous %}
-        <a href="?page={{prods.previous_page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}">
-          Previous Page
-      </a>
-    {% endif%}
-    {% for page_number in prods.adjusted_elided_pages %}
-  
-        {% if page_number == prods.paginator.ELLIPSIS %}
-            {{page_number}}
-        {% else %}
-            <a
-                href="?page={{page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}"
-                class="{% if page_number == prods.number %}active{% endif %}"
-            >
-                {{page_number}}
-            </a>
-        {% endif %}
-    
-    {% endfor %}
-    {% if prods.has_next %}
-        <a href="?page={{prods.next_page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}">
-            Next Page
-        </a>
-    {% endif%}
   </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if all_page_obj.has_previous %}
+      <a href="?page=1">&laquo; First</a>
+      <a href="?page={{ all_page_obj.previous_page_number }}">&laquo; First</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{all_page_obj.number}} of {{all_page_obj.paginator.num_pages}}.
+      </span>
+
+      {% if all_page_obj.has_next %}
+      <a href="?page={{ all_page_obj.next_page_number }}">&raquo;; Next</a>
+      <a href="?page={{ all_page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    </span>
   </div>
 </table>
 
