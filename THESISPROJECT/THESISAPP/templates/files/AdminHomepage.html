@@ -46,6 +46,7 @@
 </style>
 </head>
 <body>
+  {% load THESISAPP_extras %}
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
@@ -130,8 +131,8 @@
   <div class="pagination">
     <span class="step-links">
       {% if all_page_obj.has_previous %}
-      <a href="?page=1">&laquo; First</a>
-      <a href="?page={{ all_page_obj.previous_page_number }}">&laquo; First</a>
+      <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
+      <a href="{% my_url all_page_obj.previous_page_number 'page' request.GET.urlencode %}">&laquo; Previous</a>
       {% endif %}
 
       <span class="current">
@@ -139,8 +140,8 @@
       </span>
 
       {% if all_page_obj.has_next %}
-      <a href="?page={{ all_page_obj.next_page_number }}">&raquo;; Next</a>
-      <a href="?page={{ all_page_obj.paginator.num_pages }}">Last</a>
+      <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo;; Next</a>
+      <a href="{% my_url all_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
       {% endif %}
     </span>
   </div>
