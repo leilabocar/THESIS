@@ -110,7 +110,7 @@
 </div>
 <div class="pagination">
   {% if prod.has_previous %}
-      <a href="?page={{prod.previous_page_number}}">
+      <a href="?page={{prod.previous_page_number}}&q={{q|urlencode}}">
         Previous Page
     </a>
   {% endif%}
@@ -120,7 +120,7 @@
           {{page_number}}
       {% else %}
           <a
-              href="?page={{page_number}}"
+              href="?page={{page_number}}&q={{q|urlencode}}"
               class="{% if page_number == prod.number %}active{% endif %}"
           >
               {{page_number}}
@@ -129,7 +129,7 @@
   
   {% endfor %}
   {% if prod.has_next %}
-      <a href="?page={{prod.next_page_number}}">
+      <a href="?page={{prod.next_page_number}}&q={{q|urlencode}}">
           Next Page
       </a>
   {% endif%}
