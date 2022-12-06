@@ -199,14 +199,19 @@ def AdminHomepage(request, pk):
 @login_required(login_url='/accounts/login/')
 def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
+        q =''
+        order = LotOrder.objects.order_by('-product')
         if 'name' in request.GET:
             q=request.GET['name']
-            order = LotOrder.objects.filter(customer_id__username__icontains=q).order_by('-product')
+            if q == '':
+                order = LotOrder.objects.order_by('-product')
+            else:
+                order = LotOrder.objects.filter(customer_id__username__icontains=q)
         if 'lots' in request.GET:
             q=request.GET['lots']
-            order = LotOrder.objects.filter(product_id__lot__icontains=q).order_by('-product')
+            order = LotOrder.objects.filter(product_id__lot__icontains=q)
         else:
-            order = LotOrder.objects.order_by('-product')
+            pass
         p = Paginator(order, per_page=11)
         page = request.GET.get('page')
         if page == None or page == "":
@@ -215,7 +220,7 @@ def ClientPayment(request, pk):
         orders.adjusted_elided_pages = p.get_elided_page_range(page)
     else:
         return redirect('Logout')
-    return render(request, 'files/ClientPayment.html',{'order':order,'orders':orders})
+    return render(request, 'files/ClientPayment.html',{'order':order,'orders':orders,'q':q})
 
 @login_required(login_url='/accounts/login/')
 def PropertyManagement(request, pk):
@@ -230,6 +235,9 @@ def PropertyManagement(request, pk):
             if form.is_valid() and form1.is_valid():
                 form.save()
                 form1.save()
+                messages.success(request, 'Successfully Added')
+            else:
+                messages.error(request, 'Invalid Input')
     else:
         return redirect('Logout')
     return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'form1':form1})
@@ -246,6 +254,10 @@ def PropertyManagementUpdate(request, pk):
             if form.is_valid() and form1.is_valid():
                 form.save()
                 form1.save()
+                messages.success(request, 'Successfully Updated')
+                return redirect('')
+            else:
+                messages.error(request, 'Invalid Input')
     else:
         return redirect('Logout')
     return render(request, 'files/PropertyManagement.html',{'form':form,'order':order, 'form1':form1})
