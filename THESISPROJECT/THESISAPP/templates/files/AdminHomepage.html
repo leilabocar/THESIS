@@ -77,19 +77,11 @@
 <div id="textbox">
   <div class="alignright">
     <form method="get">
-      {{ filter_all.form.as_p}}
-      <div class="d-sm-inline-block">
-        <input type="text" name="name" placeholder="Name" class="form-control">
-      </div>
-      <div class="d-sm-inline-block">
-        <select name="lots" class="form-control">
-        <option value="" disabled selected hidden>Lot Types</option>
-        <option value="Niche">Niche</option>
-        <option value="Mausoleum">Mausoleum</option>
-        <option value="Apartment">Apartment</option>
-        <option value="Lawn Lot">Lawn Lot</option>
-        </select>
-      </div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.deceased class="form-control" placeholder='Name' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lot class="form-control" empty_label='Lot Type:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.phase class="form-control" placeholder='Phase:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.block class="form-control" placeholder='Block:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lotno class="form-control" placeholder='Lot:' %}</div>
       <button type="submit" class="btn btn-success">Search</button>
     </form>
   </div>
