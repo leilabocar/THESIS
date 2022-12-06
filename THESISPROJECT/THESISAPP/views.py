@@ -624,16 +624,27 @@ def GraveFinder(request):
     q = ""
     if 'q' in request.GET:
         q=request.GET['q']
-        prod = Product.objects.filter(deceased__icontains=q).order_by('-id')
+        if q =='':
+            return render(request, 'files/GraveFinder.html')
+        else:
+            prod = Product.objects.filter(deceased__icontains=q).order_by('-id')
+            p = Paginator(prod, per_page=8)
+            page = request.GET.get('page')
+            if page == None or page == "":
+                page = "1"
+            prod = p.get_page(page)
+            prod.adjusted_elided_pages = p.get_elided_page_range(page)
+            return render(request, 'files/GraveFinder.html',{'prod':prod,'q':q })
     else:
-        prod = Product.objects.order_by('-id')
-    p = Paginator(prod, per_page=8)
-    page = request.GET.get('page')
-    if page == None or page == "":
-        page = "1"
-    prod = p.get_page(page)
-    prod.adjusted_elided_pages = p.get_elided_page_range(page)
-    return render(request, 'files/GraveFinder.html',{'prod':prod,'q':q })
+        return render(request, 'files/GraveFinder.html')
+
+    # p = Paginator(prod, per_page=8)
+    # page = request.GET.get('page')
+    # if page == None or page == "":
+    #     page = "1"
+    # prod = p.get_page(page)
+    # prod.adjusted_elided_pages = p.get_elided_page_range(page)
+    # return render(request, 'files/GraveFinder.html',{'prod':prod,'q':q })
 
 def InquiryForm(request):
     form = InquiryFormForm()
