@@ -178,12 +178,14 @@ def AdminHomepage(request, pk):
         print ("Admin Homepage")
         a = User.objects.filter(pk=pk)
         prod = Product.objects.order_by('-id')
+        q=''
+        w=''
         if 'name' in request.GET:
             q=request.GET['name']
             prod = Product.objects.filter(deceased__icontains=q)
         if 'lots' in request.GET:
-            q=request.GET['lots']
-            prod = Product.objects.filter(lot__icontains=q)
+            w=request.GET['lots']
+            prod = Product.objects.filter(lot__icontains=w)
         else:
             pass
         p = Paginator(prod, per_page=10)
@@ -194,7 +196,7 @@ def AdminHomepage(request, pk):
         prods.adjusted_elided_pages = p.get_elided_page_range(page)
     else:
         return redirect('Logout')
-    return render(request, 'files/AdminHomepage.html', {'a':a,'prod':prod,'prods':prods})
+    return render(request, 'files/AdminHomepage.html', {'a':a,'prod':prod,'prods':prods,'q':q,'w':w})
 
 @login_required(login_url='/accounts/login/')
 def ClientPayment(request, pk):

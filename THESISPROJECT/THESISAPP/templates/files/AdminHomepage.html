@@ -126,7 +126,7 @@
   </table>
   <div class="pagination">
     {% if prods.has_previous %}
-        <a href="?page={{prods.previous_page_number}}">
+        <a href="?page={{prods.previous_page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}">
           Previous Page
       </a>
     {% endif%}
@@ -136,7 +136,7 @@
             {{page_number}}
         {% else %}
             <a
-                href="?page={{page_number}}"
+                href="?page={{page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}"
                 class="{% if page_number == prods.number %}active{% endif %}"
             >
                 {{page_number}}
@@ -145,7 +145,7 @@
     
     {% endfor %}
     {% if prods.has_next %}
-        <a href="?page={{prods.next_page_number}}">
+        <a href="?page={{prods.next_page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}">
             Next Page
         </a>
     {% endif%}
