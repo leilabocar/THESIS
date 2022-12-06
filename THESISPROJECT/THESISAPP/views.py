@@ -257,7 +257,6 @@ def PropertyManagementUpdate(request, pk):
                 form.save()
                 form1.save()
                 messages.success(request, 'Successfully Updated')
-                return redirect('')
             else:
                 messages.error(request, 'Invalid Input')
     else:
