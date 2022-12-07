@@ -119,6 +119,34 @@
       {% endfor %}
     </thead>
   </table>
+<<<<<<< HEAD
+=======
+  <div class="pagination">
+    {% if prods.has_previous %}
+        <a href="?page={{prods.previous_page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}">
+          Previous Page
+      </a>
+    {% endif%}
+    {% for page_number in prods.adjusted_elided_pages %}
+  
+        {% if page_number == prods.paginator.ELLIPSIS %}
+            {{page_number}}
+        {% else %}
+            <a
+                href="?page={{page_number}}&name={{q|urlencode}}"
+                class="{% if page_number == prods.number %}active{% endif %}"
+            >
+                {{page_number}}
+            </a>
+        {% endif %}
+    
+    {% endfor %}
+    {% if prods.has_next %}
+        <a href="?page={{prods.next_page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}">
+            Next Page
+        </a>
+    {% endif%}
+>>>>>>> main
   </div>
   <div class="pagination">
     <span class="step-links">
