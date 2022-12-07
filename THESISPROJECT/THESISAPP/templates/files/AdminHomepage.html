@@ -46,6 +46,7 @@
 </style>
 </head>
 <body>
+  {% load THESISAPP_extras %}
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
@@ -72,21 +73,15 @@
     </div> 
 </div>
 </nav>
+
 <div id="textbox">
   <div class="alignright">
     <form method="get">
-      <div class="d-sm-inline-block">
-        <input type="text" name="name" placeholder="Name" class="form-control">
-      </div>
-      <div class="d-sm-inline-block">
-        <select name="lots" class="form-control">
-        <option value="" disabled selected hidden>Lot Types</option>
-        <option value="Niche">Niche</option>
-        <option value="Mausoleum">Mausoleum</option>
-        <option value="Apartment">Apartment</option>
-        <option value="Lawn Lot">Lawn Lot</option>
-        </select>
-      </div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.deceased class="form-control" placeholder='Name' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lot class="form-control" empty_label='Lot Type:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.phase class="form-control" placeholder='Phase:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.block class="form-control" placeholder='Block:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lotno class="form-control" placeholder='Lot:' %}</div>
       <button type="submit" class="btn btn-success">Search</button>
     </form>
   </div>
@@ -111,7 +106,7 @@
           <th>Action</th>
         </thead>
       </tr>
-      {% for i in prods %}
+      {% for i in all_page_obj %}
       <tr>
         <td>{{i.deceased}}</td>
         <td>{{i.born}}</td>
@@ -124,6 +119,8 @@
       {% endfor %}
     </thead>
   </table>
+<<<<<<< HEAD
+=======
   <div class="pagination">
     {% if prods.has_previous %}
         <a href="?page={{prods.previous_page_number}}&name={{q|urlencode}}&lots={{w|urlencode}}">
@@ -149,7 +146,24 @@
             Next Page
         </a>
     {% endif%}
+>>>>>>> main
   </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if all_page_obj.has_previous %}
+      <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
+      <a href="{% my_url all_page_obj.previous_page_number 'page' request.GET.urlencode %}">&laquo; Previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{all_page_obj.number}} of {{all_page_obj.paginator.num_pages}}.
+      </span>
+
+      {% if all_page_obj.has_next %}
+      <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo; Next</a>
+      <a href="{% my_url all_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
+      {% endif %}
+    </span>
   </div>
 </table>
 
