@@ -191,28 +191,18 @@ def AdminHomepage(request, pk):
 @login_required(login_url='/accounts/login/')
 def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
-        q =''
-        order = LotOrder.objects.order_by('-product')
-        if 'name' in request.GET:
-            q=request.GET['name']
-            if q == '':
-                order = LotOrder.objects.order_by('-product')
-            else:
-                order = LotOrder.objects.filter(customer_id__username__icontains=q)
-        if 'lots' in request.GET:
-            q=request.GET['lots']
-            order = LotOrder.objects.filter(product_id__lot__icontains=q)
-        else:
-            pass
-        p = Paginator(order, per_page=11)
-        page = request.GET.get('page')
-        if page == None or page == "":
-            page = "1"
-        orders = p.get_page(page)
-        orders.adjusted_elided_pages = p.get_elided_page_range(page)
+        context= {}
+        filter_all = clientpaymentFilter(request.GET, queryset=LotOrder.objects.order_by('-id'))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
     else:
         return redirect('Logout')
-    return render(request, 'files/ClientPayment.html',{'order':order,'orders':orders,'q':q})
+    return render(request, 'files/ClientPayment.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def PropertyManagement(request, pk):

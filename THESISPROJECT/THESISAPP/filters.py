@@ -37,3 +37,4 @@ class applicationFilter(django_filters.FilterSet):
     class Meta:
         model = ApplicationFormModel
         fields = '__all__'
+

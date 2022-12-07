@@ -66,6 +66,9 @@
             background-color: #4CAF50;
             color: white;
         }
+        .float-right{
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -109,6 +112,50 @@
 </div>
 
 <div class="main-container">
+    <div class="table1">
+        <table class="table table-bordered table-dark table-hover">
+            <thead>
+            <tr>
+                <thead>
+                <th>Lot Type</th>
+                <th>Address</th>
+                </thead>
+            </tr>
+            {% for i in avail%}
+            <tr>
+                <td>{{i.product.lot}}</td>
+                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
+            </tr>
+            {% endfor %}
+            </thead>
+        </table>
+        <div class="pagination">
+            {% if avail.has_previous %}
+                <a href="?page={{avail.previous_page_number}}">
+                  Previous Page
+              </a>
+            {% endif%}
+            {% for page_number in avail.adjusted_elided_pages %}
+          
+                {% if page_number == avail.paginator.ELLIPSIS %}
+                    {{page_number}}
+                {% else %}
+                    <a
+                        href="?page={{page_number}}"
+                        class="{% if page_number == avail.number %}active{% endif %}"
+                    >
+                        {{page_number}}
+                    </a>
+                {% endif %}
+            
+            {% endfor %}
+            {% if avail.has_next %}
+                <a href="?page={{avail.next_page_number}}">
+                    Next Page
+                </a>
+            {% endif%}
+          </div>
+    </div>
     <div class="container"><form name="vform" onsubmit="return Validate()" method="post">
         {% csrf_token %}
             <!-- Content here -->
@@ -215,50 +262,7 @@
         </div>
     </form>
     <div class="table1">
-        <table class="table table-bordered table-dark table-hover">
-            <thead>
-            <tr>
-                <thead>
-                <th>Lot Type</th>
-                <th>Address</th>
-                <th>Coordinates</th>
-                </thead>
-            </tr>
-            {% for i in avail%}
-            <tr>
-                <td>{{i.product.lot}}</td>
-                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
-                <td>{{i.product.longitude}}{{i.product.latitude}}</td>
-            </tr>
-            {% endfor %}
-            </thead>
-        </table>
-        <div class="pagination">
-            {% if avail.has_previous %}
-                <a href="?page={{avail.previous_page_number}}">
-                  Previous Page
-              </a>
-            {% endif%}
-            {% for page_number in avail.adjusted_elided_pages %}
-          
-                {% if page_number == avail.paginator.ELLIPSIS %}
-                    {{page_number}}
-                {% else %}
-                    <a
-                        href="?page={{page_number}}"
-                        class="{% if page_number == avail.number %}active{% endif %}"
-                    >
-                        {{page_number}}
-                    </a>
-                {% endif %}
-            
-            {% endfor %}
-            {% if avail.has_next %}
-                <a href="?page={{avail.next_page_number}}">
-                    Next Page
-                </a>
-            {% endif%}
-          </div>
+        
     </div>
 </div>
 <img src="{% static 'images/termsofpayment.png' %}" class="d-block mx-auto" style="width:80%">

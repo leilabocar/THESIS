@@ -71,6 +71,16 @@
     </div>
   </div>
 </nav>
+{% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger" id="msg" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
 
 <form method="get">
   <div class="float-left">
@@ -194,6 +204,13 @@
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQVmcMjxpC9weEbkB8mBZZh0bXDbJhnsc&callback=initMap"
     async defer></script> -->
 </body>
+<script>
+  var message_ele = document.getElementById("msg");
+
+  setTimeout(function(){ 
+  message_ele.style.display = "none"; 
+  }, 2000);
+</script>
 </html>
 
 
