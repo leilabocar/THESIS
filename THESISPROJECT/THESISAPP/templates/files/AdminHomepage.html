@@ -132,7 +132,7 @@
       </span>
 
       {% if all_page_obj.has_next %}
-      <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo;; Next</a>
+      <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo; Next</a>
       <a href="{% my_url all_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
       {% endif %}
     </span>
