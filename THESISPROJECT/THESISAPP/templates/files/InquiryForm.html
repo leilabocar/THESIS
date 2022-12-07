@@ -22,12 +22,13 @@
         text-align: center;
         opacity: 0.8;
         box-shadow: 2px 5px 5px 0px #eee;
-        width: 1300px;
+        width: 80%;
         padding-top: 5px;
-        height: 740px; 
+        height: 80%; 
+        padding-bottom: 10px;
         }
         .table1{
-            width: 1300px;
+            width: 80%;
             display: block;
 
         }
@@ -52,6 +53,7 @@
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
+        width: auto;
         }
         .pagination a {
             border: 1px solid #ddd;
@@ -59,15 +61,13 @@
             padding: 8px 16px;
             transition: background-color .3s;
             text-decoration: none;
+            width: auto;
         }
         .pagination a:hover:not(.active) {background-color: #ddd;}
         .pagination a.active {
             border-radius: 5px;
             background-color: #4CAF50;
             color: white;
-        }
-        .float-right{
-            text-align: left;
         }
     </style>
 </head>
@@ -112,50 +112,6 @@
 </div>
 
 <div class="main-container">
-    <div class="table1">
-        <table class="table table-bordered table-dark table-hover">
-            <thead>
-            <tr>
-                <thead>
-                <th>Lot Type</th>
-                <th>Address</th>
-                </thead>
-            </tr>
-            {% for i in avail%}
-            <tr>
-                <td>{{i.product.lot}}</td>
-                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
-            </tr>
-            {% endfor %}
-            </thead>
-        </table>
-        <div class="pagination">
-            {% if avail.has_previous %}
-                <a href="?page={{avail.previous_page_number}}">
-                  Previous Page
-              </a>
-            {% endif%}
-            {% for page_number in avail.adjusted_elided_pages %}
-          
-                {% if page_number == avail.paginator.ELLIPSIS %}
-                    {{page_number}}
-                {% else %}
-                    <a
-                        href="?page={{page_number}}"
-                        class="{% if page_number == avail.number %}active{% endif %}"
-                    >
-                        {{page_number}}
-                    </a>
-                {% endif %}
-            
-            {% endfor %}
-            {% if avail.has_next %}
-                <a href="?page={{avail.next_page_number}}">
-                    Next Page
-                </a>
-            {% endif%}
-          </div>
-    </div>
     <div class="container"><form name="vform" onsubmit="return Validate()" method="post">
         {% csrf_token %}
             <!-- Content here -->
@@ -262,7 +218,48 @@
         </div>
     </form>
     <div class="table1">
-        
+        <table class="table table-bordered table-dark table-hover">
+            <thead>
+            <tr>
+                <thead>
+                <th>Lot Type</th>
+                <th>Address</th>
+                </thead>
+            </tr>
+            {% for i in avail%}
+            <tr>
+                <td>{{i.product.lot}}</td>
+                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
+            </tr>
+            {% endfor %}
+            </thead>
+        </table>
+        <div class="pagination">
+            {% if avail.has_previous %}
+                <a href="?page={{avail.previous_page_number}}">
+                  Previous Page
+              </a>
+            {% endif%}
+            {% for page_number in avail.adjusted_elided_pages %}
+          
+                {% if page_number == avail.paginator.ELLIPSIS %}
+                    {{page_number}}
+                {% else %}
+                    <a
+                        href="?page={{page_number}}"
+                        class="{% if page_number == avail.number %}active{% endif %}"
+                    >
+                        {{page_number}}
+                    </a>
+                {% endif %}
+            
+            {% endfor %}
+            {% if avail.has_next %}
+                <a href="?page={{avail.next_page_number}}">
+                    Next Page
+                </a>
+            {% endif%}
+          </div>
     </div>
 </div>
 <img src="{% static 'images/termsofpayment.png' %}" class="d-block mx-auto" style="width:80%">
