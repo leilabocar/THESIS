@@ -256,12 +256,12 @@ def Notifier(request):
                 duedate = form.cleaned_data.get('duedate')
                 send_mail(
                 'Himlayang Cemetery Billing', 
-                f'Good day {name}, \n \n You need to pay your monthy fee. Your due date is {duedate} with a total balance of {totalamountdue}. Thank you! \n\n Himlayang Cemetery Marketing Department \n' ,
+                f'Good day {name}, \n \n You need to pay your monthly fee. Your due date is {duedate} with a total balance of {totalamountdue}. Thank you! \n\n Himlayang Cemetery Marketing Department \n' ,
                 'andrewleilaraqueljustin@gmail.com',
                 [email],
                 fail_silently=False
             )
-                print(email,name,totalamountdue,duedate)
+                messages.success(request, 'Successfully Sent')
             else:
                 print("ERROR")
     else:
@@ -323,15 +323,19 @@ def AddNewDelete(request,pk):
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Buyers Application Page")
-        a = User.objects.filter(pk=pk)
-        buyers_table = BuyersFormModel.objects.exclude(fullname=None)
-        myFilter = buyersFilter(request.GET, queryset=buyers_table)
-        buyers_table = myFilter.qs
+        context= {}
+        filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
         
     else:
         return redirect('Logout')
-    return render(request, 'files/BuyersApplication.html',{'a':a, 'buyers_table':buyers_table, 'myFilter': myFilter})
+    return render(request, 'files/BuyersApplication.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fullname):
@@ -390,14 +394,18 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
 @login_required(login_url='/accounts/login/')
 def Appointment(request, pk,email):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Appointment Page")
-        a = User.objects.filter(pk=pk)
-        appointment_table = BookAppointmentModel.objects.exclude(email=None)
-        myFilter = appointmentFilter(request.GET, queryset=appointment_table)
-        appointment_table = myFilter.qs
+        context= {}
+        filter_all = appointmentFilter(request.GET, queryset=BookAppointmentModel.objects.exclude(email=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
     else:
         return redirect('Logout')
-    return render(request, 'files/Appointment.html',{'a':a, 'appointment_table':appointment_table, 'myFilter': myFilter})
+    return render(request, 'files/Appointment.html', context=context)
 
 @login_required(login_url='/accounts/login/')
 def AppointmentApprove(request, pk, email,date,fullname):
@@ -446,13 +454,18 @@ def AppointmentReject(request,pk,email,fullname):
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin:
-        a = User.objects.filter(pk=pk)
-        inq_table = inquire.objects.all()
-        myFilter = inquiryFilter(request.GET, queryset=inq_table)
-        inq_table = myFilter.qs
+        context= {}
+        filter_all = inquiryFilter(request.GET, queryset=inquire.objects.all())
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 10)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
     else:
         return redirect('Logout')
-    return render(request, 'files/Inquiry.html',{'inq_table': inq_table ,'a':a,'myFilter':myFilter})
+    return render(request, 'files/Inquiry.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
@@ -507,14 +520,18 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
 @login_required(login_url='/accounts/login/')
 def Application(request,pk,email):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Application Page")
-        a = User.objects.filter(pk=pk)
-        applicants_table = ApplicationFormModel.objects.exclude(fullname=None)
-        myFilter = applicationFilter(request.GET, queryset=applicants_table)
-        applicants_table = myFilter.qs
+        context= {}
+        filter_all = applicationFilter(request.GET, queryset=ApplicationFormModel.objects.exclude(fullname=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
     else:
         return redirect('Logout')
-    return render(request, 'files/Application.html',{'a':a, 'applicants_table':applicants_table, 'myFilter':myFilter})
+    return render(request, 'files/Application.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):

@@ -21,9 +21,28 @@
       padding-top: 30px;
       padding-bottom: 20px;
     }
+    .pagination{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+    .pagination a {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 8px 16px;
+      transition: background-color .3s;
+      text-decoration: none;
+    }
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .pagination a.active {
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+    }
 </style>
 </head>
 <body>
+  {% load THESISAPP_extras %}
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
@@ -39,10 +58,10 @@
 </nav>
 <form method="get"> {% csrf_token %}
   <div class="float-right">
-    <div class="d-sm-inline-block">{% render_field myFilter.form.date class="form-control d-sm-inline-flex" placeholder='Date:' %}</div>
-    <div class="d-sm-inline-block">{% render_field myFilter.form.phase class="form-control d-sm-inline-flex" placeholder='Phase:' %}</div>
-    <div class="d-sm-inline-block">{% render_field myFilter.form.block class="form-control d-sm-inline-flex" placeholder='Block:' %}</div>
-    <div class="d-sm-inline-block">{% render_field myFilter.form.lotno class="form-control d-sm-inline-flex" placeholder='Lot No.:' %}</div>
+    <div class="d-sm-inline-block">{% render_field filter_all.form.date class="form-control" placeholder='Date:' %}</div>
+    <div class="d-sm-inline-block">{% render_field filter_all.form.phase class="form-control" placeholder='Phase:' %}</div>
+    <div class="d-sm-inline-block">{% render_field filter_all.form.block class="form-control" placeholder='Block:' %}</div>
+    <div class="d-sm-inline-block">{% render_field filter_all.form.lotno class="form-control" placeholder='Lot No.:' %}</div>
     <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
   </div>
 </div>
@@ -61,7 +80,7 @@
         <th>Email</th>
         <th>Action</th>
       </tr>
-      {% for appli in applicants_table %}
+      {% for appli in all_page_obj %}
       <tr>
         <td>{{appli.date}}</td>
         <td>Phase:{{appli.phase}} Block:{{appli.block}} Lot:{{appli.lotno}}</td>
@@ -76,7 +95,24 @@
       </tr>
       {% endfor %}
     </thead>
-  </table><br><br>
+  </table>
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+      {% if all_page_obj.has_previous %}
+      <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
+      <a href="{% my_url all_page_obj.previous_page_number 'page' request.GET.urlencode %}">&laquo; Previous</a>
+      {% endif %}
+  
+      <span class="current">
+        Page {{all_page_obj.number}} of {{all_page_obj.paginator.num_pages}}.
+      </span>
+  
+      {% if all_page_obj.has_next %}
+      <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo; Next</a>
+      <a href="{% my_url all_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
+      {% endif %}
+    </span>
   </div>
 </body>
 </html>

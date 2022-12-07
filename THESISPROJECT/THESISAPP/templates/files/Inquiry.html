@@ -16,9 +16,28 @@
     .row i{
         font-size: small;
     }
+    .pagination{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+    .pagination a {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 8px 16px;
+      transition: background-color .3s;
+      text-decoration: none;
+    }
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .pagination a.active {
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+    }
 </style>
 </head>
 <body>
+  {% load THESISAPP_extras %}
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
@@ -37,10 +56,10 @@
 <form method="get">
   <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
       Search: 
-      {% render_field myFilter.form.lot_type class="form-control.d-sm-inline-flex" placeholder='Lot Type:' %}
-      {% render_field myFilter.form.phase class="form-control.d-sm-inline-flex" placeholder='Phase:' %}
-      {% render_field myFilter.form.block class="form-control.d-sm-inline-flex" placeholder='Block:' %}
-      {% render_field myFilter.form.lotno class="form-control.d-sm-inline-flex" placeholder='Lot:' %}
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lot_type class="form-control"  placeholder='Lot Type:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.phase class="form-control" placeholder='Phase:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.block class="form-control" placeholder='Block:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lotno class="form-control" placeholder='Lot:' %}</div>
       <button type="submit" class="btn btn-success float-sm-right">Search</button><br><br>
   </div>
   <!--Table-->
@@ -59,7 +78,7 @@
           <th>Email</th>
           <th>Notice</th>
         </tr>
-        {% for inq in inq_table %}
+        {% for inq in all_page_obj %}
         <tr>
           <td>{{inq.lot_type}}</td>
           <td>Phase:{{inq.phase}} Block:{{inq.block}} Lot No.:{{inq.lotno}}</td>
@@ -76,9 +95,26 @@
         {% endfor %}
 
       </thead>
-    </table><br><br>
+    </table>
   </div>
 </form>
+<div class="pagination">
+  <span class="step-links">
+    {% if all_page_obj.has_previous %}
+    <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
+    <a href="{% my_url all_page_obj.previous_page_number 'page' request.GET.urlencode %}">&laquo; Previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{all_page_obj.number}} of {{all_page_obj.paginator.num_pages}}.
+    </span>
+
+    {% if all_page_obj.has_next %}
+    <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo; Next</a>
+    <a href="{% my_url all_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
+    {% endif %}
+  </span>
+</div>
 </body>
 
 </html>
