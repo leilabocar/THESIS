@@ -175,25 +175,6 @@ def Property(request, pk):
 @login_required(login_url='/accounts/login/')
 def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
-        print ("Admin Homepage")
-        a = User.objects.filter(pk=pk)
-        # prod = Product.objects.order_by('-id')
-        # q=''
-        # w=''
-        # if 'name' in request.GET:
-        #     q=request.GET['name']
-        #     prod = Product.objects.filter(deceased__icontains=q)
-        # if 'lots' in request.GET:
-        #     w=request.GET['lots']
-        #     prod = Product.objects.filter(lot__icontains=w)
-        # else:
-        #     pass
-        # p = Paginator(prod, per_page=10)
-        # page = request.GET.get('page')
-        # if page == None or page == "":
-        #     page = "1"
-        # prods = p.get_page(page)
-        # prods.adjusted_elided_pages = p.get_elided_page_range(page)
         context= {}
         filter_all = productFilter(request.GET, queryset=Product.objects.order_by('-id'))
         context['filter_all'] = filter_all

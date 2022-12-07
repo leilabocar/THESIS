@@ -23,6 +23,12 @@ class inquiryFilter(django_filters.FilterSet):
         fields = '__all__'
         
 class productFilter(django_filters.FilterSet):
+    lot_choices=[('Lawn Lot','Lawn Lot'),
+                      ('Mausoleum','Mausoleum'),
+                      ('Niche','Niche'),
+                      ('Apartment','Apartment')]
+
+    lot = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
     class Meta:
         model = Product
         fields = '__all__'
