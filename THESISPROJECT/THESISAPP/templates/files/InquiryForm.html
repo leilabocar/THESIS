@@ -11,6 +11,8 @@
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         h3 {
             color: black;
@@ -53,7 +55,6 @@
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
-        width: auto;
         }
         .pagination a {
             border: 1px solid #ddd;
@@ -61,13 +62,24 @@
             padding: 8px 16px;
             transition: background-color .3s;
             text-decoration: none;
-            width: auto;
         }
         .pagination a:hover:not(.active) {background-color: #ddd;}
         .pagination a.active {
             border-radius: 5px;
             background-color: #4CAF50;
             color: white;
+        }
+        .w3-modal-content{
+            width: 1100px;
+        }
+        .pointer > i{
+            color: blue;
+        }
+        .pointer > i:hover{
+            color: darkblue;
+        }
+        .pointer:hover{
+            cursor: pointer;
         }
     </style>
 </head>
@@ -95,6 +107,7 @@
         {% endif %}
     {% endfor %}
 {% endif %}
+
 <div class="search">
     <form method="get">
         <div class="float-right">
@@ -146,7 +159,19 @@
                 <input type="text" placeholder="Lot No." class="form-control" name="lotno" required>
                 <div id="Phase_error"></div>
             </div>
+
             <p class="text-center" style="font-size: 25px; font-family: verdana;">Terms of Payment :</p>
+            <div class="w3-container">
+                <div class="pointer" onclick="document.getElementById('id01').style.display='block'" ><i>Click here for more info</i></div>
+                <div id="id01" class="w3-modal">
+                  <div class="w3-modal-content">
+                    <div class="w3-container">
+                      <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                      <img src="{% static 'images/termsofpayment.png' %}" class="d-block mx-auto" style="width:100%">
+                    </div>
+                  </div>
+                </div>
+              </div>
             <div class="form-check form-check-inline">
                 <input type="radio" class="form-check-input" id="validationFormCheck1" name="terms" value="Cash" required>
                 <label class="form-check-label" for="validationFormCheck1">Cash</label>
@@ -218,22 +243,6 @@
         </div>
     </form>
     <div class="table1">
-        <table class="table table-bordered table-dark table-hover">
-            <thead>
-            <tr>
-                <thead>
-                <th>Lot Type</th>
-                <th>Address</th>
-                </thead>
-            </tr>
-            {% for i in avail%}
-            <tr>
-                <td>{{i.product.lot}}</td>
-                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
-            </tr>
-            {% endfor %}
-            </thead>
-        </table>
         <div class="pagination">
             {% if avail.has_previous %}
                 <a href="?page={{avail.previous_page_number}}">
@@ -260,9 +269,26 @@
                 </a>
             {% endif%}
           </div>
+        <table class="table table-bordered table-dark table-hover">
+            <thead>
+            <tr>
+                <thead>
+                <th>Lot Type</th>
+                <th>Address</th>
+                </thead>
+            </tr>
+            {% for i in avail%}
+            <tr>
+                <td>{{i.product.lot}}</td>
+                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
+            </tr>
+            {% endfor %}
+            </thead>
+        </table>
+        
     </div>
 </div>
-<img src="{% static 'images/termsofpayment.png' %}" class="d-block mx-auto" style="width:80%">
+
 </body>
 <script>
     var message_ele = document.getElementById("msg");

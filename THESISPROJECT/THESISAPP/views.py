@@ -634,7 +634,7 @@ def InquiryForm(request):
         available = LotOrder.objects.filter(product_id__lot__icontains=q,terms=None).order_by('-product')
     else:
         available = LotOrder.objects.all().filter(terms=None).order_by('-product')
-    p = Paginator(available, per_page=16)
+    p = Paginator(available, per_page=14)
     page = request.GET.get('page')
     if page == None or page == "":
         page = "1"
