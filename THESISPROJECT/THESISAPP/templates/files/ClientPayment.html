@@ -87,19 +87,10 @@
 </div>
 <!--Table-->
   <div style="overflow-x:auto;" class="col-sm-12">
-    <style>
-      table, th, td {
-        border: 1px solid white;
-        border-collapse: collapse;
-      }
-      th {
-        text-align: center;
-      }
-    </style>
     <form name="vform" onsubmit="return Validate()" method="post">
         {% csrf_token %}
-        <table class="table table-bordered">
-            <thead class="table-dark">
+        <table class="table table-bordered table-dark table-hover">
+            <thead>
                 <tr>
                     <th scope="col">Username</th>
                     <th scope="col">Name</th>

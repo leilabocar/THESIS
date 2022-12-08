@@ -10,8 +10,10 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_admin = models.BooleanField('Is admin', default=False)
     is_client = models.BooleanField('Is client', default=False)
-    age = models.IntegerField(verbose_name='age', null=True)
-    gender = models.CharField(max_length=30, verbose_name='gender', null=True)
+    birth = models.DateField(verbose_name='birth', null=True)
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = models.CharField(max_length=30,choices=gender_choices, verbose_name='gender', null=True)
     contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
     address = models.CharField(max_length=99, verbose_name='address', null=True)
 
@@ -38,8 +40,10 @@ class InquiryFormModel(models.Model):
     lotno = models.CharField(max_length=30, verbose_name='lot_no.')
     terms = models.CharField(max_length=30, choices=terms_choices, verbose_name='termsofpayment')
     fullname = models.CharField(max_length=99, verbose_name='fullname')
-    age = models.IntegerField(verbose_name='age')
-    gender = models.CharField(max_length=30, verbose_name='gender')
+    birth = models.DateField(verbose_name='birth', null=True)
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = models.CharField(max_length=30,choices=gender_choices, verbose_name='gender', null=True)
     contacts = models.CharField(max_length=11, verbose_name='contacts')
     address = models.CharField(max_length=99, verbose_name='address')
     email = models.EmailField(max_length=99, verbose_name='email')
@@ -51,8 +55,10 @@ class ApplicationFormModel(models.Model):
     block = models.CharField(max_length=30, verbose_name='block', null=True)
     lotno = models.CharField(max_length=30, verbose_name='lot_no.', null=True)
     fullname = models.CharField(max_length=99, verbose_name='fullname', null=True)
-    age = models.IntegerField(verbose_name='age', null=True)
-    gender = models.CharField(max_length=30, verbose_name='gender', null=True)
+    birth = models.DateField(verbose_name='birth', null=True)
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = models.CharField(max_length=30,choices=gender_choices, verbose_name='gender', null=True)
     contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
     address = models.CharField(max_length=99, verbose_name='address', null=True)
     email = models.EmailField(max_length=99, verbose_name='email', null=True)
@@ -76,8 +82,10 @@ class BuyersFormModel(models.Model):
     lotno = models.CharField(max_length=30, verbose_name='lot_no.', null=True)
     terms = models.CharField(max_length=30, choices=terms_choices, verbose_name='termsofpayment', null=True)
     fullname = models.CharField(max_length=99, verbose_name='fullname', null=True)
-    age = models.IntegerField(verbose_name='age', null=True)
-    gender = models.CharField(max_length=30, verbose_name='gender', null=True)
+    birth = models.DateField(verbose_name='birth', null=True)
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = models.CharField(max_length=30,choices=gender_choices, verbose_name='gender', null=True)
     contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
     address = models.CharField(max_length=99, verbose_name='address', null=True)
     email = models.EmailField(max_length=99, verbose_name='email', null=True)

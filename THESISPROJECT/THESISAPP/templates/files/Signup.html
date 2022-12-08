@@ -13,14 +13,13 @@
 	<link rel="stylesheet" href="{% static 'css/signup.css' %}">
 
   </head>
-	<body style="background-image: url({% static 'images/bg.jpg' %});">
+	<body style="background: url('{% static 'images/bg.jpg' %}');  background-repeat: no-repeat; background-size: cover;">
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
 				</div>
 			</div>
-			<div class="row justify-content-center">
 				<div class="col-md-12">
 					<div class="wrap d-md-flex">
 						<div class="text p-4 p-lg-5 d-flex img" style="background-image: url({% static 'images/bg-2.png' %});">
@@ -69,14 +68,18 @@
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-							      			<label class="label" for="email">Gender</label>
-							      			<input type="text" class="form-control" placeholder="Gender" name="gender" required>
+							      			<label class="label" for="gender">Gender</label><br>
+											<div class="form-control">
+												<input type="radio" id="Male" name="gender" value="Male" style="height: 12px; margin: 10px"> <label class="label" for="gender">Male</label>
+												<input type="radio" id="Female" name="gender" value="Female" style="height: 12px; margin: 10px"> <label class="label" for="gender">Female</label>
+												
+											</div>	
 							      		</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-							      			<label class="label" for="email">Age</label>
-							      			<input type="number" class="form-control" placeholder="Age" name="age" required>
+							      			<label class="label" for="email">Birthdate</label>
+							      			<input type="date" class="form-control" placeholder="MM/DD/YYYY" name="birth" required>
 							      		</div>
 											</div>
 											<div class="col-md-12">
@@ -88,8 +91,8 @@
 											<div class="col-md-12">
 												<div class="form-group">
 							      			<label class="label" for="email">Contacts</label>
-							      			<input type="number"  class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
-                    								aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
+							      			<input class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
+                    								required/>
 							      		</div>
 											</div>
 											<div class="col-md-12">

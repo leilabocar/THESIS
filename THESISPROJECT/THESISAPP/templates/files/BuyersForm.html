@@ -124,20 +124,19 @@
                     <div id="FN_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Age" name="Age">Age</span>
-                <input type="text" class="form-control" placeholder="Age" name="age" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                <span class="input-group-text" id="Age" name="Age">Birthday</span>
+                <input type="date" class="form-control" placeholder="MM/DD/YYYY" name="birth" required>
                     <div id="Age_error"></div>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Gender" name="Gender">Gender</span>
-                <input type="text" class="form-control" placeholder="Gender" name="gender" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" required>
+                <input type="radio" id="Male" name="gender" value="Male" style="height: 12px; margin: 10px"> <label class="label" for="gender">Male</label>
+				<input type="radio"  id="Female" name="gender" value="Female" style="height: 12px; margin: 10px"> <label class="label" for="gender">Female</label>
                     <div id="Gender_error"></div>
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
-                <input type="number"  class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
+                <span class="input-group-text" id="Contacts" name="Contacts">Mobile No.:</span>
+                <input type="number"  class="form-control" placeholder="Mobile No.:" name="contacts" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
                     <div id="Contacts_error"></div>
             </div>

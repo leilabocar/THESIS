@@ -17,14 +17,16 @@ class SignupForm(UserCreationForm):
     password1 = forms.CharField()
     password2 = forms.CharField(label="Confirm Password")
     is_client = forms.BooleanField(initial=True, required=True)
-    age = forms.IntegerField()
-    gender = forms.CharField()
+    birth = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = forms.ChoiceField(choices=gender_choices)
     contacts = forms.CharField()
     address = forms.CharField()
 
     class Meta:
         model = User
-        fields = ('first_name','last_name','username','email','password1','password2','is_admin','age','gender','contacts','address','is_client')
+        fields = ('first_name','last_name','username','email','password1','password2','is_admin','birth','gender','contacts','address','is_client')
 
 class InquiryFormForm(forms.ModelForm):
     lot_type_choices=[('Lawn Lot','Lawn Lot'),
@@ -45,15 +47,17 @@ class InquiryFormForm(forms.ModelForm):
     lotno = forms.CharField()
     terms = forms.ChoiceField(choices= terms_choices, widget=forms.RadioSelect, required=True)
     fullname = forms.CharField()
-    age = forms.IntegerField()
-    gender = forms.CharField()
+    birth = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = forms.ChoiceField(choices=gender_choices)
     contacts = forms.CharField()
     address = forms.CharField()
     email = forms.EmailField()
 
     class Meta:
         model = InquiryFormModel
-        fields = ('lot_type','phase','block','lotno','terms','fullname','age','gender','contacts','address','email')
+        fields = ('lot_type','phase','block','lotno','terms','fullname','birth','gender','contacts','address','email')
 
         def contacts(self):
             n = self.cleaned_data.get('contacts')
@@ -75,15 +79,17 @@ class ApplicationFormForm(forms.ModelForm):
     block = forms.CharField()
     lotno = forms.CharField()
     fullname = forms.CharField()
-    age = forms.IntegerField()
-    gender = forms.CharField()
+    birth = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = forms.ChoiceField(choices=gender_choices)
     contacts = forms.CharField()
     address = forms.CharField()
     email = forms.EmailField()
 
     class Meta:
         model = ApplicationFormModel
-        fields = ('date','phase','block','lotno','fullname','age','gender','contacts','address','email')
+        fields = ('date','phase','block','lotno','fullname','birth','gender','contacts','address','email')
 
 class BuyersFormForm(forms.ModelForm):
     lot_type_choices=[('Lawn Lot','Lawn Lot'),
@@ -104,15 +110,17 @@ class BuyersFormForm(forms.ModelForm):
     lotno = forms.CharField()
     terms = forms.ChoiceField(choices= terms_choices, widget=forms.RadioSelect, required=True)
     fullname = forms.CharField()
-    age = forms.IntegerField()
-    gender = forms.CharField()
+    birth = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
+    gender_choices=[('Female','Female'),
+                      ('Male','Male')]
+    gender = forms.ChoiceField(choices=gender_choices)
     contacts = forms.CharField()
     address = forms.CharField()
     email = forms.EmailField()
 
     class Meta:
         model = BuyersFormModel
-        fields = ('lot_type','phase','block','lotno','terms','fullname','age','gender','contacts','address','email')
+        fields = ('lot_type','phase','block','lotno','terms','fullname','birth','gender','contacts','address','email')
 
         def contacts(self):
             n = self.cleaned_data.get('contacts')
