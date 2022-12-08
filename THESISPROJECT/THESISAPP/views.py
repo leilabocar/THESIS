@@ -12,6 +12,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
@@ -622,8 +623,14 @@ def GraveFinder(request):
     q = ""
     if 'q' in request.GET:
         q=request.GET['q']
-        if q =='':
+        filter_prod = Product.objects.filter(Q(deceased__icontains=q))
+        if q =='' or q is not filter_prod:
+            print(filter_prod)
+            messages.error(request, 'Name not found!')
             return render(request, 'files/GraveFinder.html')
+        # if q != Product.objects.filter(deceased__icontains=q).order_by('-id'):
+        #     messages.error(request, 'Name not found!')
+        #     return render(request, 'files/GraveFinder.html')
         else:
             prod = Product.objects.filter(deceased__icontains=q).order_by('-id')
             p = Paginator(prod, per_page=8)
