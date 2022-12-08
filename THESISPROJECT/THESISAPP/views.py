@@ -622,7 +622,9 @@ def GraveFinder(request):
     q = ""
     if 'q' in request.GET:
         q=request.GET['q']
-        if q == '':
+        prod = Product.objects.filter(deceased__icontains=q).values_list('deceased',flat=True).first()
+        if q == '' or not q == prod:
+            messages.error(request, 'Name not found!')
             return render(request, 'files/GraveFinder.html')
         else:
             prod = Product.objects.filter(deceased__icontains=q).order_by('-id')
@@ -646,6 +648,7 @@ def GraveFinder(request):
 
 def InquiryForm(request):
     form = InquiryFormForm()
+    q =''
     if 'lots' in request.GET:
         q=request.GET['lots']
         available = LotOrder.objects.filter(product_id__lot__icontains=q,terms=None).order_by('-product')
@@ -668,7 +671,7 @@ def InquiryForm(request):
             messages.error(request, 'Error'),
             fail_silently=True,
             return redirect('InquiryForm')
-    return render(request, 'files/InquiryForm.html',{'form':form,'available':available,'avail':avail})
+    return render(request, 'files/InquiryForm.html',{'form':form,'available':available,'avail':avail,'q':q})
 
 def Lawn(request):
     return render(request, 'files/Lawn.html')

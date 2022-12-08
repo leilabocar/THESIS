@@ -244,7 +244,7 @@
     <div class="table1">
         <div class="pagination">
             {% if avail.has_previous %}
-                <a href="?page={{avail.previous_page_number}}">
+                <a href="?page={{avail.previous_page_number}}&lots={{q|urlencode}}">
                   Previous Page
               </a>
             {% endif%}
@@ -254,7 +254,7 @@
                     {{page_number}}
                 {% else %}
                     <a
-                        href="?page={{page_number}}"
+                        href="?page={{page_number}}&lots={{q|urlencode}}"
                         class="{% if page_number == avail.number %}active{% endif %}"
                     >
                         {{page_number}}
@@ -263,7 +263,7 @@
             
             {% endfor %}
             {% if avail.has_next %}
-                <a href="?page={{avail.next_page_number}}">
+                <a href="?page={{avail.next_page_number}}&lots={{q|urlencode}}">
                     Next Page
                 </a>
             {% endif%}
