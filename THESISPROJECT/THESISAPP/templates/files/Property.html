@@ -24,14 +24,14 @@
             font-family: Roboto, sans-serif;
             border-style: 1px solid grey;
             background-color: rgb(174, 199, 192);
-            margin: 50px 10px 10px 10px;
+            margin: 0 auto;
             opacity: 0.8;
             box-shadow: 2px 5px 5px 0px #eee;
-            max-width: 500px;
-            padding: 7px 7px 7px 7px;
-            height: 330px;
-            display: inline-block;
-            border-radius: 10px;
+            max-width: 600px;
+            padding-top: 5px;
+            height: auto;
+            padding: 20px 20px 20px 20px;
+            margin-top: 20px;
             
         }
         .heading {
@@ -75,15 +75,15 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="{% static 'images/undraw_browsing_online_re_umsa.svg' %}" alt="" style="height: 300px;" class="d-block w-100">
+                        <img src="{% static 'images/law.jpg' %}" alt="" style="height: 80%;" class="d-block w-100">
                     </div>
     
                     <div class="item">
-                        <img src="{% static 'images/undraw_personal_data_29co.svg' %}" alt="" style="height: 300px;" class="d-block w-100">
+                        <img src="{% static 'images/law.jpg' %}" alt="" style="height: 80%;" class="d-block w-100">
                     </div>
     
                     <div class="item">
-                        <img src="{% static 'images/undraw_fingerprint_swrc.svg' %}" alt="" style="height: 300px;" class="d-block w-100">
+                        <img src="{% static 'images/mausoleum.jpg' %}" alt="" style="height: 80%;" class="d-block w-100">
                     </div>
                 </div>
 
@@ -98,7 +98,8 @@
                 </a>
             </div>
         </div>
-        {% for i in display %}
+        
+        
             <div class="container2">
                 <div class="container2-1">
                     <div class="container2-2">
@@ -106,16 +107,18 @@
                         <h2 class="text-center" style="font-size: 35px;">CLIENT INFORMATION</h2>
                         <hr>
                         </hr>
-                        <p style="font-size: 18px;">Full Name :{{i.customer.first_name}} {{i.customer.last_name}}</p>
-                        <p style="font-size: 18px;">Age {{i.customer.age}}:</p>
-                        <p style="font-size: 18px;">Gender :{{i.customer.gender}}</p>
-                        <p style="font-size: 18px;">Contacts :{{i.customer.contacts}}</p>
-                        <p style="font-size: 18px;">Address :{{i.customer.address}}</p>
-                        <p style="font-size: 18px;">Email :{{i.customer.email}}</p>
-                        <p style="font-size: 18px;">Lot/s :{{i.product}}</p>
+                        <p style="font-size: 18px;">Full Name :{{user.first_name}} {{user.last_name}}</p>
+                        <p style="font-size: 18px;">Age {{user.age}}:</p>
+                        <p style="font-size: 18px;">Gender :{{user.gender}}</p>
+                        <p style="font-size: 18px;">Contacts :{{user.contacts}}</p>
+                        <p style="font-size: 18px;">Address :{{user.address}}</p>
+                        <p style="font-size: 18px;">Email :{{user.email}}</p>
+                        
+                        <p style="font-size: 18px;">Owned Lot/s: {% for i in display %} ({{i.product}}), {% endfor %}</p>
+                        
                         <br>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+            
     </form>
