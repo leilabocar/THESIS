@@ -41,6 +41,15 @@
       float: right;
       padding: 10px 10px 10px 0px;
     }
+    #buttons {
+      max-width: 80px;
+    }
+    #buttons1 {
+      max-width: 100px;
+    }
+    #buttons2 {
+      max-width: 140px;
+    }
 </style>
 </head>
 <body>
@@ -63,11 +72,15 @@
 <div id="textbox">
   <div class="alignright">
     <form method="get">
-      <div class="d-sm-inline-block">{% render_field filter_all.form.customer class="form-control" placeholder='Name' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.product class="form-control" %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.terms class="form-control" placeholder='Phase:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.paid_date class="form-control" placeholder='Block:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.due_date class="form-control" placeholder='Lot:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.customer class="form-control" placeholder='Username' %}</div>
+      <div class="d-sm-inline-block" id="buttons1">{% render_field filter_all.form.product_lottype class="form-control" %}</div>
+      <div class="d-sm-inline-block" id="buttons">{% render_field filter_all.form.product_phase class="form-control" placeholder='Phase:' %}</div>
+      <div class="d-sm-inline-block" id="buttons">{% render_field filter_all.form.product_block class="form-control" placeholder='Block:' %}</div>
+      <div class="d-sm-inline-block" id="buttons">{% render_field filter_all.form.product_lotno class="form-control" placeholder='Lot No.:' %}</div>
+      <div class="d-sm-inline-block">Paid:</div>
+      <div class="d-sm-inline-block" id="buttons2">{% render_field filter_all.form.paid_date class="form-control" placeholder='Date Paid:' %}</div>
+      <div class="d-sm-inline-block">Due:</div>
+      <div class="d-sm-inline-block" id="buttons2">{% render_field filter_all.form.due_date class="form-control" placeholder='Due Date:' %}</div>
       <button type="submit" class="btn btn-success">Search</button>
     </form>
   </div>
@@ -90,8 +103,6 @@
                 <tr>
                     <th scope="col">Username</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Age</th>
                     <th scope="col">Email</th>
                     <th scope="col">Lot Type</th>
                     <th scope="col">Location</th>
@@ -108,8 +119,6 @@
                 <tr>
                     <td>{{order.customer.username}}</td>
                     <td>{{order.customer.first_name}} {{order.customer.last_name}}</td>
-                    <td>{{order.customer.gender}}</td>
-                    <td>{{order.customer.age}}</td>
                     <td>{{order.customer.email}}</td>
                     <td>{{order.product.lot}}</td>
                     <td>{{order.product.phase}} {{order.product.block}} {{order.product.lotno}}</td>

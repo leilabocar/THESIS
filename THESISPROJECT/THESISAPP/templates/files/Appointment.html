@@ -55,9 +55,8 @@
   <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
       Search: 
       <div class="d-sm-inline-block">{% render_field filter_all.form.fullname class="form-control" placeholder='Name:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.contacts class="form-control" placeholder='Contacts:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.email class="form-control" placeholder='Email:' %}</div>
       <div class="d-sm-inline-block">{% render_field filter_all.form.reason class="form-control" placeholder='Reason:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.date class="form-control" placeholder='Date of Appointment:' %}</div>
       <button type="submit" onclick="myFunction()" class="btn btn-success float-sm-right">Search</button><br><br>
   </div>
 </form>
@@ -80,7 +79,7 @@
           <th>Contact</th>
           <th>Email</th>
           <th>Reason for Visit</th>
-          <th>Date</th>
+          <th>Date of Appointment</th>
           <th>Action</th>
         </tr>
         {% for appo in all_page_obj %}
