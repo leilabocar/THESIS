@@ -480,7 +480,7 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have approved your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is available. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                f'After reviewing your request, we would like to inform you that it was approved. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) that you inquired about, is currently available. If you do not acquire it immediately, there is a chance that someone else will. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -505,7 +505,7 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have declined your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is already taken, try to inquire other lots. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                f'We want to inform you that we have declined your request upon checking on it. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) that you inquired about, is already taken, try to inquire other lots. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -554,7 +554,7 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
                 fail_silently=False
             )
         ApplicationFormModel.objects.filter(pk=pk).update(
-            date=None,phase=None,block=None,lotno=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+            date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         return redirect('Application', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -580,7 +580,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
                 fail_silently=False
             )
         ApplicationFormModel.objects.filter(pk=pk).update(
-            date=None,phase=None,block=None,lotno=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+            date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         return redirect('Application', pk=c, email=email)
     else:
         return redirect('Logout')

@@ -113,7 +113,6 @@ class Product(models.Model):
     deceased = models.CharField(max_length=200, blank=True, null=True,default=None, verbose_name='deceased.')
     born = models.DateField(null=True,blank=True,default=None, verbose_name='born.')
     died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
-    date_created = models.DateField(auto_now_add=True, null=True, verbose_name='date created')
 
     def __str__(self):
         return f'{self.lot} {self.phase} {self.block} {self.lotno}'
@@ -138,7 +137,6 @@ class LotOrder(models.Model):
     paid_date = models.DateField(null=True,verbose_name='paid date', blank=True,default=None)
     status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status', blank=True,default=None)
     due_date = models.DateField(null=True,verbose_name='due date', blank=True,default=None)
-    date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
 
     def calculate(self):
         pay = self.pay
@@ -180,7 +178,6 @@ class PaymentHistory(models.Model):
     paid_date = models.DateField(null=True,verbose_name='paid date', blank=True,default=None)
     status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status', blank=True,default=None)
     due_date = models.DateField(null=True,verbose_name='due date', blank=True,default=None)
-    date_created = models.DateTimeField(auto_now_add=True, null=True, verbose_name='date created')
 
     def calculate(self):
         pay = self.pay
