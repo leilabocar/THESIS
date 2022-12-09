@@ -32,6 +32,7 @@ urlpatterns = [
     path('ClientPayment/<int:pk>', views.ClientPayment, name='ClientPayment'),
     path('AddNew/<int:pk>', views.AddNew, name='AddNew'),
     path('AddnewUpdate/<int:pk>', views.AddNewUpdate, name='AddNewUpdate'),
+    path('AddnewDeceased/<int:pk>', views.AddNewDeceased, name='AddNewDeceased'),
     path('AddnewDelete/<int:pk>', views.AddNewDelete, name='AddNewDelete'),
     path('Notice/<int:pk>', views.Notice, name='Notice'),
     path('Notifier', views.Notifier, name='Notifier'),

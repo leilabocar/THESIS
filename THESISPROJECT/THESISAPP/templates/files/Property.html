@@ -74,7 +74,8 @@
                         <p style="font-size: 18px;">Contacts :{{user.contacts}}</p>
                         <p style="font-size: 18px;">Address :{{user.address}}</p>
                         <p style="font-size: 18px;">Email :{{user.email}}</p>
-                        <p style="font-size: 18px;">Owned Lot/s: {% for i in display %} ({{i.product}}), {% endfor %}</p>
+                        <p style="font-size: 18px;">Owned Lot/s: {% for i in display %} 
+                            ({{i.product.lot}}: Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}), {% endfor %}</p>
                         
                         <br>
                     </div>

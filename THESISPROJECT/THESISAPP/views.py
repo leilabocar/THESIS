@@ -312,6 +312,25 @@ def AddNewUpdate(request,pk):
         return redirect('Logout')
     return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
 
+def AddNewDeceased(request,pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        prod= Product.objects.get(id=pk)
+        form = ProductForm(instance=prod)
+        form1 = ProductForm()
+        if request.method == 'POST':
+            form = ProductForm(request.POST, instance=prod)
+            form1 = ProductForm(request.POST)
+            if form.is_valid():
+                form1.save()
+                messages.success(request, 'Successfully Added'),
+                fail_silently=True
+            else:
+                messages.error(request, 'Invalid Input'),
+                fail_silently=True
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
+
 @login_required(login_url='/accounts/login/')
 def AddNewDelete(request,pk):
     if request.user.is_authenticated and request.user.is_admin:

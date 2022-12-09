@@ -114,6 +114,7 @@
           <td>{{i.lot}}</td>
           <td>Phase:{{i.phase}} Block:{{i.block}} Lot No.:{{i.lotno}}</td>
           <td><a class="btn btn-primary" style="font-size: 15px;" href="{% url 'AddNewUpdate' i.pk %}">Update</a>
+            <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AddNewDeceased' i.pk %}">Add</a>
             <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'AddNewDelete' i.pk %}">Delete</a></td>
         </tr>
         {% endfor %}
