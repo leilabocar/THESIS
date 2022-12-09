@@ -115,7 +115,7 @@ class Product(models.Model):
     died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
 
     def __str__(self):
-        return f'{self.lot} {self.phase} {self.block} {self.lotno}'
+        return f'{self.lot} Phase:{self.phase} Block:{self.block} Lot No.:{self.lotno}'
     
 class LotOrder(models.Model):
     STATUS = [

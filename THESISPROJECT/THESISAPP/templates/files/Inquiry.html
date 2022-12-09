@@ -71,9 +71,6 @@
           <th>Location</th>
           <th>Terms of Payment</th>
           <th>Name</th>
-          <th>Birthdate</th>
-          <th>Gender</th>
-          <th>Contact</th>
           <th>Address</th>
           <th>Email</th>
           <th>Notice</th>
@@ -84,9 +81,6 @@
           <td>Phase:{{inq.phase}} Block:{{inq.block}} Lot No.:{{inq.lotno}}</td>
           <td>{{inq.terms}}</td>
           <td>{{inq.fullname}}</td>
-          <td>{{inq.birth}}</td>
-          <td>{{inq.gender}}</td>
-          <td>{{inq.contacts}}</td>
           <td>{{inq.address}}</td>
           <td>{{inq.email}}</td>
           <td><a href="{% url 'InquiryApprove' inq.id inq.email inq.lot_type inq.phase inq.block inq.lotno inq.fullname %}"><button type="button" class="btn btn-secondary">Approve</button></a>
