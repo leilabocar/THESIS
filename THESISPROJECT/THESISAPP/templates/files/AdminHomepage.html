@@ -50,7 +50,7 @@
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'Homepage' %}">
+        <a class="navbar-brand" >
             <img src="{% static 'images/profile.png' %}" style="width:55px;" class="rounded-pill">
         </a>
     <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
@@ -100,7 +100,7 @@
           <thead>
             <th>Name of Deceased</th>
             <th>Date of Birth</th>
-            <th>Date of Burial</th>
+            <th>Date of Death</th>
             <th>Lot Type</th>
             <th>Address</th>
             <th>Action</th>

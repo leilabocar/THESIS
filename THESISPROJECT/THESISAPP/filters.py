@@ -61,7 +61,7 @@ class inquiryFilter(django_filters.FilterSet):
     lot_choices=[('Lawn Lot','Lawn Lot'),
                       ('Mausoleum','Mausoleum'),
                       ('Niche','Niche'),
-                      ('Apartment','Apartment')]
+                      ('Apartment Type','Apartment Type')]
 
     lot_type = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
     phase = django_filters.CharFilter(lookup_expr='icontains')

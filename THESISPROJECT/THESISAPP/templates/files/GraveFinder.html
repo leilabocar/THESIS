@@ -85,7 +85,7 @@
 <form method="get">
   <div class="float-left">
     <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
-    <div class="d-sm-inline-block"><input type="text" name="q" class="form-control" placeholder="Name" /></div>
+    <div class="d-sm-inline-block"><input type="text" name="q" class="form-control" placeholder="Ex: Forename Surname" /></div>
   </div>
 </div>
 </form>
@@ -103,7 +103,7 @@
     {% for kw in prod %}
     <tr id="trclick" class="">
         <td id="kw.deceased">{{kw.deceased}}</td>
-        <td>{{kw.lot}}: {{kw.phase}} {{kw.block}} {{kw.lotno}}</td>
+        <td>{{kw.lot}}: Phase:{{kw.phase}} Block:{{kw.block}} Lot No.:{{kw.lotno}}</td>
         <td>
           <button class="buttonView buttonView2" onclick="clickViewButton('{{kw.latitude}}','{{kw.longitude}}')">
             View Destination

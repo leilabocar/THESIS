@@ -241,7 +241,25 @@
 
         </div>
     </form>
+    
     <div class="table1">
+        <center><h1>Available Lots</h1></center>
+        
+        <table class="table table-bordered table-dark table-hover">
+            
+            <tr>
+                <thead>
+                <th>Lot Type</th>
+                <th>Address</th>
+                </thead>
+            </tr>
+            {% for i in avail%}
+            <tr>
+                <td>{{i.product.lot}}</td>
+                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
+            </tr>
+            {% endfor %}
+        </table>
         <div class="pagination">
             {% if avail.has_previous %}
                 <a href="?page={{avail.previous_page_number}}&lots={{q|urlencode}}">
@@ -268,23 +286,6 @@
                 </a>
             {% endif%}
           </div>
-        <table class="table table-bordered table-dark table-hover">
-            <thead>
-            <tr>
-                <thead>
-                <th>Lot Type</th>
-                <th>Address</th>
-                </thead>
-            </tr>
-            {% for i in avail%}
-            <tr>
-                <td>{{i.product.lot}}</td>
-                <td>Phase:{{i.product.phase}} Block:{{i.product.block}} Lot No.:{{i.product.lotno}}</td>
-            </tr>
-            {% endfor %}
-            </thead>
-        </table>
-        
     </div>
 </div>
 
