@@ -624,12 +624,10 @@ def GraveFinder(request):
         q=request.GET['q']
         prod = Product.objects.filter(deceased__icontains=q).values_list('deceased', flat=True)
         if q == '' or range(len(prod)==0):
-            print(prod)
             messages.error(request, 'Name not found!')
             return render(request, 'files/GraveFinder.html',{'q':q})
         else:
             prod = Product.objects.filter(deceased__icontains=q).order_by('-id')
-            print(prod)
             p = Paginator(prod, per_page=8)
             page = request.GET.get('page')
             if page == None or page == "":
