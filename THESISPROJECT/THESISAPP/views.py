@@ -379,6 +379,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
             )
         BuyersFormModel.objects.filter(pk=pk).update(
             lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -406,6 +407,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
             )
         BuyersFormModel.objects.filter(pk=pk).update(
             lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -444,6 +446,7 @@ def AppointmentApprove(request, pk, email,date,fullname):
                 fail_silently=False
             )
         BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -466,6 +469,7 @@ def AppointmentReject(request,pk,email,fullname):
                 fail_silently=False
             )
         BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -507,6 +511,7 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
                 fail_silently=False
             )
         InquiryFormModel.objects.filter(id=pk).delete()
+        messages.success(request, 'Successfully Sent')
         return redirect('Inquiry',pk=pk, email=email)
     else:
         return redirect('Logout')
@@ -532,6 +537,7 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
                 fail_silently=False
             )
         InquiryFormModel.objects.filter(id=pk).delete()
+        messages.success(request, 'Successfully Sent')
         return redirect('Inquiry',pk=pk, email=email)
     else:
         return redirect('Logout')
@@ -574,6 +580,7 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
             )
         ApplicationFormModel.objects.filter(pk=pk).update(
             date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -600,6 +607,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
             )
         ApplicationFormModel.objects.filter(pk=pk).update(
             date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
     else:
         return redirect('Logout')
