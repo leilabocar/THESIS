@@ -72,20 +72,20 @@
           <th>Location</th>
           <th>Terms of Payment</th>
           <th>Name</th>
-          <th>Age</th>
+          <th>Birthdate</th>
           <th>Gender</th>
           <th>Contact</th>
           <th>Address</th>
           <th>Email</th>
           <th>Action</th>
         </tr>
-        {% for buyers in buyers_table %}
+        {% for buyers in all_page_obj %}
         <tr>
           <td>{{buyers.lot_type}}</td>
           <td>Phase:{{buyers.phase}} Block:{{buyers.block}} Lot:{{buyers.lotno}}</td>
           <td>{{buyers.terms}}</td>
           <td>{{buyers.fullname}}</td>
-          <td>{{buyers.age}}</td>
+          <td>{{buyers.birth}}</td>
           <td>{{buyers.gender}}</td>
           <td>{{buyers.contacts}}</td>
           <td>{{buyers.address}}</td>

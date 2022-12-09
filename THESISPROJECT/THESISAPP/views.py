@@ -359,7 +359,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
                 fail_silently=False
             )
         BuyersFormModel.objects.filter(pk=pk).update(
-            lot_type=None,phase=None,block=None,terms=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         return redirect('BuyersApplication', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -386,7 +386,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
                 fail_silently=False
             )
         BuyersFormModel.objects.filter(pk=pk).update(
-            lot_type=None,phase=None,block=None,terms=None,fullname=None,age=None,gender=None,contacts=None,address=None,email=None)
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         return redirect('BuyersApplication', pk=c, email=email)
     else:
         return redirect('Logout')
@@ -419,7 +419,7 @@ def AppointmentApprove(request, pk, email,date,fullname):
                 f'Dear {fname},\n\nGood day!\n\n'+
                 f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the {date}. Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
-                'Sincery,\n\nGeneral Trias Managemanent',
+                'Sincerely,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
                 fail_silently=False
