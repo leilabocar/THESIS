@@ -120,7 +120,7 @@
                     <td>{{order.due_date}}</td>
                     <td>
                       <a href="{% url 'PropertyManagementUpdate' order.id %}"><input type="button" value="Manage" class="btn btn-primary btn-sm"></a>
-                      <a href="{% url 'PropertyManagementDelete' order.id %}"><input type="button" value="Delete" class="btn btn-danger btn-sm"></a></td>
+                      <a href="{% url 'PropertyManagementDelete' order.id %}" onclick="return confirm('Are you sure you want to delete this?')"><input type="button" value="Delete" class="btn btn-danger btn-sm"></a></td>
                 </tr>
               {% endfor %}
             </tbody>
