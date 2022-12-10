@@ -486,6 +486,17 @@ def Inquiry(request, pk, email):
         all_page_obj = paginated_filter_all.get_page(page_number)
 
         context['all_page_obj'] = all_page_obj
+        
+        #------
+
+        filter_all1 = clientpaymentFilter(request.GET, queryset=LotOrder.objects.filter(terms=None))
+        context['filter_all1'] = filter_all1
+
+        paginated_filter_all1 = Paginator(filter_all1.qs, 11)
+        page_number1 = request.GET.get('page')
+        all_page_obj1 = paginated_filter_all1.get_page(page_number1)
+
+        context['all_page_obj1'] = all_page_obj1
     else:
         return redirect('Logout')
     return render(request, 'files/Inquiry.html',context=context)

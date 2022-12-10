@@ -56,58 +56,96 @@
 <form method="get">
   <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
       Search: 
-      <div class="d-sm-inline-block">{% render_field filter_all.form.lot_type class="form-control"  placeholder='Lot Type:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.phase class="form-control" placeholder='Phase:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.block class="form-control" placeholder='Block:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.lotno class="form-control" placeholder='Lot:' %}</div>
+      <div class="d-sm-inline-block" id="buttons1">{% render_field filter_all1.form.product_lottype class="form-control" %}</div>
+      <div class="d-sm-inline-block" id="buttons">{% render_field filter_all1.form.product_phase class="form-control" placeholder='Phase:' %}</div>
+      <div class="d-sm-inline-block" id="buttons">{% render_field filter_all1.form.product_block class="form-control" placeholder='Block:' %}</div>
+      <div class="d-sm-inline-block" id="buttons">{% render_field filter_all1.form.product_lotno class="form-control" placeholder='Lot No.:' %}</div>
       <button type="submit" class="btn btn-success float-sm-right">Search</button><br><br>
   </div>
-  <!--Table-->
-    <div style="overflow-x:auto;" class="col-sm-12">
-      <table class="table table-bordered table-dark table-hover">
-      <thead>
-        <tr>
-          <th>Lot Type</th>
-          <th>Location</th>
-          <th>Terms of Payment</th>
-          <th>Name</th>
-          <th>Address</th>
-          <th>Email</th>
-          <th>Notice</th>
-        </tr>
-        {% for inq in all_page_obj %}
-        <tr>
-          <td>{{inq.lot_type}}</td>
-          <td>Phase:{{inq.phase}} Block:{{inq.block}} Lot No.:{{inq.lotno}}</td>
-          <td>{{inq.terms}}</td>
-          <td>{{inq.fullname}}</td>
-          <td>{{inq.address}}</td>
-          <td>{{inq.email}}</td>
-          <td><a href="{% url 'InquiryApprove' inq.id inq.email inq.lot_type inq.phase inq.block inq.lotno inq.fullname %}"><button type="button" class="btn btn-secondary">Approve</button></a>
-            <a href="{% url 'InquiryReject' inq.id inq.email inq.lot_type inq.phase inq.block inq.lotno inq.fullname %}"><button type="button" class="btn btn-danger">Reject</button></td>
-        </tr>
-        {% endfor %}
-
-      </thead>
-    </table>
-  </div>
 </form>
-<div class="pagination">
-  <span class="step-links">
-    {% if all_page_obj.has_previous %}
-    <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
-    <a href="{% my_url all_page_obj.previous_page_number 'page' request.GET.urlencode %}">&laquo; Previous</a>
-    {% endif %}
 
-    <span class="current">
-      Page {{all_page_obj.number}} of {{all_page_obj.paginator.num_pages}}.
-    </span>
-
-    {% if all_page_obj.has_next %}
-    <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo; Next</a>
-    <a href="{% my_url all_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
-    {% endif %}
-  </span>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-9">
+      <table class="table table-bordered table-dark table-hover">
+        <thead>
+          <tr>
+            <th>Lot Type</th>
+            <th>Location</th>
+            <th>Terms of Payment</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Notice</th>
+          </tr>
+          {% for inq in all_page_obj %}
+          <tr>
+            <td>{{inq.lot_type}}</td>
+            <td>Phase:{{inq.phase}} Block:{{inq.block}} Lot No.:{{inq.lotno}}</td>
+            <td>{{inq.terms}}</td>
+            <td>{{inq.fullname}}</td>
+            <td>{{inq.address}}</td>
+            <td>{{inq.email}}</td>
+            <td style="text-align: center;"><a href="{% url 'InquiryApprove' inq.id inq.email inq.lot_type inq.phase inq.block inq.lotno inq.fullname %}">
+              <button type="button" class="btn btn-secondary">Approve</button></a><br>
+              <a href="{% url 'InquiryReject' inq.id inq.email inq.lot_type inq.phase inq.block inq.lotno inq.fullname %}">
+                <button type="button" class="btn btn-danger">Reject</button></td>
+          </tr>
+          {% endfor %}
+        </thead>
+      </table>
+      <div class="pagination">
+        <span class="step-links">
+          {% if all_page_obj.has_previous %}
+          <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
+          <a href="{% my_url all_page_obj.previous_page_number 'page' request.GET.urlencode %}">&laquo; Previous</a>
+          {% endif %}
+      
+          <span class="current">
+            Page {{all_page_obj.number}} of {{all_page_obj.paginator.num_pages}}.
+          </span>
+      
+          {% if all_page_obj.has_next %}
+          <a href="{% my_url all_page_obj.next_page_number 'page' request.GET.urlencode %}">&raquo; Next</a>
+          <a href="{% my_url all_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+    <div class="col-3">
+      <table class="table table-bordered table-dark table-hover">
+        <thead>
+          <tr>
+            <th>Lot Type</th>
+            <th>Location</th>
+          </tr>
+          {% for prod in all_page_obj1 %}
+          <tr>
+            <td>{{prod.product.lot}}</td>
+            <td>Phase:{{prod.product.phase}} Block:{{prod.product.block}} Lot No.:{{prod.product.lotno}}</td>
+          </tr>
+          {% endfor %}
+        </thead>
+      </table>
+      <div class="pagination">
+        <span class="step-links">
+          {% if all_page_obj1.has_previous %}
+          <a href="{% my_url 1 'page' request.GET.urlencode %}">&laquo; First</a>
+          <a href="{% my_url all_page_obj1.previous_page_number 'page' request.GET.urlencode %}">&laquo; Previous</a>
+          {% endif %}
+      
+          <span class="current">
+            Page {{all_page_obj1.number}} of {{all_page_obj1.paginator.num_pages}}.
+          </span>
+      
+          {% if all_page_obj1.has_next %}
+          <a href="{% my_url all_page_obj1.next_page_number 'page' request.GET.urlencode %}">&raquo; Next</a>
+          <a href="{% my_url all_page_obj1.paginator.num_pages 'page' request.GET.urlencode %}">Last</a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 </body>
 
