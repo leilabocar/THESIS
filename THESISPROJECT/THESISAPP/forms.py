@@ -175,6 +175,8 @@ class ProductForm(forms.ModelForm):
     deceased = forms.CharField(required=False)
     born = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
     died = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
+    phase = forms.CharField(widget=forms.NumberInput())
+    block = forms.CharField(widget=forms.NumberInput())
 
     class Meta:
         model = Product
