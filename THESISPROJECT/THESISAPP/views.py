@@ -371,7 +371,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have approved your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) is available. Thank you for buying at the Himlayang General Trias Cemetery.\n\n'+
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com \n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -399,7 +399,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have declined your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you are about to buy is already taken. Try to acquire about other lots. Thank you for trying to buy a lot at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -440,7 +440,7 @@ def AppointmentApprove(request, pk, email,date,fullname):
                 f'Hello {fname},\n\n'+
                 f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. \n\n'+
                 f'We want to inform you that you have been appointed on {date} and at least go between the opening time, 8 am till 5 pm closing, so that the staff will assist you. Please arrive at General Trias City Hall on your scheduled day. Just show this message, so they know you have booked an appointment.\n\n'+
-                'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
                 'Sincerely,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -463,7 +463,7 @@ def AppointmentReject(request,pk,email,fullname):
                 'From Himlayang General Trias Management',
                 f'Hello {fname},\n\n'+
                 f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. After reviewing your request date. It turned out that we were fully booked on that day. We regret to inform you that your appointment request has been denied. \n\n'+
-                'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
                 'Sincerely,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -517,7 +517,7 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'After reviewing your request, we want to inform you that it was approved. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you inquired about is currently available. If you do not get it right away, someone else may. Please sign up or sign in as a client and choose Buyers Form at the Application button if you select one of these choices, Lawn Lot, Mausoleum, and Niche; if not, choose Application Form for Apartment Type. Please fill out the form you select, and in the Location field, put {lot} Phase:{p} Block:{b1} Lot No.:{l}. Thank you!\n\n'+
                 'Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -543,7 +543,7 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have declined your request upon checking on it. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you inquired about is already taken. Try to inquire about other lots. Thank you for inquiring at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com \n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -585,7 +585,7 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have approved your request upon checking on it. The (Apartment Phase:{p} Block:{b1} Lot No.:{l}) is available. Thank you for buying at the Himlayang General Trias Cemetery. \n\n'+
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
@@ -612,7 +612,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
                 f'We want to inform you that we have declined your request upon checking on it. The (Apartment Phase:{p} Block:{b1} Lot No.:{l}) you are about to buy is already taken. Try to acquire about other lots. Thank you for trying to buy a lot at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
                 [b],
