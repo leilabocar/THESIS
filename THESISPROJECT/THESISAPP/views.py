@@ -370,7 +370,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have approved your request upon checking on it. {lot} Phase:{p} Block{b1} Lot:{l} is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                f'We want to inform you that we have approved your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) is available. Thank you for buying at the Himlayang General Trias Cemetery.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -398,7 +398,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have declined your request upon checking on it. {lot} Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. We highly appreciate your interest on purchasing a lot at Himlayang General Trias Cemetery and we are terribly sorry for the inconvenience.\n\n'+
+                f'We want to inform you that we have declined your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you are about to buy is already taken. Try to acquire about other lots. Thank you for trying to buy a lot at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -437,8 +437,9 @@ def AppointmentApprove(request, pk, email,date,fullname):
         fname = BookAppointmentModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
-                f'Dear {fname},\n\nGood day!\n\n'+
-                f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. We are pleased to inform you that you have been appointed on the {date}. Please arrive at General Trias City Hall at least 30 minutes before your scheduled appointment time. \n\n'+
+                f'Hello {fname},\n\n'+
+                f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. This is to confirm that we have successfully received your request for Appointment. \n\n'+
+                f'We want to inform you that you have been appointed on {date} and at least go between the opening time, 8 am till 5 pm closing, so that the staff will assist you. Please arrive at General Trias City Hall on your scheduled day. Just show this message, so they know you have booked an appointment.\n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Sincerely,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
@@ -461,7 +462,7 @@ def AppointmentReject(request,pk,email,fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Hello {fname},\n\n'+
-                'Thanks for reaching out to us. We appreciate your interest in Himlayang Gen. Trias Cemetery. After reviewing your request date. It turned out that we were fully booked on that day. We regret to inform you that your appointment request has been denied. \n\n'+
+                f'Thanks for reaching out to us. We appreciate your interest in Himlayang General Trias Cemetery. After reviewing your request date. It turned out that we were fully booked on that day. We regret to inform you that your appointment request has been denied. \n\n'+
                 'If you need immediate assistance or have any further questions, feel free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Sincerely,\n\nGeneral Trias Managemanent',
                 'andrewleilaraqueljustin@gmail.com',
@@ -583,7 +584,7 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have approved your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is available. Thank you for buying lots at the Himlayang General Trias Cemetery.\n\n'+
+                f'We want to inform you that we have approved your request upon checking on it. The (Apartment Phase:{p} Block:{b1} Lot No.:{l}) is available. Thank you for buying at the Himlayang General Trias Cemetery. \n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -610,7 +611,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have declined your request upon checking on it. The Apartment Unit Phase:{p} Block:{b1} Lot:{l} is already taken, try to acquire other lots. We highly appreciate your interest on purchasing a lot at Himlayang General Trias Cemetery and we are terribly sorry for the inconvenience.\n\n'+
+                f'We want to inform you that we have declined your request upon checking on it. The (Apartment Phase:{p} Block:{b1} Lot No.:{l}) you are about to buy is already taken. Try to acquire about other lots. Thank you for trying to buy a lot at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
