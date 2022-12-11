@@ -514,7 +514,8 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'After reviewing your request, we would like to inform you that it was approved. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) that you inquired about, is currently available. If you do not acquire it immediately, there is a chance that someone else will. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                f'After reviewing your request, we want to inform you that it was approved. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you inquired about is currently available. If you do not get it right away, someone else may. Please sign up or sign in as a client and choose Buyers Form at the Application button if you select one of these choices, Lawn Lot, Mausoleum, and Niche; if not, choose Application Form for Apartment Type. Please fill out the form you select, and in the Location field, put {lot} Phase:{p} Block:{b1} Lot No.:{l}. Thank you!\n\n'+
+                'Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
@@ -540,7 +541,7 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have declined your request upon checking on it. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) that you inquired about, is already taken, try to inquire other lots. Thank you for inquiring at the Himlayang General Trias Cemetery.\n\n'+
+                f'We want to inform you that we have declined your request upon checking on it. The lot ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you inquired about is already taken. Try to inquire about other lots. Thank you for inquiring at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
                 'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph.\n\n'+
                 'Regards,\nGeneral Trias Management',
                 'andrewleilaraqueljustin@gmail.com',
