@@ -18,7 +18,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=99, verbose_name='address', null=True)
 
     def __str__(self):
-        return self.username
+        return f'{self.username} | {self.first_name} {self.last_name}'
     
 
 class InquiryFormModel(models.Model):
@@ -130,7 +130,7 @@ class LotOrder(models.Model):
                    ('Reservation','Reservation')]
 
     customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer', blank=True,default=None)
-    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product', blank=True,default=None)
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product')
     terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms', blank=True)
     pay = models.FloatField(null=True, verbose_name='pay', blank=True,default=None)
     balance = models.FloatField(null=True, verbose_name='balance', blank=True,default=None)

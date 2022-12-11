@@ -73,6 +73,15 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger" id="msg" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     <div class="flex-container">
         <div class="flex-start-admin">
             <!-- onsubmit="return Validate()" -->
