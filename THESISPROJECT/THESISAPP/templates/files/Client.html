@@ -84,7 +84,7 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <a href="{% url 'Logout' %}" style="font-size: 16px;" class="btn btn-secondary">LOG OUT</a>
+                    <a href="{% url 'Logout' %}" onclick="return confirm('Do you want to log out?')" style="font-size: 16px;" class="btn btn-secondary">Log Out</a>
                 </ul>
             </div>
         </div>

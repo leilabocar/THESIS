@@ -18,6 +18,8 @@ class buyersFilter(django_filters.FilterSet):
 
     lot_type = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
     terms = django_filters.ChoiceFilter(empty_label='Terms',choices=terms_choices)
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
     class Meta:
         model = BuyersFormModel
         fields = '__all__'
@@ -47,8 +49,8 @@ class clientpaymentFilter(django_filters.FilterSet):
     terms = django_filters.ChoiceFilter(empty_label='Terms',choices=terms_choices)
     customer = django_filters.CharFilter(field_name='customer__username',lookup_expr='icontains')
     product_lottype = django_filters.ChoiceFilter(empty_label='Lot Type:',choices=lot_choices,field_name='product__lot')
-    product_phase = django_filters.CharFilter(field_name='product__phase')
-    product_block = django_filters.CharFilter(field_name='product__block')
+    product_phase = django_filters.NumberFilter(field_name='product__phase')
+    product_block = django_filters.NumberFilter(field_name='product__block')
     product_lotno = django_filters.CharFilter(field_name='product__lotno')
     due_date = django_filters.DateFilter(widget=DatePickerInput(attrs={'class':'form-control','onfocus':'(this.type=date)'}))
     paid_date = django_filters.DateFilter(widget=DatePickerInput(attrs={'class':'form-control'}))
@@ -64,8 +66,8 @@ class inquiryFilter(django_filters.FilterSet):
                       ('Apartment Type','Apartment Type')]
 
     lot_type = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
-    phase = django_filters.CharFilter(lookup_expr='icontains')
-    block = django_filters.CharFilter(lookup_expr='icontains')
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
     lotno = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = InquiryFormModel
@@ -79,14 +81,17 @@ class productFilter(django_filters.FilterSet):
 
     lot = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
     deceased = django_filters.CharFilter(lookup_expr='icontains')
-    phase = django_filters.CharFilter(lookup_expr='icontains')
-    block = django_filters.CharFilter(lookup_expr='icontains')
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
     lotno = django_filters.CharFilter(lookup_expr='icontains')
     class Meta:
         model = Product
         fields = '__all__'
 
 class applicationFilter(django_filters.FilterSet):
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
+
     class Meta:
         model = ApplicationFormModel
         fields = '__all__'

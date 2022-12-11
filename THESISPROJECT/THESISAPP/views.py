@@ -95,7 +95,7 @@ def ApplicationForm(request, pk):
             form = ApplicationFormForm(request.POST, instance=b)
             if form.is_valid():
                 form.save()
-                print('success')
+                messages.success(request, 'Success')
     else:
         return redirect('Logout')
     return render(request, 'files/ApplicationForm.html',{'a':a, 'form':form})
@@ -111,7 +111,7 @@ def BookAppointment(request,pk):
             form = BookAppointmentForm(request.POST, instance=b)
             if form.is_valid():
                 form.save()
-                print('success')
+                messages.success(request, 'Success')
     else:
         return redirect('Logout')
     return render(request, 'files/BookAppointment.html',{'a':a, 'form':form})
@@ -127,7 +127,7 @@ def BuyersForm(request, pk):
             form = BuyersFormForm(request.POST, instance=b)
             if form.is_valid():
                 form.save()
-                print('Success')
+                messages.success(request, 'Success')
     else:
         return redirect('Logout')
     return render(request, 'files/BuyersForm.html', {'a':a, 'form':form})

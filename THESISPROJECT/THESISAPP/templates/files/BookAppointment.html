@@ -36,6 +36,11 @@
             color: rgb(0, 0, 0);
             padding-top: 10px;
         }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -54,6 +59,15 @@
         </div>
         </div>
     </nav>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success" id="msg" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
     <form name="vform" onsubmit="return Validate()" method="post">{% csrf_token %}
         <div class="container">
@@ -76,8 +90,8 @@
                 <div id="Full Name_error"></div>
               </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="Contacts" name="Contacts">Contacts</span>
-                <input type="number"  class="form-control" placeholder="Contacts" name="contacts" aria-label="Sizing example input"
+                <span class="input-group-text" id="Contacts" name="Contacts">Mobile No.</span>
+                <input type="number"  class="form-control" placeholder="Mobile No." name="contacts" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
                 <div id="Contacts_error"></div>
             </div>

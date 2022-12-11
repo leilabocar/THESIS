@@ -81,6 +81,11 @@
         .pointer:hover{
             cursor: pointer;
         }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -221,8 +226,8 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Contacts" name="Contacts">Mobile No.:</span>
-                <input type="number"  class="form-control" placeholder="Mobile No.:" name="contacts" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;" required/>
+                <input type="number" class="form-control" placeholder="Mobile No." name="contacts" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" onKeyPress="if(this.value.length==11)  return false;"required/>
                     <div id="Contacts_error"></div>
             </div>
             <div class="input-group mb-3">

@@ -68,7 +68,7 @@
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">Buyers</a></li>
           </ul>
         </li>
-        <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
+        <a class="btn btn-danger" onclick="return confirm('Do you want to log out?')" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
       </ul>
     </div> 
 </div>
@@ -86,7 +86,7 @@
     </form>
   </div>
   <div class="alignleft">
-    <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'AddNew' user.pk %}">Add New</a>
+    <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'AddNew' user.pk %}">Add Lot</a>
   </div>
 </div>
 
@@ -114,7 +114,7 @@
           <td>{{i.lot}}</td>
           <td>Phase:{{i.phase}} Block:{{i.block}} Lot No.:{{i.lotno}}</td>
           <td><a class="btn btn-primary" style="font-size: 15px;" href="{% url 'AddNewUpdate' i.pk %}">Update</a>
-            <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AddNewDeceased' i.pk %}">Add</a>
+            <a class="btn btn-secondary" style="font-size: 15px;" href="{% url 'AddNewDeceased' i.pk %}">Add Name</a>
             <a class="delete btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')" style="font-size: 15px;" href="{% url 'AddNewDelete' i.pk %}">Delete</a></td>
         </tr>
         {% endfor %}
