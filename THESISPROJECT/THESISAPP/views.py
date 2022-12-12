@@ -176,7 +176,7 @@ def Property(request, pk):
 def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         context= {}
-        filter_all = productFilter(request.GET, queryset=Deads.objects.order_by('-id'))
+        filter_all = deadsFilter(request.GET, queryset=Deads.objects.order_by('-id'))
         context['filter_all'] = filter_all
 
         paginated_filter_all = Paginator(filter_all.qs, 10)
@@ -312,33 +312,34 @@ def AddNewUpdate(request,pk):
         return redirect('Logout')
     return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
 
-def AddNewDeceased(request,pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        prod= Product.objects.get(id=pk)
-        form = ProductForm(instance=prod)
-        form1 = ProductForm()
-        if request.method == 'POST':
-            form = ProductForm(request.POST, instance=prod)
-            form1 = ProductForm(request.POST)
-            if form.is_valid():
-                form1.save()
-                messages.success(request, 'Successfully Added'),
-                fail_silently=True
-            else:
-                messages.error(request, 'Invalid Input'),
-                fail_silently=True
-    else:
-        return redirect('Logout')
-    return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
+# def AddNewDeceased(request,pk):
+#     if request.user.is_authenticated and request.user.is_admin:
+#         prod= Product.objects.get(id=pk)
+#         form = ProductForm(instance=prod)
+#         form1 = ProductForm()
+#         if request.method == 'POST':
+#             form = ProductForm(request.POST, instance=prod)
+#             form1 = ProductForm(request.POST)
+#             if form.is_valid():
+#                 form1.save()
+#                 messages.success(request, 'Successfully Added'),
+#                 fail_silently=True
+#             else:
+#                 messages.error(request, 'Invalid Input'),
+#                 fail_silently=True
+#     else:
+#         return redirect('Logout')
+#     return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
 
 @login_required(login_url='/accounts/login/')
 def AddNewDelete(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
         Product.objects.filter(id=pk).delete()
-        return redirect('AdminHomepage',pk=pk)
+        return redirect('LotTable',pk=pk)
     else:
         return redirect('Logout')
 
+@login_required(login_url='/accounts/login/')
 def AddDeceased(request,pk):
     if request.user.is_authenticated and request.user.is_admin:
         a = Deads.objects.all()
@@ -355,6 +356,23 @@ def AddDeceased(request,pk):
     else:
         return redirect('Logout')
     return render(request, 'files/AddDeceased.html',{'a':a,'form':form})
+
+@login_required(login_url='/accounts/login/')
+def LotTable(request, pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        context= {}
+        filter_all = productFilter(request.GET, queryset=Product.objects.order_by('-id'))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 10)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+    else:
+        return redirect('Logout')
+    return render(request, 'files/LotTable.html', context=context)
+
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
