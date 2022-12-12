@@ -47,7 +47,7 @@ function clickViewButton(lat,long){
 		title: "end",
 		position: new google.maps.LatLng(lat,long)
 	  });
-	var startInfo= "Start here";
+	var startInfo= "You are here";
 	var endInfo= "Here is the Destination";
 	var info1 = new google.maps.InfoWindow({
 		content: startInfo,
