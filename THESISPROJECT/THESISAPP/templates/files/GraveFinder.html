@@ -103,9 +103,9 @@
     {% for kw in prod %}
     <tr id="trclick" class="">
         <td id="kw.deceased">{{kw.deceased}}</td>
-        <td>{{kw.lot}}: Phase:{{kw.phase}} Block:{{kw.block}} Lot No.:{{kw.lotno}}</td>
+        <td>{{kw.lot}}</td>
         <td>
-          <button class="buttonView buttonView2" onclick="clickViewButton('{{kw.latitude}}','{{kw.longitude}}')">
+          <button class="buttonView buttonView2" onclick="clickViewButton('{{kw.lot.latitude}}','{{kw.lot.longitude}}')">
             View Destination
           </button>
         </td>

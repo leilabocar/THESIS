@@ -176,7 +176,7 @@ def Property(request, pk):
 def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin:
         context= {}
-        filter_all = productFilter(request.GET, queryset=Product.objects.order_by('-id'))
+        filter_all = productFilter(request.GET, queryset=Deads.objects.order_by('-id'))
         context['filter_all'] = filter_all
 
         paginated_filter_all = Paginator(filter_all.qs, 10)
@@ -338,6 +338,23 @@ def AddNewDelete(request,pk):
         return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
+
+def AddDeceased(request,pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        a = Deads.objects.all()
+        form = DeceasedForm()
+        if request.method == 'POST':
+            form = DeceasedForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully Added'),
+                fail_silently=True
+                return redirect('AddDeceased', pk=pk)
+            else:
+                messages.error(request,'Invalid Input')
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddDeceased.html',{'a':a,'form':form})
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
@@ -662,12 +679,12 @@ def GraveFinder(request):
     q = ""
     if 'q' in request.GET:
         q=request.GET['q']
-        prod = Product.objects.filter(deceased__icontains=q).values_list('deceased', flat=True)
+        prod = Deads.objects.filter(deceased__icontains=q).values_list('deceased', flat=True)
         if q == '' or range(len(prod)==0):
             messages.error(request, 'Name not found!')
             return render(request, 'files/GraveFinder.html',{'q':q})
         else:
-            prod = Product.objects.filter(deceased__icontains=q).order_by('-id')
+            prod = Deads.objects.filter(deceased__icontains=q).order_by('-id')
             p = Paginator(prod, per_page=8)
             page = request.GET.get('page')
             if page == None or page == "":

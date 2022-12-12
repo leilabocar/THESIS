@@ -96,3 +96,17 @@ class applicationFilter(django_filters.FilterSet):
         model = ApplicationFormModel
         fields = '__all__'
 
+class deadsFilter(django_filters.FilterSet):
+    lot_choices=[('Lawn Lot','Lawn Lot'),
+                      ('Mausoleum','Mausoleum'),
+                      ('Niche','Niche'),
+                      ('Apartment','Apartment')]
+
+    lot = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
+    deceased = django_filters.CharFilter(lookup_expr='icontains')
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = Deads
+        fields = '__all__'
