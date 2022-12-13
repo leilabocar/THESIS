@@ -47,6 +47,9 @@
         .btn-space{
             margin-right: 5px;
         }
+        .input-group mb-3 loc{
+            display: none;
+        }
     </style>
     <script>
         var value= $("input:radio[name=lot]:checked").val();
@@ -107,12 +110,12 @@
                         {% render_field form.lotno class="form-control" placeholder="Lot no.:" %}
                         <div id="Phase_error"></div>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 loc">
                         <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
                         {% render_field form.latitude id="lat" class="form-control" placeholder="Latitude" %}
                             <div id="FN_error"></div>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 loc">
                         <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
                         {% render_field form.longitude id="lng" class="form-control" placeholder="Longitude" %}
                             <div id="FN_error"></div>
