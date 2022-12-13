@@ -49,39 +49,25 @@
   {% load THESISAPP_extras %}
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
-  <div class="container-fluid">
-        <a class="navbar-brand" >
-            <img src="{% static 'images/profile.png' %}" style="width:55px;" class="rounded-pill">
-        </a>
-    <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
-    
-      <ul class="navbar-nav ms-auto">
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
-              data-bs-toggle="dropdown">Transactions</a>
-          <ul class="dropdown-menu">
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk %}">Payments</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">Buyers</a></li>
+      <div class="container-fluid">
+          <a class="navbar-brand" >
+              <img src="{% static 'images/logo.jpg' %}" style="width:60px;" class="rounded-pill">
+          </a>
+          <h3>Himlayang General Trias</h3>
+
+          <ul class="navbar-nav ms-auto">
+              <a href="{% url 'AddNew' user.pk %}" class="btn btn-secondary">Back</a>
           </ul>
-        </li>
-        <a class="btn btn-danger" onclick="return confirm('Do you want to log out?')" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
-      </ul>
-    </div> 
-</div>
+      </div>
 </nav>
 
 <div id="textbox">
   <div class="alignright">
     <form method="get">
-      <div class="d-sm-inline-block">{% render_field filter_all.form.deceased class="form-control" placeholder='Name' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.lot_lottype class="form-control" empty_label='Lot Type:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.lot_phase class="form-control" placeholder='Phase:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.lot_block class="form-control" placeholder='Block:' %}</div>
-      <div class="d-sm-inline-block">{% render_field filter_all.form.lot_lotno class="form-control" placeholder='Lot No.:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lot class="form-control"  %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.phase class="form-control" placeholder='Phase:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.block class="form-control" placeholder='Block:' %}</div>
+      <div class="d-sm-inline-block">{% render_field filter_all.form.lotno class="form-control" placeholder='Lot No.:' %}</div>
       <button type="submit" class="btn btn-success">Search</button>
     </form>
   </div>
@@ -96,21 +82,17 @@
       <thead>
         <tr>
           <thead>
-            <th>Name</th>
-            <th>Date of Birth</th>
-            <th>Date of Death</th>
-            <th>Lot Address</th>
+            <th>Lot Type</th>
+            <th>Address</th>
             <th>Action</th>
           </thead>
         </tr>
         {% for i in all_page_obj %}
         <tr>
-          <td>{{i.deceased}}</td>
-          <td>{{i.born}}</td>
-          <td>{{i.died}}</td>
-          <td class="lotaddress">{{i.lot}}</td>
-          <td><a class="btn btn-primary" style="font-size: 15px;" href="">Update</a>
-            <a class="delete btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')" href="">Delete</a>
+          <td>{{i.lot}}</td>
+          <td>Phase:{{i.phase}} Block:{{i.block}} Lot No.:{{i.lotno}}</td>
+          <td><a class="btn btn-primary" style="font-size: 15px;" onclick="return confirm('Are you sure you want to update this?')" href="{% url 'AddNewUpdate' i.pk %}">Update</a>
+            <a class="delete btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'AddNewDelete' i.pk %}">Delete</a>
           </td>
         </tr>
         {% endfor %}

@@ -110,12 +110,15 @@ class Product(models.Model):
     lotno = models.CharField(max_length=30, null=True, verbose_name='lot_no.')
     latitude = models.CharField(max_length=200, null=True, verbose_name='latitude.')
     longitude = models.CharField(max_length=200, null=True, verbose_name='longitude.')
-    deceased = models.CharField(max_length=200, blank=True, null=True,default=None, verbose_name='deceased.')
-    born = models.DateField(null=True,blank=True,default=None, verbose_name='born.')
-    died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
 
     def __str__(self):
         return f'{self.lot} Phase:{self.phase} Block:{self.block} Lot No.:{self.lotno}'
+
+class Deads(models.Model):
+    lot = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='lot')
+    deceased = models.CharField(max_length=200, blank=True, null=True,default=None, verbose_name='deceased.')
+    born = models.DateField(null=True,blank=True,default=None, verbose_name='born.')
+    died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
     
 class LotOrder(models.Model):
     STATUS = [

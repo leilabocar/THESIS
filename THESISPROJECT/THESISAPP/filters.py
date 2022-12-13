@@ -80,10 +80,10 @@ class productFilter(django_filters.FilterSet):
                       ('Apartment','Apartment')]
 
     lot = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
-    deceased = django_filters.CharFilter(lookup_expr='icontains')
     phase = django_filters.NumberFilter(lookup_expr='icontains')
     block = django_filters.NumberFilter(lookup_expr='icontains')
     lotno = django_filters.CharFilter(lookup_expr='icontains')
+    
     class Meta:
         model = Product
         fields = '__all__'
@@ -96,3 +96,18 @@ class applicationFilter(django_filters.FilterSet):
         model = ApplicationFormModel
         fields = '__all__'
 
+class deadsFilter(django_filters.FilterSet):
+    lot_choices=[('Lawn Lot','Lawn Lot'),
+                      ('Mausoleum','Mausoleum'),
+                      ('Niche','Niche'),
+                      ('Apartment','Apartment')]
+
+    deceased = django_filters.CharFilter(lookup_expr='icontains')
+    lot_lottype = django_filters.ChoiceFilter(empty_label='Lot Type:',choices=lot_choices,field_name='lot__lot')
+    lot_phase = django_filters.NumberFilter(field_name='lot__phase')
+    lot_block = django_filters.NumberFilter(field_name='lot__block')
+    lot_lotno = django_filters.CharFilter(field_name='lot__lotno')
+
+    class Meta:
+        model = Deads
+        fields = '__all__'

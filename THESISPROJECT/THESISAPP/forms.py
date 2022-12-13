@@ -172,16 +172,25 @@ class ProductForm(forms.ModelForm):
                       ('Apartment','Apartment')]
 
     lot = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect(attrs={'class':'form-check-inline'}), required=True)
-    deceased = forms.CharField(required=False)
-    born = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
-    died = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
+    # deceased = forms.CharField(required=False)
+    # born = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
+    # died = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
     phase = forms.CharField(widget=forms.NumberInput())
     block = forms.CharField(widget=forms.NumberInput())
 
     class Meta:
         model = Product
-        fields = ('lot','phase','block','lotno','latitude','longitude','deceased','born','died')
+        fields = ('lot','phase','block','lotno','latitude','longitude')
 
+class DeceasedForm(forms.ModelForm):
+    deceased = forms.CharField()
+    born = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}))
+    died = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}))
+
+    class Meta:
+        model = Deads
+        fields = ('lot','deceased','born','died')
+        
 class PaymentHistoryForm(forms.ModelForm):
     paid_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
     due_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
