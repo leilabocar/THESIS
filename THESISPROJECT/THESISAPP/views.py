@@ -183,7 +183,7 @@ def Property(request, pk):
 # ---------- ADMIN
 @login_required(login_url='/accounts/login/')
 def AdminHomepage(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         context= {}
         filter_all = deadsFilter(request.GET, queryset=Deads.objects.order_by('-id'))
         context['filter_all'] = filter_all
