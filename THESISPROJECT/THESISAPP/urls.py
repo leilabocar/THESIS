@@ -6,6 +6,39 @@ from django.contrib import admin
 
 
 urlpatterns = [
+#---------------ADMIN SIDE
+    path('Notice/<int:pk>', views.Notice, name='Notice'),
+# clerk 1
+    path('Inquiry/<int:pk>/<str:email>', views.Inquiry, name='Inquiry'),
+    path('InquiryReject/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.InquiryReject, name='InquiryReject'),
+    path('InquiryApprove/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.InquiryApprove, name='InquiryApprove'),
+    path('Appointment/<int:pk>/<str:email>', views.Appointment, name='Appointment'),
+    path('AppointmentApprove/<int:pk>/<str:email>/<str:date>/<str:fullname>', views.AppointmentApprove, name='AppointmentApprove'),
+    path('AppointmentReject/<int:pk>/<str:email>/<str:fullname>', views.AppointmentReject, name='AppointmentReject'),
+# clerk 2   
+    path('Application/<int:pk>/<str:email>', views.Application, name='Application'),
+    path('ApplicationApprove/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationApprove, name='ApplicationApprove'),
+    path('ApplicationReject/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationReject, name='ApplicationReject'),
+    path('BuyersApplication/<int:pk>/<str:email>', views.BuyersApplication, name='BuyersApplication'), 
+    path('BuyersApplicationApprove/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.BuyersApplicationApprove, name='BuyersApplicationApprove'), 
+    path('BuyersApplicationReject/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.BuyersApplicationReject, name='BuyersApplicationReject'),  
+# clerk 3
+    path('ClientPayment/<int:pk>', views.ClientPayment, name='ClientPayment'),
+    path('AdminHomepage/<int:pk>', views.AdminHomepage, name='AdminHomepage'),
+    path('AddNew/<int:pk>', views.AddNew, name='AddNew'),
+    path('AddnewUpdate/<int:pk>', views.AddNewUpdate, name='AddNewUpdate'),
+    path('Notifier', views.Notifier, name='Notifier'),
+    path('AddnewDelete/<int:pk>', views.AddNewDelete, name='AddNewDelete'),
+    path('AddDeceased/<int:pk>', views.AddDeceased, name='AddDeceased'),
+    path('AddDeceasedUpdate/<int:pk>', views.AddDeceasedUpdate, name='AddDeceasedUpdate'),
+    path('AddDeceasedDelete/<int:pk>', views.AddDeceasedDelete, name='AddDeceasedDelete'),
+    path('LotTable/<int:pk>', views.LotTable, name='LotTable'),
+    path('PropertyManagement/<int:pk>', views.PropertyManagement, name='PropertyManagement'),
+    path('PropertyManagementUpdate/<int:pk>', views.PropertyManagementUpdate, name='PropertyManagementUpdate'),
+    path('PropertyManagementDelete/<int:pk>', views.PropertyManagementDelete, name='PropertyManagementDelete'),    
+#---------------END ADMIN SIDE
+   
+#---------------CLIENT SIDE
     path('', views.Homepage, name='Homepage'),
     path('Apartment', views.Apartment, name='Apartment'),
     path('GraveFinder', views.GraveFinder, name='GraveFinder'),
@@ -18,36 +51,6 @@ urlpatterns = [
     path('Logout', views.Logout, name='Logout'),
     path('accounts/login/', views.Logout),
     path('InquiryForm', views.InquiryForm, name='InquiryForm'),
-    #---------------ADMIN SIDE
-    path('AdminHomepage/<int:pk>', views.AdminHomepage, name='AdminHomepage'),
-    path('Application/<int:pk>/<str:email>', views.Application, name='Application'),
-    path('ApplicationApprove/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationApprove, name='ApplicationApprove'),
-    path('ApplicationReject/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationReject, name='ApplicationReject'),
-    path('Appointment/<int:pk>/<str:email>', views.Appointment, name='Appointment'),
-    path('AppointmentApprove/<int:pk>/<str:email>/<str:date>/<str:fullname>', views.AppointmentApprove, name='AppointmentApprove'),
-    path('AppointmentReject/<int:pk>/<str:email>/<str:fullname>', views.AppointmentReject, name='AppointmentReject'),
-    path('BuyersApplication/<int:pk>/<str:email>', views.BuyersApplication, name='BuyersApplication'), 
-    path('BuyersApplicationApprove/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.BuyersApplicationApprove, name='BuyersApplicationApprove'), 
-    path('BuyersApplicationReject/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.BuyersApplicationReject, name='BuyersApplicationReject'),  
-    path('ClientPayment/<int:pk>', views.ClientPayment, name='ClientPayment'),
-    path('AddNew/<int:pk>', views.AddNew, name='AddNew'),
-    path('AddnewUpdate/<int:pk>', views.AddNewUpdate, name='AddNewUpdate'),
-    # path('AddnewDeceased/<int:pk>', views.AddNewDeceased, name='AddNewDeceased'),
-    path('AddnewDelete/<int:pk>', views.AddNewDelete, name='AddNewDelete'),
-    path('AddDeceased/<int:pk>', views.AddDeceased, name='AddDeceased'),
-    path('AddDeceasedUpdate/<int:pk>', views.AddDeceasedUpdate, name='AddDeceasedUpdate'),
-    path('AddDeceasedDelete/<int:pk>', views.AddDeceasedDelete, name='AddDeceasedDelete'),
-    path('LotTable/<int:pk>', views.LotTable, name='LotTable'),
-    path('Notice/<int:pk>', views.Notice, name='Notice'),
-    path('Notifier', views.Notifier, name='Notifier'),
-    path('Inquiry/<int:pk>/<str:email>', views.Inquiry, name='Inquiry'),
-    path('InquiryReject/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.InquiryReject, name='InquiryReject'),
-    path('InquiryApprove/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.InquiryApprove, name='InquiryApprove'),
-    path('PropertyManagement/<int:pk>', views.PropertyManagement, name='PropertyManagement'),
-    path('PropertyManagementUpdate/<int:pk>', views.PropertyManagementUpdate, name='PropertyManagementUpdate'),
-    path('PropertyManagementDelete/<int:pk>', views.PropertyManagementDelete, name='PropertyManagementDelete'),
-    #---------------END ADMIN SIDE
-    #---------------CLIENT SIDE
     path('Client/<int:pk>', views.Client, name='Client'),
     path('InstallmentBill/<int:pk>', views.InstallmentBill, name='InstallmentBill'),
     path('PaymentHistory/<int:pk>', views.PaymentHistory, name='PaymentHistory'),
@@ -56,6 +59,6 @@ urlpatterns = [
     path('ApplicationForm/<int:pk>', views.ApplicationForm, name='ApplicationForm'),
     path('BookAppointment/<int:pk>', views.BookAppointment, name='BookAppointment'),
     path('Property/<int:pk>', views.Property, name='Property'),
-    #---------------END CLIENT SIDE
+#---------------END CLIENT SIDE
     
 ]

@@ -41,6 +41,15 @@ def Login(request):
             elif user is not None and user.is_client:
                 login(request, user)
                 return redirect(f'Client/{user.pk}')
+            elif user is not None and user.is_clerk1:
+                login(request,user)
+                return redirect(f'Inquiry/{user.pk}/{user.email}')
+            elif user is not None and user.is_clerk2:
+                login(request,user)
+                return redirect(f'ClientPayment/{user.pk}')
+            elif user is not None and user.is_clerk3:
+                login(request,user)
+                return redirect(f'Application/{user.pk}/{user.email}')
             else:
                 msg= 'Invalid Credentials'
         else:
@@ -190,7 +199,7 @@ def AdminHomepage(request, pk):
 
 @login_required(login_url='/accounts/login/')
 def ClientPayment(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk2 or request.user.is_admin:
         context= {}
         filter_all = clientpaymentFilter(request.GET, queryset=LotOrder.objects.order_by('-id'))
         context['filter_all'] = filter_all
@@ -200,6 +209,8 @@ def ClientPayment(request, pk):
         all_page_obj = paginated_filter_all.get_page(page_number)
 
         context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk)
     else:
         return redirect('Logout')
     return render(request, 'files/ClientPayment.html',context=context)
@@ -401,7 +412,7 @@ def LotTable(request, pk):
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
         context= {}
         filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
@@ -411,14 +422,17 @@ def BuyersApplication(request, pk, email):
         all_page_obj = paginated_filter_all.get_page(page_number)
 
         context['all_page_obj'] = all_page_obj
-        
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
     return render(request, 'files/BuyersApplication.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
@@ -441,12 +455,16 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
             lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
@@ -469,12 +487,16 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
             lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def Appointment(request, pk,email):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         context= {}
         filter_all = appointmentFilter(request.GET, queryset=BookAppointmentModel.objects.exclude(email=None))
         context['filter_all'] = filter_all
@@ -484,13 +506,17 @@ def Appointment(request, pk,email):
         all_page_obj = paginated_filter_all.get_page(page_number)
 
         context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
     return render(request, 'files/Appointment.html', context=context)
 
 @login_required(login_url='/accounts/login/')
 def AppointmentApprove(request, pk, email,date,fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
         date = BookAppointmentModel.objects.filter(date=date).values_list('date', flat=True).first()
@@ -509,12 +535,16 @@ def AppointmentApprove(request, pk, email,date,fullname):
         BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
         messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
  
 @login_required(login_url='/accounts/login/')
 def AppointmentReject(request,pk,email,fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
@@ -532,12 +562,16 @@ def AppointmentReject(request,pk,email,fullname):
         BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
         messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def Inquiry(request, pk, email):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         context= {}
         filter_all = inquiryFilter(request.GET, queryset=inquire.objects.all())
         context['filter_all'] = filter_all
@@ -558,13 +592,17 @@ def Inquiry(request, pk, email):
         all_page_obj1 = paginated_filter_all1.get_page(page_number1)
 
         context['all_page_obj1'] = all_page_obj1
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
     return render(request, 'files/Inquiry.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
         lot = InquiryFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
@@ -586,11 +624,15 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
         InquiryFormModel.objects.filter(id=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
 @login_required(login_url='/accounts/login/')
 def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
         lot = InquiryFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
@@ -612,12 +654,16 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
         InquiryFormModel.objects.filter(id=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def Application(request,pk,email):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
         context= {}
         filter_all = applicationFilter(request.GET, queryset=ApplicationFormModel.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
@@ -627,13 +673,17 @@ def Application(request,pk,email):
         all_page_obj = paginated_filter_all.get_page(page_number)
 
         context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
     return render(request, 'files/Application.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = ApplicationFormModel.objects.filter(email=email).values_list('email', flat=True).first()
@@ -655,12 +705,16 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
             date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = ApplicationFormModel.objects.filter(email=email).values_list('email', flat=True).first()
@@ -682,6 +736,10 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
             date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
         messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
 
