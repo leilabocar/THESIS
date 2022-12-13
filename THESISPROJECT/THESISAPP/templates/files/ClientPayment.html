@@ -50,6 +50,10 @@
     #buttons2 {
       max-width: 140px;
     }
+    .alignleft {
+      float: left;
+      padding: 10px 0px 10px 10px;
+    }
 </style>
 </head>
 <body>
@@ -62,9 +66,10 @@
     </a>
     <h3>Himlayang General Trias</h3>
     <ul class="navbar-nav ms-auto">
+        <a class="btn btn-space btn btn-dark"  href="{% url 'AddNew' user.pk %}">Add Lot</a>
         <a href="{% url 'PropertyManagement' user.pk %}" class="btn btn-space btn btn-primary">Create</a>
         <a href="{% url 'Notifier' %}"><input type="button" value="Notify" class="btn btn-space btn btn-secondary btn"></a>
-        <a href="{% url 'AdminHomepage' user.pk %}" class="btn btn-space btn btn-danger">BACK</a>
+        <a href="{% url 'AdminHomepage' user.pk %}" class="btn btn-space btn btn-danger">Back</a>
     </ul>
 </div>
 
@@ -83,6 +88,9 @@
       <div class="d-sm-inline-block" id="buttons2">{% render_field filter_all.form.due_date class="form-control" placeholder='Due Date:' %}</div>
       <button type="submit" class="btn btn-success">Search</button>
     </form>
+  </div>
+  <div class="alignleft">
+    <a class="btn btn-success" style="font-size: 15px;" href="{% url 'AddDeceased' user.pk %}">Add Deceased</a>
   </div>
 </div>
 <!--Table-->
