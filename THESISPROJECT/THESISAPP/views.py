@@ -350,12 +350,37 @@ def AddDeceased(request,pk):
                 form.save()
                 messages.success(request, 'Successfully Added'),
                 fail_silently=True
-                return redirect('AddDeceased', pk=pk)
+                return redirect('AdminHomepage', pk=pk)
             else:
                 messages.error(request,'Invalid Input')
     else:
         return redirect('Logout')
     return render(request, 'files/AddDeceased.html',{'a':a,'form':form})
+
+def AddDeceasedUpdate(request,pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        dead= Deads.objects.get(id=pk)
+        form = DeceasedForm(instance=dead)
+        if request.method == 'POST':
+            form = DeceasedForm(request.POST, instance=dead)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully Updated'),
+                fail_silently=True
+                return redirect('AdminHomepage', pk=pk)
+            else:
+                messages.error(request, 'Invalid Input'),
+                fail_silently=True
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddDeceased.html',{'form':form,'dead':dead})
+
+def AddDeceasedDelete(request, pk):
+    if request.user.is_authenticated and request.user.is_admin:
+        Deads.objects.filter(id=pk).delete()
+        return redirect('AdminHomepage',pk=pk)
+    else:
+        return redirect('Logout')
 
 @login_required(login_url='/accounts/login/')
 def LotTable(request, pk):
