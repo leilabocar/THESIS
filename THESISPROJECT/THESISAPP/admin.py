@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 class registeradmin(UserAdmin):
     add_fieldsets = (
         (None, {
-            'fields': ('first_name','last_name','username','email','password1','password2','is_admin','is_client'),
+            'fields': ('first_name','last_name','username','email','password1','password2','is_admin','is_client','is_clerk1','is_clerk2','is_clerk3'),
         }),
     )
 admin.site.register(User, registeradmin)

@@ -10,6 +10,9 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_admin = models.BooleanField('Is admin', default=False)
     is_client = models.BooleanField('Is client', default=False)
+    is_clerk1 = models.BooleanField('Is clerk1', default=False)
+    is_clerk2 = models.BooleanField('Is clerk2', default=False)
+    is_clerk3= models.BooleanField('Is clerk3', default=False)
     birth = models.DateField(verbose_name='birth', null=True)
     gender_choices=[('Female','Female'),
                       ('Male','Male')]
