@@ -25,6 +25,20 @@
         .text{
             text-align: justify;
         }
+
+        .img1 {
+            display:inline-block;
+            margin-left:auto;
+            margin-right:auto;
+            height:360;
+            
+        }
+        #left{    
+        float: center;  
+        }  
+        #right{    
+        float: center; 
+        }
     </style>
 </head>
 
@@ -88,12 +102,10 @@
     </div>
 
     <div class="container">
-        <div class="row center">
-            <div class="col-md-6 col-lg-2 col-xl-6 mx-auto mt-3">
-                <img src="{% static 'images/mayor 1.PNG' %}" alt="mayor1" class="mayor1" style="height: 360;">
-            </div>
-            <div class="col-md-6 col-lg-2 col-xl-5 mx-auto mt-3">
-                <img src="{% static 'images/mayor 2.PNG' %}" alt="mayor1" class="mayor2" style="height: 360">
+        <div class="row" style="text-align:center;">
+            <div >
+                <img class="img1" src="{% static 'images/mayor 1.PNG' %}" alt="mayor1" class="img1"  id ="left">
+                <img class="img1" src="{% static 'images/mayor 2.PNG' %}" alt="mayor1" class="img1"  id ="right" >
             </div>
         </div>
     </div>
