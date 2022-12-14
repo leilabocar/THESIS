@@ -29,6 +29,9 @@
     .btn-space {
       margin-right: 5px;
     }
+    .table{
+      width: 90%;
+    }
 </style>
 </head>
 <body>
@@ -86,10 +89,35 @@
   <div class="float-left">
     <div class="d-sm-inline-block"><button type="submit" class="btn btn-success float-sm-right">Search</button></div>
     <div class="d-sm-inline-block"><input type="text" name="q" class="form-control" placeholder="Ex: Forename Surname" /></div>
+    <div class="pagination">
+      {% if prod.has_previous %}
+          <a href="?page={{prod.previous_page_number}}&q={{q|urlencode}}">
+            Previous Page
+        </a>
+      {% endif%}
+      {% for page_number in prod.adjusted_elided_pages %}
+    
+          {% if page_number == prod.paginator.ELLIPSIS %}
+              {{page_number}}
+          {% else %}
+              <a
+                  href="?page={{page_number}}&q={{q|urlencode}}"
+                  class="{% if page_number == prod.number %}active{% endif %}"
+              >
+                  {{page_number}}
+              </a>
+          {% endif %}
+      
+      {% endfor %}
+      {% if prod.has_next %}
+          <a href="?page={{prod.next_page_number}}&q={{q|urlencode}}">
+              Next Page
+          </a>
+      {% endif%}
+    </div>
   </div>
 </div>
 </form>
-
 <div class="flex-container-public">
   <div class="table-container">
     <table class="table table-bordered table-dark table-hover">
@@ -102,48 +130,24 @@
     </tr>
     {% for kw in prod %}
     <tr id="trclick" class="">
-        <td id="kw.deceased">{{kw.deceased}}</td>
-        <td>{{kw.lot}}</td>
-        <td>
-          <button class="buttonView buttonView2" onclick="clickViewButton('{{kw.lot.latitude}}','{{kw.lot.longitude}}')">
-            View Destination
-          </button>
+        <td id="kw.deceased" width="20%">{{kw.deceased}}</td>
+        <td width="30%">{{kw.lot}}</td>
+        <td width="2%">
+          <a class="btn btn-primary btn-success" style="display: block;" onclick="clickViewButton('{{kw.lot.latitude}}','{{kw.lot.longitude}}')">
+            View</a>
         </td>
     </tr>
     {% endfor %}
   </table>
   </div>
+  
   <div class="mapContainerPublic">
      <!-- maps for google -->
     <div id="map"></div>
   </div>
 </div>
-<div class="pagination">
-  {% if prod.has_previous %}
-      <a href="?page={{prod.previous_page_number}}&q={{q|urlencode}}">
-        Previous Page
-    </a>
-  {% endif%}
-  {% for page_number in prod.adjusted_elided_pages %}
 
-      {% if page_number == prod.paginator.ELLIPSIS %}
-          {{page_number}}
-      {% else %}
-          <a
-              href="?page={{page_number}}&q={{q|urlencode}}"
-              class="{% if page_number == prod.number %}active{% endif %}"
-          >
-              {{page_number}}
-          </a>
-      {% endif %}
-  
-  {% endfor %}
-  {% if prod.has_next %}
-      <a href="?page={{prod.next_page_number}}&q={{q|urlencode}}">
-          Next Page
-      </a>
-  {% endif%}
-</div>
+
 
 <!-- FOOTER -->
 <footer class="bg-dark text-white pt-5 pb-4">
