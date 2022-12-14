@@ -831,8 +831,17 @@ def Niche(request):
 def AboutUs(request):
     return render(request, 'files/AboutUs.html')
 
+def LotProperty(request):
+    return render(request, 'files/LotProperty.html')
+
 def TermsofPayment(request):
     return render(request, 'files/TermsofPayment.html')
+
+def ContactUs(request):
+    return render(request, 'files/ContactUs.html')
+
+def PrivacyPolicy(request):
+    return render(request, 'files/PrivacyPolicy.html')
 
 def GraveFinder(request):
     q = ""

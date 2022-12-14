@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'Homepage' %}">
-                <img src="images/logo.jpg" style="width:55px;" class="rounded-pill">
+                <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
             </a>
             <h3>Himlayang General Trias</h3>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -54,7 +54,7 @@
                         <a class="nav-link" href="{% url 'TermsofPayment' %}">Terms of Payment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ContactUs' %}">Contact Us</a>
+                        <a class="nav-link" href="{% url 'AboutUs' %}">Contact Us</a>
                     </li>
                 </ul>
                 <div class="buttons">
@@ -69,8 +69,8 @@
         <div class="row g-3">
             <div class="col-12 col-md-5 col-lg-3">
                 <div class="card">
-                    <img src="images/apartment1.jpg" alt="apartment type1" class="card-img-top" style="height: 200px;">
-                    <img src="images/apartment_specs.jpg" alt="apartment type" class="card-img-top" style="height: 280px;">
+                    <img src="{% static 'images/apartment1.jpg' %}" alt="apartment type1" class="card-img-top" style="height: 200px;">
+                    <img src="{% static 'images/apartment_specs.jpg' %}" alt="apartment type" class="card-img-top" style="height: 280px;">
                     <div class="card-body">
                         <h5 class="card-title">Apartment Type</h5>
                         <ul class="card-text">
@@ -83,8 +83,8 @@
             </div>
             <div class="col-12 col-md-5 col-lg-3">
                 <div class="card">
-                    <img src="images/lawn.jpg" alt="lawn lot1" class="card-img-top" style="height: 200px;">
-                    <img src="images/lawn_specs.jpg" alt="lawn lot" class="card-img-top" style="height: 280px;">
+                    <img src="{% static 'images/lawn.jpg' %}" alt="lawn lot1" class="card-img-top" style="height: 200px;">
+                    <img src="{% static 'images/lawn_specs.jpg' %}" alt="lawn lot" class="card-img-top" style="height: 280px;">
                     <div class="card-body">
                         <h5 class="card-title">Lawn Lot</h5>
                         <ul class="card-text">
@@ -97,8 +97,8 @@
             </div>
             <div class="col-12 col-md-5 col-lg-3">
                 <div class="card">
-                    <img src="images/niche1.jpg" alt="niche1" class="card-img-top" style="height: 200px;">
-                    <img src="images/niche_specs1.jpg" alt="niche" class="card-img-top" style="height: 280px;">
+                    <img src="{% static 'images/niche1.jpg' %}" alt="niche1" class="card-img-top" style="height: 200px;">
+                    <img src="{% static 'images/niche_specs1.jpg' %}" alt="niche" class="card-img-top" style="height: 280px;">
                     <div class="card-body">
                         <h5 class="card-title">Niche</h5>
                         <ul class="card-text">
@@ -112,8 +112,8 @@
             </div>
         <div class="col-12 col-md-5 col-lg-3">
             <div class="card">
-                <img src="images/mausoleum1.jpg" alt="mausoleum1" class="card-img-top" style="height: 200px;">
-                <img src="images/mausoleum_specs.jpg" alt="mausoleum" class="card-img-top" style="height: 280px;">
+                <img src="{% static 'images/mausoleum1.jpg' %}" alt="mausoleum1" class="card-img-top" style="height: 200px;">
+                <img src="{% static 'images/mausoleum_specs.jpg' %}" alt="mausoleum" class="card-img-top" style="height: 280px;">
                 <div class="card-body">
                     <h5 class="card-title">Mausoleum</h5>
                     <ul class="card-text">
