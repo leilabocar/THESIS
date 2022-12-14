@@ -16,9 +16,10 @@
 } */
 
 #mapAdmin {
+    padding-left: 90rem;
     height: 700px;
-    width: 700px;
-    margin: auto;
+    width: 1300px;
+    margin-left: 20px;
 }
 .mapAdmin{
   height: 600px!important;
@@ -27,7 +28,7 @@
 }
 .mapContainer{
   position: relative;
-  margin: 0px 0px 0px 53px;
+  margin: 0px 90px 20px 0px;
 }
 span{
   font-family: Verdana, Arial, Tahoma, Serif;

@@ -33,7 +33,8 @@
             box-shadow: 2px 5px 5px 0px #eee;
             max-width: 700px;
             padding-top: 5px;
-            height: 640px;
+            width: 370px;
+            height: 350px;
             border-radius: 20px;
         }
         .heading {
@@ -49,7 +50,19 @@
         .input-group-loc{
             display: none;
         }
-        
+        .lotManagement{
+            width: 400px;
+        }
+        @media screen and (max-width:1300px){
+        .row{
+        justify-content: center;
+        flex-flow: block wrap;
+      }#mapAdmin{
+        min-width: 480px;
+        max-width: 480px;
+        padding-left: 10px;
+      }
+      }
     </style>
     <script>
         var value= $("input:radio[name=lot]:checked").val();
@@ -137,12 +150,12 @@
         </div>
     </div> -->
 <div class="row">
-    <div class="col-sm-4 p-3">
+    <div class="col-sm-4 p-3 lotManagement">
         <form name="vform" id="form" onsubmit="return submitForm()" method="post">
             {% csrf_token %}
             <div class="container">
                 <!-- Content here -->
-                <header class="heading"> LOT MANAGEMENT FORM</header>
+                <header class="heading" style="font-size: 25px;"> LOT MANAGEMENT FORM</header>
                 <hr>
                 </hr>
                 <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type & Location:</p>
