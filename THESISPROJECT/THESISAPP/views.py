@@ -198,6 +198,7 @@ def Appointment(request, pk,email):
         messages.add_message(request, messages.ERROR, 'You cannot access Appointment Page!')
         return redirect('ClientPayment',pk=pk)
     elif request.user.is_authenticated and request.user.is_clerk3:
+        messages.add_message(request, messages.ERROR, 'You cannot access Appointment Page!')
         return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
@@ -282,8 +283,10 @@ def Inquiry(request, pk, email):
 
         context['all_page_obj1'] = all_page_obj1
     elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Inquiry Page!')
         return redirect('ClientPayment',pk=pk)
     elif request.user.is_authenticated and request.user.is_clerk3:
+        messages.add_message(request, messages.ERROR, 'You cannot access Inquiry Page!')
         return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
@@ -366,8 +369,10 @@ def BuyersApplication(request, pk, email):
 
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk1:
+        messages.add_message(request, messages.ERROR, 'You cannot access Buyers Page!')
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Buyers Page!')
         return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
@@ -451,8 +456,10 @@ def Application(request,pk,email):
 
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk1:
+        messages.add_message(request, messages.ERROR, 'You cannot access Application Page!')
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Application Page!')
         return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
@@ -535,8 +542,10 @@ def AdminHomepage(request, pk):
 
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk3:
+        messages.add_message(request, messages.ERROR, 'You cannot access Grave Finder Table Page!')
         return redirect('Application',pk=pk, email=request.user.email)
     elif request.user.is_authenticated and request.user.is_clerk1:
+        messages.add_message(request, messages.ERROR, 'You cannot access Grave Finder Table Page!')
         return redirect('Inquiry',pk=pk, email=request.user.email)
     else:
         return redirect('Logout')
@@ -555,8 +564,10 @@ def ClientPayment(request, pk):
 
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk3:
+        messages.add_message(request, messages.ERROR, 'You cannot access Client Payment Page!')
         return redirect('Application',pk=pk, email=request.user.email)
     elif request.user.is_authenticated and request.user.is_clerk1:
+        messages.add_message(request, messages.ERROR, 'You cannot access Client Payment Page!')
         return redirect('Inquiry',pk=pk, email=request.user.email)
     else:
         return redirect('Logout')

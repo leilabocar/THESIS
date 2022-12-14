@@ -70,6 +70,15 @@
     </div> 
 </div>
 </nav>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger" id="msg" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 <form method="get"> {% csrf_token %}
   <div class="float-right">
     <div class="d-sm-inline-block">{% render_field filter_all.form.phase class="form-control" placeholder='Phase:' %}</div>
@@ -124,4 +133,11 @@
     </span>
   </div>
 </body>
+<script>
+  var message_ele = document.getElementById("msg");
+
+  setTimeout(function(){ 
+  message_ele.style.display = "none"; 
+  }, 3000);
+</script>
 </html>

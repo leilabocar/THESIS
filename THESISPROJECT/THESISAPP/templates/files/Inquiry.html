@@ -66,6 +66,15 @@
     </div> 
 </div>
 </nav>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger" id="msg" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 {% csrf_token %}
 
 <form method="get">
@@ -163,5 +172,12 @@
   </div>
 </div>
 </body>
+<script>
+  var message_ele = document.getElementById("msg");
+
+  setTimeout(function(){ 
+  message_ele.style.display = "none"; 
+  }, 3000);
+</script>
 
 </html>
