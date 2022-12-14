@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'Homepage' %}">
-                <img src="images/logo.jpg" style="width:55px;" class="rounded-pill">
+                <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
             </a>
             <h3>Himlayang General Trias</h3>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -83,7 +83,7 @@
                     <i class="fas fa-map-marker-alt mr-3 p-2"></i>Main Office: 9VPJ+F9Q, General Trias, Cavite
                 </p>
             </div>
-            <img src="images/himlayan.png" alt="himlayan" class="card-img-top" style="height: 700px;">
+            <img src="{% static 'images/himlayan.png' %}" alt="himlayan" class="card-img-top" style="height: 700px;">
     </div>
     </div>
 

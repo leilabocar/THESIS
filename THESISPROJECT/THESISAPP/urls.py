@@ -40,12 +40,12 @@ urlpatterns = [
    
 #---------------CLIENT SIDE
     path('', views.Homepage, name='Homepage'),
-    path('Apartment', views.Apartment, name='Apartment'),
+    path('AboutUs', views.AboutUs, name='AboutUs'),
+    path('LotProperty', views.LotProperty, name='LotProperty'),
     path('GraveFinder', views.GraveFinder, name='GraveFinder'),
-    path('Lawn', views.Lawn, name='Lawn'),
+    path('ContactUs', views.ContactUs, name='ContactUs'),
+    path('PrivacyPolicy', views.PrivacyPolicy, name='PrivacyPolicy'),
     path('Login', views.Login, name='Login'),
-    path('Mausoleum', views.Mausoleum, name='Mausoleum'),
-    path('Niche', views.Niche, name='Niche'),
     path('Signup', views.Signup, name='Signup'),
     path('TermsofPayment', views.TermsofPayment, name='TermsofPayment'),
     path('Logout', views.Logout, name='Logout'),
@@ -59,7 +59,6 @@ urlpatterns = [
     path('ApplicationForm/<int:pk>', views.ApplicationForm, name='ApplicationForm'),
     path('BookAppointment/<int:pk>', views.BookAppointment, name='BookAppointment'),
     path('Property/<int:pk>', views.Property, name='Property'),
-    path('AboutUs', views.AboutUs, name='AboutUs'),
 #---------------END CLIENT SIDE
     
 ]
