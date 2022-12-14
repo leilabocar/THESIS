@@ -442,6 +442,109 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
     else:
         return redirect('Logout')
 
+<<<<<<< Updated upstream
+=======
+#-----ENDCLERK1
+
+#---CLERK2
+@login_required(login_url='/accounts/login/')
+def BuyersApplication(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
+        context= {}
+        filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk1:
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+=======
+=======
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+        messages.add_message(request, messages.ERROR, 'You cannot access Buyers Page!')
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Buyers Page!')
+<<<<<<< HEAD
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+=======
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+        return redirect('ClientPayment',pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/BuyersApplication.html',context=context)
+
+@login_required(login_url='/accounts/login/')
+def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fullname):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        send_mail(
+                'From Himlayang General Trias Management',
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have approved your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) is available. Thank you for buying at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com \n\n'+
+                'Regards,\nGeneral Trias Management',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BuyersFormModel.objects.filter(pk=pk).update(
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
+        return redirect('BuyersApplication', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    else:
+        return redirect('Logout')
+
+@login_required(login_url='/accounts/login/')
+def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullname):
+    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        send_mail(
+                'From Himlayang General Trias Management',
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have declined your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you are about to buy is already taken. Try to acquire about other lots. Thank you for trying to buy a lot at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
+                'Regards,\nGeneral Trias Management',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BuyersFormModel.objects.filter(pk=pk).update(
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
+        return redirect('BuyersApplication', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    else:
+        return redirect('Logout')
+
+>>>>>>> Stashed changes
 
 @login_required(login_url='/accounts/login/')
 def Application(request,pk,email):
@@ -542,10 +645,27 @@ def AdminHomepage(request, pk):
 
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk3:
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+=======
+=======
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+>>>>>>> Stashed changes
         messages.add_message(request, messages.ERROR, 'You cannot access Grave Finder Table Page!')
         return redirect('Application',pk=pk, email=request.user.email)
     elif request.user.is_authenticated and request.user.is_clerk1:
         messages.add_message(request, messages.ERROR, 'You cannot access Grave Finder Table Page!')
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+=======
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+>>>>>>> Stashed changes
         return redirect('Inquiry',pk=pk, email=request.user.email)
     else:
         return redirect('Logout')
@@ -564,10 +684,27 @@ def ClientPayment(request, pk):
 
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk3:
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+=======
+=======
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+>>>>>>> Stashed changes
         messages.add_message(request, messages.ERROR, 'You cannot access Client Payment Page!')
         return redirect('Application',pk=pk, email=request.user.email)
     elif request.user.is_authenticated and request.user.is_clerk1:
         messages.add_message(request, messages.ERROR, 'You cannot access Client Payment Page!')
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+=======
+>>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
+>>>>>>> Stashed changes
         return redirect('Inquiry',pk=pk, email=request.user.email)
     else:
         return redirect('Logout')
