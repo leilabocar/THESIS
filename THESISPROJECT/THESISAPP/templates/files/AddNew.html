@@ -47,8 +47,11 @@
         .btn-space{
             margin-right: 5px;
         }
-        .input-group mb-3 loc{
+        .input-group-loc{
             display: none;
+        }
+        #mapAdmin{
+            max-width: 1200px;
         }
     </style>
     <script>
@@ -90,7 +93,7 @@
         {% endfor %}
     {% endif %}
     <div class="flex-container">
-        <div class="flex-start-admin">
+        <div class="col-sm-3">
             <!-- onsubmit="return Validate()" -->
             <form name="vform" id="form" onsubmit="return submitForm()" method="post">
                 {% csrf_token %}
@@ -100,7 +103,12 @@
                     <hr>
                     </hr>
                     <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type & Location:</p>
-                    {{ form.lot|add_class:"d-sm-inline-flex" }}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="latitude" name="latitude">Lot Type</span>
+                        {{ form.lot|add_class:"form-control" }}
+                            <div id="FN_error"></div>
+                    </div>
+                    
                     <div class="input-group mb-3">
                         <div class="input-group-prepend ">
                         <span class="input-group-text"  >Location</span>
@@ -110,12 +118,12 @@
                         {% render_field form.lotno class="form-control" placeholder="Lot no.:" %}
                         <div id="Phase_error"></div>
                     </div>
-                    <div class="input-group mb-3 loc">
+                    <div class="input-group-loc mb-3">
                         <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
                         {% render_field form.latitude id="lat" class="form-control" placeholder="Latitude" %}
                             <div id="FN_error"></div>
                     </div>
-                    <div class="input-group mb-3 loc">
+                    <div class="input-group-loc mb-3 loc">
                         <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
                         {% render_field form.longitude id="lng" class="form-control" placeholder="Longitude" %}
                             <div id="FN_error"></div>
@@ -141,7 +149,7 @@
                 
             </form>
         </div>
-        <div class="mapContainer" class="mapAdmin">
+        <div class="mapContainer col-sm-9" class="mapAdmin">
             <span>Click on the map to populate Latitude and Longitude</span>
             <div id="mapAdmin"></div>
         </div>

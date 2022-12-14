@@ -171,12 +171,10 @@ class ProductForm(forms.ModelForm):
                       ('Niche','Niche'),
                       ('Apartment','Apartment')]
 
-    lot = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect(attrs={'class':'form-check-inline'}), required=True)
-    # deceased = forms.CharField(required=False)
-    # born = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
-    # died = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
+    lot = forms.ChoiceField(choices= lot_type_choices, required=True)
     phase = forms.CharField(widget=forms.NumberInput())
     block = forms.CharField(widget=forms.NumberInput())
+    lotno = forms.CharField()
 
     class Meta:
         model = Product
