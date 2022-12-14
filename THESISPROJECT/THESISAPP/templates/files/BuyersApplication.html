@@ -68,23 +68,20 @@
 </nav>
 {% if messages %}
     {% for message in messages %}
-<<<<<<< Updated upstream
+
         {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
         <div class="alert alert-danger" id="msg" role="alert">
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
         <div class="alert alert-warning" id="msg" role="alert">
-=======
+
         {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
         <div class="alert alert-danger" id="msg" role="alert">
->>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
-=======
+
         {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
         <div class="alert alert-danger" id="msg" role="alert">
->>>>>>> 48b8002674cbdb7bf618e094f9602b3e1ed10497
->>>>>>> Stashed changes
+
             {{ message }}
         </div>
         {% endif %}
