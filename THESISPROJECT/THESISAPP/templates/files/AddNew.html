@@ -34,7 +34,6 @@
             max-width: 700px;
             padding-top: 5px;
             height: 640px;
-            margin-top: 30px;
             border-radius: 20px;
         }
         .heading {
@@ -50,9 +49,7 @@
         .input-group-loc{
             display: none;
         }
-        #mapAdmin{
-            max-width: 1200px;
-        }
+        
     </style>
     <script>
         var value= $("input:radio[name=lot]:checked").val();
@@ -92,13 +89,11 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    <div class="flex-container">
+    <!-- <div class="flex-container">
         <div class="col-sm-3">
-            <!-- onsubmit="return Validate()" -->
             <form name="vform" id="form" onsubmit="return submitForm()" method="post">
                 {% csrf_token %}
                 <div class="container">
-                    <!-- Content here -->
                     <header class="heading"> LOT MANAGEMENT FORM</header>
                     <hr>
                     </hr>
@@ -128,20 +123,6 @@
                         {% render_field form.longitude id="lng" class="form-control" placeholder="Longitude" %}
                             <div id="FN_error"></div>
                     </div>
-                    <!-- <p class="text-center" style="font-size: 25px; font-family: verdana;">Deceased Person Information:</p>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="deceased" name="Full Name">Name of Deceased</span>
-                        {% render_field form.deceased class="form-control" placeholder="Deceased Person" %}
-                            <div id="FN_error"></div>
-                    </div>
-                    <div class="input-group date mb-3" data-provide="datepicker">
-                        <span class="input-group-text" id="Date" name="DateBorn">Date Born</span>
-                        {{form.born}}
-                    </div>
-                    <div class="input-group date mb-3" data-provide="datepicker">
-                        <span class="input-group-text" id="DateDied" name="DateDied">Date Died</span>
-                        {{form.died}}
-                    </div> -->
                     <div class="d-flex justify-content-center mt-3 button">
                         <button type="submit" onclick="return confirm('Are you sure?')" class=" btn btn-primary rounded submit">Confirm</button>
                     </div>
@@ -149,11 +130,60 @@
                 
             </form>
         </div>
-        <div class="mapContainer col-sm-9" class="mapAdmin">
+        <div></div>
+        <div class="mapContainer" class="mapAdmin">
             <span>Click on the map to populate Latitude and Longitude</span>
             <div id="mapAdmin"></div>
         </div>
+    </div> -->
+<div class="row">
+    <div class="col-sm-4 p-3">
+        <form name="vform" id="form" onsubmit="return submitForm()" method="post">
+            {% csrf_token %}
+            <div class="container">
+                <!-- Content here -->
+                <header class="heading"> LOT MANAGEMENT FORM</header>
+                <hr>
+                </hr>
+                <p class="text-center" style="font-size: 25px; font-family: verdana;">Memorial Lot Type & Location:</p>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="latitude" name="latitude">Lot Type</span>
+                    {{ form.lot|add_class:"form-control" }}
+                        <div id="FN_error"></div>
+                </div>
+                
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend ">
+                    <span class="input-group-text"  >Location</span>
+                    </div>
+                    {% render_field form.phase class="form-control" placeholder="Phase" %}
+                    {% render_field form.block class="form-control" placeholder="Block" %}
+                    {% render_field form.lotno class="form-control" placeholder="Lot no.:" %}
+                    <div id="Phase_error"></div>
+                </div>
+                <div class="input-group-loc mb-3">
+                    <span class="input-group-text" id="latitude" name="latitude">Latitude</span>
+                    {% render_field form.latitude id="lat" class="form-control" placeholder="Latitude" %}
+                        <div id="FN_error"></div>
+                </div>
+                <div class="input-group-loc mb-3 loc">
+                    <span class="input-group-text" id="longitude" name="longitude">Longitude</span>
+                    {% render_field form.longitude id="lng" class="form-control" placeholder="Longitude" %}
+                        <div id="FN_error"></div>
+                </div>
+                <div class="d-flex justify-content-center mt-3 button">
+                    <button type="submit" onclick="return confirm('Are you sure?')" class=" btn btn-primary rounded submit">Confirm</button>
+                </div>
+            </div>
     </div>
+    <div class="col-sm-8">
+        <div class="mapContainer" class="mapAdmin">
+            <center><span>Click on the map to populate Latitude and Longitude</span></center>
+            <div id="mapAdmin"></div>
+        </div>
+    </div>
+</div>
+    
 </body>
 <script>
     var message_ele = document.getElementById("msg");
