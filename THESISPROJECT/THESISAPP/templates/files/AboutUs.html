@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'Homepage' %}">
-                <img src="images/logo.jpg" style="width:55px;" class="rounded-pill">
+                <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
             </a>
             <h3>Himlayang General Trias</h3>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -45,7 +45,7 @@
                         <a class="nav-link" href="{% url 'AboutUs' %}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'LotProperty' %}">Lot Property</a>
+                        <a class="nav-link" href="">Lot Property</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'GraveFinder' %}">Grave Finder</a>
@@ -54,7 +54,7 @@
                         <a class="nav-link" href="{% url 'TermsofPayment' %}">Terms of Payment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ContactUs' %}">Contact Us</a>
+                        <a class="nav-link" href="">Contact Us</a>
                     </li>
                 </ul>
                 <div class="buttons">
@@ -87,10 +87,10 @@
     <div class="container">
         <div class="row center">
             <div class="col-md-6 col-lg-2 col-xl-6 mx-auto mt-3">
-                <img src="images/mayor 1.PNG" alt="mayor1" class="mayor1" style="height: 360;">
+                <img src="{% static 'images/mayor 1.PNG' %}" alt="mayor1" class="mayor1" style="height: 360;">
             </div>
             <div class="col-md-6 col-lg-2 col-xl-5 mx-auto mt-3">
-                <img src="images/mayor 2.PNG" alt="mayor1" class="mayor2" style="height: 360">
+                <img src="{% static 'images/mayor 2.PNG' %}" alt="mayor1" class="mayor2" style="height: 360">
             </div>
         </div>
     </div>
@@ -133,7 +133,7 @@
                             Payment</a>
                     </p>
                     <p>
-                        <a href="{% url 'PrivacyPolicy' %}" class="text-white" style="text-decoration: none;">Privacy
+                        <a href="" class="text-white" style="text-decoration: none;">Privacy
                             Policy</a>
                     </p>
                 </div>

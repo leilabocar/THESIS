@@ -773,6 +773,9 @@ def Notice(request, pk):
 def Niche(request):
     return render(request, 'files/Niche.html')
 
+def AboutUs(request):
+    return render(request, 'files/AboutUs.html')
+
 def TermsofPayment(request):
     return render(request, 'files/TermsofPayment.html')
 

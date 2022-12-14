@@ -59,6 +59,7 @@ urlpatterns = [
     path('ApplicationForm/<int:pk>', views.ApplicationForm, name='ApplicationForm'),
     path('BookAppointment/<int:pk>', views.BookAppointment, name='BookAppointment'),
     path('Property/<int:pk>', views.Property, name='Property'),
+    path('AboutUs', views.AboutUs, name='AboutUs'),
 #---------------END CLIENT SIDE
     
 ]
