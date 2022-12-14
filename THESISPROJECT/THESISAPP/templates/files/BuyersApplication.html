@@ -76,6 +76,16 @@
         {% endif %}
     {% endfor %}
 {% endif %}
+{% if messages %}
+    {% for message in messages %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class="alert alert-success" id="msg" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 
 <form method="get"> 
   {% csrf_token %}
