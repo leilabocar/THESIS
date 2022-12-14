@@ -46,14 +46,28 @@
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
-    <a class="navbar-brand" >
-        <img src="{% static 'images/logo.jpg' %}" style="width:60px;" class="rounded-pill">
-    </a>
-    <h3>Himlayang General Trias</h3>
-
-    <ul class="navbar-nav ms-auto">
-        <a href="{% url 'AdminHomepage' user.pk %}" class="btn btn-secondary">BACK</a>
-    </ul>
+        <a class="navbar-brand" >
+            <img src="{% static 'images/profile.png' %}" style="width:55px;" class="rounded-pill">
+        </a>
+    <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
+    
+      <ul class="navbar-nav ms-auto">
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
+              data-bs-toggle="dropdown">Transactions</a>
+          <ul class="dropdown-menu">
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'AdminHomepage' user.pk %}">Grave Finder Table</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk  %}">Payments</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">Buyers</a></li>
+          </ul>
+        </li>
+        <a class="btn btn-danger" onclick="return confirm('Do you want to log out?')" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
+      </ul>
+    </div> 
 </div>
 </nav>
 <form method="get"> {% csrf_token %}

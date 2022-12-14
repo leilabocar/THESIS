@@ -181,319 +181,7 @@ def Property(request, pk):
 # ---------- END CLIENT
 
 # ---------- ADMIN
-@login_required(login_url='/accounts/login/')
-def AdminHomepage(request, pk):
-    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
-        context= {}
-        filter_all = deadsFilter(request.GET, queryset=Deads.objects.order_by('-id'))
-        context['filter_all'] = filter_all
-
-        paginated_filter_all = Paginator(filter_all.qs, 10)
-        page_number = request.GET.get('page')
-        all_page_obj = paginated_filter_all.get_page(page_number)
-
-        context['all_page_obj'] = all_page_obj
-    else:
-        return redirect('Logout')
-    return render(request, 'files/AdminHomepage.html', context=context)
-
-@login_required(login_url='/accounts/login/')
-def ClientPayment(request, pk):
-    if request.user.is_authenticated and request.user.is_clerk2 or request.user.is_admin:
-        context= {}
-        filter_all = clientpaymentFilter(request.GET, queryset=LotOrder.objects.order_by('-id'))
-        context['filter_all'] = filter_all
-
-        paginated_filter_all = Paginator(filter_all.qs, 11)
-        page_number = request.GET.get('page')
-        all_page_obj = paginated_filter_all.get_page(page_number)
-
-        context['all_page_obj'] = all_page_obj
-    elif request.user.is_authenticated and request.user.is_clerk1:
-        return redirect('Inquiry',pk=pk)
-    else:
-        return redirect('Logout')
-    return render(request, 'files/ClientPayment.html',context=context)
-
-@login_required(login_url='/accounts/login/')
-def PropertyManagement(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        print ("PropertyManagement Page")
-        a = User.objects.filter(pk=pk)
-        form = LotOrderForm
-        form1 = PaymentHistoryForm
-        if request.method == 'POST':
-            form = LotOrderForm(request.POST)
-            form1 = PaymentHistoryForm(request.POST)
-            if form.is_valid() and form1.is_valid():
-                form.save()
-                form1.save()
-                messages.success(request, 'Successfully Added')
-            else:
-                messages.error(request, 'Invalid Input')
-    else:
-        return redirect('Logout')
-    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'form1':form1})
-
-@login_required(login_url='/accounts/login/')
-def PropertyManagementUpdate(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        order = LotOrder.objects.get(id=pk)
-        form = LotOrderForm(instance=order)
-        form1 = PaymentHistoryForm()
-        if request.method == 'POST':
-            form = LotOrderForm(request.POST, instance=order)
-            form1 = PaymentHistoryForm(request.POST)
-            if form.is_valid() and form1.is_valid():
-                form.save()
-                form1.save()
-                messages.success(request, 'Successfully Updated')
-            else:
-                messages.error(request, 'Invalid Input')
-    else:
-        return redirect('Logout')
-    return render(request, 'files/PropertyManagement.html',{'form':form,'order':order, 'form1':form1})
-
-@login_required(login_url='/accounts/login/')
-def Notifier(request):
-    if request.user.is_authenticated and request.user.is_admin:
-        form = NotifierForm()
-        if request.method == 'POST':
-            form = NotifierForm(request.POST)
-            if form.is_valid():
-                email = form.cleaned_data.get('email')
-                name = form.cleaned_data.get('name')
-                totalamountdue = form.cleaned_data.get('totalamountdue')
-                duedate = form.cleaned_data.get('duedate')
-                send_mail(
-                'Himlayang Cemetery Billing', 
-                f'Good day {name}, \n \n You need to pay your monthly fee. Your due date is {duedate} with a total balance of {totalamountdue}. Thank you! \n\n Himlayang Cemetery Marketing Department \n' ,
-                'andrewleilaraqueljustin@gmail.com',
-                [email],
-                fail_silently=False
-            )
-                messages.success(request, 'Successfully Sent')
-            else:
-                print("ERROR")
-    else:
-        return redirect('Logout')
-    return render(request, 'files/Notifier.html',{'form':form})
-
-@login_required(login_url='/accounts/login/')
-def PropertyManagementDelete(request,pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        LotOrder.objects.filter(id=pk).delete()
-        return redirect('ClientPayment',pk=pk)
-    else:
-        return redirect('Logout')
-@login_required(login_url='/accounts/login/')
-def AddNew(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        print ("Adding Lots Page")
-        a = User.objects.filter(pk=pk)
-        form = ProductForm()
-        if request.method == 'POST':
-            form = ProductForm(request.POST)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Successfully Added'),
-                fail_silently=True
-                return redirect('AddNew', pk=pk)
-            else:
-                messages.error(request,'Invalid Input')
-    else:
-        return redirect('Logout')
-    return render(request, 'files/AddNew.html',{'a':a,'form':form})
-
-@login_required(login_url='/accounts/login/')
-def AddNewUpdate(request,pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        prod= Product.objects.get(id=pk)
-        form = ProductForm(instance=prod)
-        if request.method == 'POST':
-            form = ProductForm(request.POST, instance=prod)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Successfully Updated'),
-                fail_silently=True
-            else:
-                messages.error(request, 'Invalid Input'),
-                fail_silently=True
-    else:
-        return redirect('Logout')
-    return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
-
-# def AddNewDeceased(request,pk):
-#     if request.user.is_authenticated and request.user.is_admin:
-#         prod= Product.objects.get(id=pk)
-#         form = ProductForm(instance=prod)
-#         form1 = ProductForm()
-#         if request.method == 'POST':
-#             form = ProductForm(request.POST, instance=prod)
-#             form1 = ProductForm(request.POST)
-#             if form.is_valid():
-#                 form1.save()
-#                 messages.success(request, 'Successfully Added'),
-#                 fail_silently=True
-#             else:
-#                 messages.error(request, 'Invalid Input'),
-#                 fail_silently=True
-#     else:
-#         return redirect('Logout')
-#     return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
-
-@login_required(login_url='/accounts/login/')
-def AddNewDelete(request,pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        Product.objects.filter(id=pk).delete()
-        return redirect('LotTable',pk=pk)
-    else:
-        return redirect('Logout')
-
-@login_required(login_url='/accounts/login/')
-def AddDeceased(request,pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        a = Deads.objects.all()
-        form = DeceasedForm()
-        if request.method == 'POST':
-            form = DeceasedForm(request.POST)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Successfully Added'),
-                fail_silently=True
-                return redirect('AdminHomepage', pk=pk)
-            else:
-                messages.error(request,'Invalid Input')
-    else:
-        return redirect('Logout')
-    return render(request, 'files/AddDeceased.html',{'a':a,'form':form})
-
-def AddDeceasedUpdate(request,pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        dead= Deads.objects.get(id=pk)
-        form = DeceasedForm(instance=dead)
-        if request.method == 'POST':
-            form = DeceasedForm(request.POST, instance=dead)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Successfully Updated'),
-                fail_silently=True
-                return redirect('AdminHomepage', pk=pk)
-            else:
-                messages.error(request, 'Invalid Input'),
-                fail_silently=True
-    else:
-        return redirect('Logout')
-    return render(request, 'files/AddDeceased.html',{'form':form,'dead':dead})
-
-def AddDeceasedDelete(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        Deads.objects.filter(id=pk).delete()
-        return redirect('AdminHomepage',pk=pk)
-    else:
-        return redirect('Logout')
-
-@login_required(login_url='/accounts/login/')
-def LotTable(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
-        context= {}
-        filter_all = productFilter(request.GET, queryset=Product.objects.order_by('-id'))
-        context['filter_all'] = filter_all
-
-        paginated_filter_all = Paginator(filter_all.qs, 10)
-        page_number = request.GET.get('page')
-        all_page_obj = paginated_filter_all.get_page(page_number)
-
-        context['all_page_obj'] = all_page_obj
-    else:
-        return redirect('Logout')
-    return render(request, 'files/LotTable.html', context=context)
-
-
-@login_required(login_url='/accounts/login/')
-def BuyersApplication(request, pk, email):
-    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
-        context= {}
-        filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
-        context['filter_all'] = filter_all
-
-        paginated_filter_all = Paginator(filter_all.qs, 11)
-        page_number = request.GET.get('page')
-        all_page_obj = paginated_filter_all.get_page(page_number)
-
-        context['all_page_obj'] = all_page_obj
-    elif request.user.is_authenticated and request.user.is_clerk1:
-        return redirect('Inquiry',pk=pk, email=email)
-    elif request.user.is_authenticated and request.user.is_clerk2:
-        return redirect('ClientPayment',pk=pk)
-    else:
-        return redirect('Logout')
-    return render(request, 'files/BuyersApplication.html',context=context)
-
-@login_required(login_url='/accounts/login/')
-def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fullname):
-    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
-        a = User.objects.filter(pk=pk)
-        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
-        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
-        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
-        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
-        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
-        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
-        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
-        send_mail(
-                'From Himlayang General Trias Management',
-                f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have approved your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) is available. Thank you for buying at the Himlayang General Trias Cemetery.\n\n'+
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com \n\n'+
-                'Regards,\nGeneral Trias Management',
-                'andrewleilaraqueljustin@gmail.com',
-                [b],
-                fail_silently=False
-            )
-        BuyersFormModel.objects.filter(pk=pk).update(
-            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
-        messages.success(request, 'Successfully Sent')
-        return redirect('BuyersApplication', pk=c, email=email)
-    elif request.user.is_authenticated and request.user.is_clerk1:
-        return redirect('Inquiry',pk=pk, email=email)
-    elif request.user.is_authenticated and request.user.is_clerk2:
-        return redirect('ClientPayment',pk=pk)
-    else:
-        return redirect('Logout')
-
-@login_required(login_url='/accounts/login/')
-def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullname):
-    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
-        a = User.objects.filter(pk=pk)
-        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
-        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
-        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
-        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
-        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
-        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
-        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
-        send_mail(
-                'From Himlayang General Trias Management',
-                f'Dear {fname},\n\nGood day!\n\n' +
-                f'We want to inform you that we have declined your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you are about to buy is already taken. Try to acquire about other lots. Thank you for trying to buy a lot at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
-                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
-                'Regards,\nGeneral Trias Management',
-                'andrewleilaraqueljustin@gmail.com',
-                [b],
-                fail_silently=False
-            )
-        BuyersFormModel.objects.filter(pk=pk).update(
-            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
-        messages.success(request, 'Successfully Sent')
-        return redirect('BuyersApplication', pk=c, email=email)
-    elif request.user.is_authenticated and request.user.is_clerk1:
-        return redirect('Inquiry',pk=pk, email=email)
-    elif request.user.is_authenticated and request.user.is_clerk2:
-        return redirect('ClientPayment',pk=pk)
-    else:
-        return redirect('Logout')
-
+#-----CLERK1
 @login_required(login_url='/accounts/login/')
 def Appointment(request, pk,email):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
@@ -661,6 +349,94 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
     else:
         return redirect('Logout')
 
+#-----ENDCLERK1
+
+#---CLERK2
+@login_required(login_url='/accounts/login/')
+def BuyersApplication(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
+        context= {}
+        filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/BuyersApplication.html',context=context)
+
+@login_required(login_url='/accounts/login/')
+def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fullname):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        send_mail(
+                'From Himlayang General Trias Management',
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have approved your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) is available. Thank you for buying at the Himlayang General Trias Cemetery.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com \n\n'+
+                'Regards,\nGeneral Trias Management',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BuyersFormModel.objects.filter(pk=pk).update(
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
+        return redirect('BuyersApplication', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    else:
+        return redirect('Logout')
+
+@login_required(login_url='/accounts/login/')
+def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullname):
+    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
+        a = User.objects.filter(pk=pk)
+        c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
+        b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
+        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
+        b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
+        l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
+        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        send_mail(
+                'From Himlayang General Trias Management',
+                f'Dear {fname},\n\nGood day!\n\n' +
+                f'We want to inform you that we have declined your request upon checking on it. The ({lot} Phase:{p} Block:{b1} Lot No.:{l}) you are about to buy is already taken. Try to acquire about other lots. Thank you for trying to buy a lot at the Himlayang General Trias Cemetery, and we are sorry for the inconvenience.\n\n'+
+                'If you need immediate assistance or have any further questions, you can make an appointment with the Office of Himlayang Gen. Trias and free to call us at Tel. #: (046) 419-8380 to 89 (02) 8779-5980 or visit our website: www.generaltrias.gov.ph and www.himlayangcemeterygentri.com\n\n'+
+                'Regards,\nGeneral Trias Management',
+                'andrewleilaraqueljustin@gmail.com',
+                [b],
+                fail_silently=False
+            )
+        BuyersFormModel.objects.filter(pk=pk).update(
+            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        messages.success(request, 'Successfully Sent')
+        return redirect('BuyersApplication', pk=c, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        return redirect('ClientPayment',pk=pk)
+    else:
+        return redirect('Logout')
+
+
 @login_required(login_url='/accounts/login/')
 def Application(request,pk,email):
     if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
@@ -742,10 +518,290 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
         return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
+#---ENDCLERK2
+
+#---CLERK3
+@login_required(login_url='/accounts/login/')
+def AdminHomepage(request, pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        context= {}
+        filter_all = deadsFilter(request.GET, queryset=Deads.objects.order_by('-id'))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 10)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AdminHomepage.html', context=context)
+
+@login_required(login_url='/accounts/login/')
+def ClientPayment(request, pk):
+    if request.user.is_authenticated and request.user.is_clerk2 or request.user.is_admin:
+        context= {}
+        filter_all = clientpaymentFilter(request.GET, queryset=LotOrder.objects.order_by('-id'))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/ClientPayment.html',context=context)
+
+@login_required(login_url='/accounts/login/')
+def PropertyManagement(request, pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        print ("PropertyManagement Page")
+        a = User.objects.filter(pk=pk)
+        form = LotOrderForm
+        form1 = PaymentHistoryForm
+        if request.method == 'POST':
+            form = LotOrderForm(request.POST)
+            form1 = PaymentHistoryForm(request.POST)
+            if form.is_valid() and form1.is_valid():
+                form.save()
+                form1.save()
+                messages.success(request, 'Successfully Added')
+            else:
+                messages.error(request, 'Invalid Input')
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/PropertyManagement.html',{'a':a, 'form':form,'form1':form1})
+
+@login_required(login_url='/accounts/login/')
+def PropertyManagementUpdate(request, pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        order = LotOrder.objects.get(id=pk)
+        form = LotOrderForm(instance=order)
+        form1 = PaymentHistoryForm()
+        if request.method == 'POST':
+            form = LotOrderForm(request.POST, instance=order)
+            form1 = PaymentHistoryForm(request.POST)
+            if form.is_valid() and form1.is_valid():
+                form.save()
+                form1.save()
+                messages.success(request, 'Successfully Updated')
+            else:
+                messages.error(request, 'Invalid Input')
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/PropertyManagement.html',{'form':form,'order':order, 'form1':form1})
+
+@login_required(login_url='/accounts/login/')
+def Notifier(request,pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        form = NotifierForm()
+        if request.method == 'POST':
+            form = NotifierForm(request.POST)
+            if form.is_valid():
+                email1 = form.cleaned_data.get('email')
+                name = form.cleaned_data.get('name')
+                totalamountdue = form.cleaned_data.get('totalamountdue')
+                duedate = form.cleaned_data.get('duedate')
+                send_mail(
+                'Himlayang Cemetery Billing', 
+                f'Good day {name}, \n \n You need to pay your monthly fee. Your due date is {duedate} with a total balance of {totalamountdue}. Thank you! \n\n Himlayang Cemetery Marketing Department \n' ,
+                'andrewleilaraqueljustin@gmail.com',
+                [email1],
+                fail_silently=False
+            )
+                messages.success(request, 'Successfully Sent')
+            else:
+                print("ERROR")
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Notifier.html',{'form':form})
+
+@login_required(login_url='/accounts/login/')
+def PropertyManagementDelete(request,pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        LotOrder.objects.filter(id=pk).delete()
+        return redirect('ClientPayment',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+@login_required(login_url='/accounts/login/')
+def AddNew(request, pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        print ("Adding Lots Page")
+        a = User.objects.filter(pk=pk)
+        form = ProductForm()
+        if request.method == 'POST':
+            form = ProductForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully Added'),
+                fail_silently=True
+                return redirect('AddNew', pk=pk)
+            else:
+                messages.error(request,'Invalid Input')
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddNew.html',{'a':a,'form':form})
+
+@login_required(login_url='/accounts/login/')
+def AddNewUpdate(request,pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        prod= Product.objects.get(id=pk)
+        form = ProductForm(instance=prod)
+        if request.method == 'POST':
+            form = ProductForm(request.POST, instance=prod)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully Updated'),
+                fail_silently=True
+            else:
+                messages.error(request, 'Invalid Input'),
+                fail_silently=True
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
+
+# def AddNewDeceased(request,pk):
+#     if request.user.is_authenticated and request.user.is_admin:
+#         prod= Product.objects.get(id=pk)
+#         form = ProductForm(instance=prod)
+#         form1 = ProductForm()
+#         if request.method == 'POST':
+#             form = ProductForm(request.POST, instance=prod)
+#             form1 = ProductForm(request.POST)
+#             if form.is_valid():
+#                 form1.save()
+#                 messages.success(request, 'Successfully Added'),
+#                 fail_silently=True
+#             else:
+#                 messages.error(request, 'Invalid Input'),
+#                 fail_silently=True
+#     else:
+#         return redirect('Logout')
+#     return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
+
+@login_required(login_url='/accounts/login/')
+def AddNewDelete(request,pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        Product.objects.filter(id=pk).delete()
+        return redirect('LotTable',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+
+@login_required(login_url='/accounts/login/')
+def AddDeceased(request,pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        a = Deads.objects.all()
+        form = DeceasedForm()
+        if request.method == 'POST':
+            form = DeceasedForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully Added'),
+                fail_silently=True
+                return redirect('AdminHomepage', pk=pk)
+            else:
+                messages.error(request,'Invalid Input')
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddDeceased.html',{'a':a,'form':form})
+
+def AddDeceasedUpdate(request,pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        dead= Deads.objects.get(id=pk)
+        form = DeceasedForm(instance=dead)
+        if request.method == 'POST':
+            form = DeceasedForm(request.POST, instance=dead)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully Updated'),
+                fail_silently=True
+                return redirect('AdminHomepage', pk=pk)
+            else:
+                messages.error(request, 'Invalid Input'),
+                fail_silently=True
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/AddDeceased.html',{'form':form,'dead':dead})
+
+def AddDeceasedDelete(request, pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        Deads.objects.filter(id=pk).delete()
+        return redirect('AdminHomepage',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+
+@login_required(login_url='/accounts/login/')
+def LotTable(request, pk):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
+        context= {}
+        filter_all = productFilter(request.GET, queryset=Product.objects.order_by('-id'))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 10)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        return redirect('Application',pk=pk, email=request.user.email)
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        return redirect('Inquiry',pk=pk, email=request.user.email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/LotTable.html', context=context)
 
 @login_required(login_url='/accounts/login/')
 def Notice(request, pk):
-    if request.user.is_authenticated and request.user.is_admin:
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         a = User.objects.filter(pk=pk)
         form = NoticeForm()
         if request.method == 'POST':
@@ -760,7 +816,6 @@ def Notice(request, pk):
                 [receiver],
                 fail_silently=False,
             )
-                print("SUCCESS")
             else:
                 print("ERROR")
     else:
