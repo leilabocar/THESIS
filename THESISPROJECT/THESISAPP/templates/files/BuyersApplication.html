@@ -38,6 +38,7 @@
 </head>
 <body>
   {% load THESISAPP_extras %}
+  
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
   <div class="container-fluid">
@@ -65,6 +66,16 @@
     </div> 
 </div>
 </nav>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+        <div class="alert alert-warning" id="msg" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 <form method="get"> 
   {% csrf_token %}
   <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>

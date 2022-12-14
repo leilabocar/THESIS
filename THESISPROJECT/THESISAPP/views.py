@@ -195,6 +195,7 @@ def Appointment(request, pk,email):
 
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Appointment Page!')
         return redirect('ClientPayment',pk=pk)
     elif request.user.is_authenticated and request.user.is_clerk3:
         return redirect('Application',pk=pk,email=email)
