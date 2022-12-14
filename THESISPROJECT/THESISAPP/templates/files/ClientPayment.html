@@ -67,13 +67,22 @@
     <h3>Himlayang General Trias</h3>
     <ul class="navbar-nav ms-auto">
         <a class="btn btn-space btn btn-dark"  href="{% url 'AddNew' user.pk %}">Add Lot</a>
-        <a href="{% url 'PropertyManagement' user.pk %}" class="btn btn-space btn btn-primary">Create</a>
-        <a href="{% url 'Notifier' %}"><input type="button" value="Notify" class="btn btn-space btn btn-secondary btn"></a>
-        <a href="{% url 'AdminHomepage' user.pk %}" class="btn btn-space btn btn-danger">Back</a>
+        <a href="{% url 'PropertyManagement' user.pk  %}" class="btn btn-space btn btn-primary">Create</a>
+        <a href="{% url 'Notifier' user.pk  %}"><input type="button" value="Notify" class="btn btn-space btn btn-secondary btn"></a>
+        <a href="{% url 'AdminHomepage' user.pk  %}" class="btn btn-space btn btn-danger">Back</a>
     </ul>
 </div>
-
 </nav>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger" id="msg" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 <div id="textbox">
   <div class="alignright">
     <form method="get">

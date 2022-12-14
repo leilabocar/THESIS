@@ -61,9 +61,10 @@
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
               data-bs-toggle="dropdown">Transactions</a>
           <ul class="dropdown-menu">
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'AdminHomepage' user.pk %}">Grave Finder Table</a></li>
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry</a></li>
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk %}">Payments</a></li>
+              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk  %}">Payments</a></li>
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application</a></li>
               <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">Buyers</a></li>
           </ul>

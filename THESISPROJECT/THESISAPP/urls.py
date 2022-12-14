@@ -27,7 +27,7 @@ urlpatterns = [
     path('AdminHomepage/<int:pk>', views.AdminHomepage, name='AdminHomepage'),
     path('AddNew/<int:pk>', views.AddNew, name='AddNew'),
     path('AddnewUpdate/<int:pk>', views.AddNewUpdate, name='AddNewUpdate'),
-    path('Notifier', views.Notifier, name='Notifier'),
+    path('Notifier/<int:pk>', views.Notifier, name='Notifier'),
     path('AddnewDelete/<int:pk>', views.AddNewDelete, name='AddNewDelete'),
     path('AddDeceased/<int:pk>', views.AddDeceased, name='AddDeceased'),
     path('AddDeceasedUpdate/<int:pk>', views.AddDeceasedUpdate, name='AddDeceasedUpdate'),
@@ -35,7 +35,7 @@ urlpatterns = [
     path('LotTable/<int:pk>', views.LotTable, name='LotTable'),
     path('PropertyManagement/<int:pk>', views.PropertyManagement, name='PropertyManagement'),
     path('PropertyManagementUpdate/<int:pk>', views.PropertyManagementUpdate, name='PropertyManagementUpdate'),
-    path('PropertyManagementDelete/<int:pk>', views.PropertyManagementDelete, name='PropertyManagementDelete'),    
+    path('PropertyManagementDelete/<int:pk>', views.PropertyManagementDelete, name='PropertyManagementDelete'), 
 #---------------END ADMIN SIDE
    
 #---------------CLIENT SIDE
