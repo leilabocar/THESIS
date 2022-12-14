@@ -50,13 +50,13 @@
 <!--Header-->
 <nav class="navbar navbar-expand-sm bg-light navbar-light">
       <div class="container-fluid">
-          <a class="navbar-brand" >
-              <img src="{% static 'images/logo.jpg' %}" style="width:60px;" class="rounded-pill">
-          </a>
-          <h3>Himlayang General Trias</h3>
+        <a class="navbar-brand" >
+          <img src="{% static 'images/profile.png' %}" style="width:55px;" class="rounded-pill">
+      </a>
+  <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
 
           <ul class="navbar-nav ms-auto">
-              <a href="{% url 'AddNew' user.pk user.email %}" class="btn btn-secondary">Back</a>
+              <a href="{% url 'AddNew' user.pk %}" class="btn btn-secondary">Back</a>
           </ul>
       </div>
 </nav>
@@ -91,13 +91,8 @@
         <tr>
           <td>{{i.lot}}</td>
           <td>Phase:{{i.phase}} Block:{{i.block}} Lot No.:{{i.lotno}}</td>
-<<<<<<< Updated upstream
           <td><a class="btn btn-primary" style="font-size: 15px;" onclick="return confirm('Are you sure you want to update this?')" href="{% url 'AddNewUpdate' i.pk  %}">Update</a>
-            <a class="delete btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'AddNewDelete' i.pk %}">Delete</a>
-=======
-          <td><a class="btn btn-primary" style="font-size: 15px;" onclick="return confirm('Are you sure you want to update this?')" href="{% url 'AddNewUpdate' i.pk i.email %}">Update</a>
-            <a class="delete btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'AddNewDelete' i.pk i.email %}">Delete</a>
->>>>>>> Stashed changes
+            <a class="delete btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')" href="{% url 'AddNewDelete' i.pk  %}">Delete</a>
           </td>
         </tr>
         {% endfor %}

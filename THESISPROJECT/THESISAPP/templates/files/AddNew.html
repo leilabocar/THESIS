@@ -74,10 +74,9 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" >
-                <img src="{% static 'images/logo.jpg' %}" style="width:60px;" class="rounded-pill">
+                <img src="{% static 'images/profile.png' %}" style="width:55px;" class="rounded-pill">
             </a>
-            <h3>Himlayang General Trias</h3>
-
+        <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
             <ul class="navbar-nav ms-auto">
                 <a href="{% url 'LotTable' user.pk %}" class="btn btn-primary btn-space">Lot Table</a>
                 <a href="{% url 'ClientPayment' user.pk %}" class="btn btn-secondary btn-space">Back</a>
