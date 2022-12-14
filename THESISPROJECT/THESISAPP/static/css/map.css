@@ -16,8 +16,8 @@
 } */
 
 #mapAdmin {
-    height: 700px;
-    width: 1350px;
+    height: 680px;
+    max-width: 1200px;
     margin-left: 50px;
 }
 .mapAdmin{

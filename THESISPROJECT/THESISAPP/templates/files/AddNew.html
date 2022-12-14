@@ -51,7 +51,7 @@
             display: none;
         }
         .lotManagement{
-            width: 400px;
+            max-width: 400px;
         }
         @media screen and (max-width:1300px){
         .row{
@@ -63,6 +63,7 @@
         padding-left: 10px;
       }
       }
+      
     </style>
     <script>
         var value= $("input:radio[name=lot]:checked").val();
@@ -149,7 +150,7 @@
         </div>
     </div> -->
 <div class="row">
-    <div class="col-sm-4 p-3 lotManagement">
+    <div class="col-sm-3 p-3 lotManagement">
         <form name="vform" id="form" onsubmit="return submitForm()" method="post">
             {% csrf_token %}
             <div class="container">
@@ -188,7 +189,7 @@
                 </div>
             </div>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-9">
         <div class="mapContainer" class="mapAdmin">
             <center><span>Click on the map to populate Latitude and Longitude</span></center>
             <div id="mapAdmin"></div>
