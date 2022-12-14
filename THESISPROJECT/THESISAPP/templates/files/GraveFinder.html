@@ -113,15 +113,7 @@
       </div>
     </div>
   </nav>
-  {% if messages %}
-  {% for message in messages %}
-  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-  <div class="alert alert-danger" id="msg" role="alert">
-    {{ message }}
-  </div>
-  {% endif %}
-  {% endfor %}
-  {% endif %}
+
 
 
   <form method="get">
@@ -177,6 +169,15 @@
         </tr>
         {% endfor %}
       </table>
+      {% if messages %}
+      {% for message in messages %}
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+      <div class="alert alert-danger" id="msg" role="alert">
+        {{ message }}
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
     </div>
 
     <div class="mapContainerPublic">
