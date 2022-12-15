@@ -17,7 +17,7 @@ function dates(){
 
     // for client page date
     $('#id_paid_date').attr('max', currentDate.toISOString().substring(0, 10));
-    $('#id_due_date').attr('max', currentDate.toISOString().substring(0, 10));
+    // $('#id_due_date').attr('max', currentDate.toISOString().substring(0, 10));
     $('#id_duedate').attr('max', currentDate.toISOString().substring(0, 10));
     $('#id_date').attr('max', currentDate.toISOString().substring(0, 10));
     $('#birth').attr('max', currentDate.toISOString().substring(0, 10));

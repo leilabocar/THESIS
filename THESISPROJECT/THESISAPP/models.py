@@ -117,12 +117,7 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.lot} Phase:{self.phase} Block:{self.block} Lot No.:{self.lotno}'
 
-class Deads(models.Model):
-    lot = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='lot')
-    deceased = models.CharField(max_length=200, blank=True, null=True,default=None, verbose_name='deceased.')
-    born = models.DateField(null=True,blank=True,default=None, verbose_name='born.')
-    died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
-    
+
 class LotOrder(models.Model):
     STATUS = [
         ('Fully Paid', 'Fully Paid'),
@@ -144,6 +139,9 @@ class LotOrder(models.Model):
     status = models.CharField(max_length=200, null=True, choices=STATUS, verbose_name='status', blank=True,default=None)
     due_date = models.DateField(null=True,verbose_name='due date', blank=True,default=None)
 
+    def __str__(self):
+        return f'{self.customer} | {self.product.lot} Phase:{self.product.phase} Block:{self.product.block} Lot No.:{self.product.lotno}'
+
     def calculate(self):
         pay = self.pay
         amount = self.balance
@@ -163,6 +161,12 @@ class LotOrder(models.Model):
         else:
             self.balance = float(self.calculate())
             super().save(*args, **kwargs)
+
+class Deads(models.Model):
+    owner = models.ForeignKey(LotOrder, null=True, on_delete=models.SET_NULL, verbose_name='owner', blank=True,default=None)
+    deceased = models.CharField(max_length=200, blank=True, null=True,default=None, verbose_name='deceased.')
+    born = models.DateField(null=True,blank=True,default=None, verbose_name='born.')
+    died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
 
 class PaymentHistory(models.Model):
     STATUS = [

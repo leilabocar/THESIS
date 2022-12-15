@@ -103,10 +103,10 @@ class deadsFilter(django_filters.FilterSet):
                       ('Apartment','Apartment')]
 
     deceased = django_filters.CharFilter(lookup_expr='icontains')
-    lot_lottype = django_filters.ChoiceFilter(empty_label='Lot Type:',choices=lot_choices,field_name='lot__lot')
-    lot_phase = django_filters.NumberFilter(field_name='lot__phase')
-    lot_block = django_filters.NumberFilter(field_name='lot__block')
-    lot_lotno = django_filters.CharFilter(field_name='lot__lotno')
+    lot_lottype = django_filters.ChoiceFilter(empty_label='Lot Type:',choices=lot_choices,field_name='owner__product__lot')
+    lot_phase = django_filters.NumberFilter(field_name='owner__product__phase')
+    lot_block = django_filters.NumberFilter(field_name='owner__product__block')
+    lot_lotno = django_filters.CharFilter(field_name='owner__product__lotno')
 
     class Meta:
         model = Deads

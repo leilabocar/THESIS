@@ -740,9 +740,10 @@ def AddNewDelete(request,pk):
 def AddDeceased(request,pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         a = Deads.objects.all()
-        form = DeceasedForm()
+        user = request.user
+        form = DeceasedForm(user)
         if request.method == 'POST':
-            form = DeceasedForm(request.POST)
+            form = DeceasedForm(user,request.POST)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Successfully Added'),
@@ -761,9 +762,10 @@ def AddDeceased(request,pk):
 def AddDeceasedUpdate(request,pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         dead= Deads.objects.get(id=pk)
-        form = DeceasedForm(instance=dead)
+        user = request.user
+        form = DeceasedForm(user,instance=dead)
         if request.method == 'POST':
-            form = DeceasedForm(request.POST, instance=dead)
+            form = DeceasedForm(user,request.POST, instance=dead)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Successfully Updated'),

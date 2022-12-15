@@ -171,10 +171,7 @@ class ProductForm(forms.ModelForm):
                       ('Niche','Niche'),
                       ('Apartment','Apartment')]
 
-    lot = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect(attrs={'class':'form-check-inline'}), required=False)
-    deceased = forms.CharField(required=False)
-    born = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
-    died = forms.DateField(widget=DatePickerInput(attrs={'class':'form-control'}),required=False)
+    lot = forms.ChoiceField(choices= lot_type_choices, required=False)
 
     class Meta:
         model = Product
@@ -187,8 +184,12 @@ class DeceasedForm(forms.ModelForm):
 
     class Meta:
         model = Deads
-        fields = ('lot','deceased','born','died')
+        fields = ('owner','deceased','born','died')
         
+    def __init__(self, user, *args, **kwargs):
+        super(DeceasedForm, self).__init__(*args, **kwargs)
+        self.fields['owner'].queryset = LotOrder.objects.filter(status='Fully Paid')
+
 class PaymentHistoryForm(forms.ModelForm):
     paid_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
     due_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
