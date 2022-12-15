@@ -5,6 +5,9 @@ from secrets import choice
 from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
+from django.db.models import Q
+
 # Create your models here.
 
 class User(AbstractUser):
@@ -131,7 +134,7 @@ class LotOrder(models.Model):
                    ('Reservation','Reservation')]
 
     customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='customer', blank=True,default=None)
-    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL, verbose_name='product')
+    product = models.OneToOneField(Product, null=True, on_delete=models.SET_NULL, verbose_name='product')
     terms = models.CharField(max_length=50,choices=terms_choices, null=True, verbose_name='terms', blank=True)
     pay = models.FloatField(null=True, verbose_name='pay', blank=True,default=None)
     balance = models.FloatField(null=True, verbose_name='balance', blank=True,default=None)
@@ -168,6 +171,12 @@ class Deads(models.Model):
     born = models.DateField(null=True,blank=True,default=None, verbose_name='born.')
     died = models.DateField(null=True,blank=True,default=None, verbose_name='died.')
 
+    # def save(self, *args, **kwargs):
+    #     if Deads.objects.filter(owner__product__lot='Apartment').count() < 1 and Deads.objects.filter(owner=self.owner):
+    #         return super(Deads,self).save(*args,**kwargs)
+    #     raise ValidationError("Deceased Limit")
+
+    
 class PaymentHistory(models.Model):
     STATUS = [
         ('Fully Paid', 'Fully Paid'),

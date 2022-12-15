@@ -158,7 +158,7 @@ class LotOrderForm(forms.ModelForm):
     class Meta:
         model=LotOrder
         fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')
-
+    
 class NotifierForm(forms.Form):
     email = forms.CharField()
     name = forms.CharField()
@@ -189,6 +189,7 @@ class DeceasedForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(DeceasedForm, self).__init__(*args, **kwargs)
         self.fields['owner'].queryset = LotOrder.objects.filter(status='Fully Paid')
+
 
 class PaymentHistoryForm(forms.ModelForm):
     paid_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))

@@ -588,7 +588,10 @@ def PropertyManagement(request, pk):
                 form1.save()
                 messages.success(request, 'Successfully Added')
             else:
-                messages.error(request, 'Invalid Input')
+                # product1 = form.cleaned_data.get('product')
+                # if product1 == LotOrder.objects.filter(product=product1):
+                #     form.add_error(None,'This Lot has an owner')
+                messages.error(request,'Invalid Input')
     elif request.user.is_authenticated and request.user.is_clerk3:
         return redirect('Application',pk=pk, email=request.user.email)
     elif request.user.is_authenticated and request.user.is_clerk1:
@@ -750,7 +753,7 @@ def AddDeceased(request,pk):
                 fail_silently=True
                 return redirect('AdminHomepage', pk=pk)
             else:
-                messages.error(request,'Invalid Input')
+                messages.add_message(request, messages.ERROR, 'Deceased Limit')
     elif request.user.is_authenticated and request.user.is_clerk3:
         return redirect('Application',pk=pk, email=request.user.email)
     elif request.user.is_authenticated and request.user.is_clerk1:
@@ -767,7 +770,10 @@ def AddDeceasedUpdate(request,pk):
         if request.method == 'POST':
             form = DeceasedForm(user,request.POST, instance=dead)
             if form.is_valid():
-                form.save()
+                deceased1 = form.cleaned_data.get('deceased')
+                born1 = form.cleaned_data.get('born')
+                died1 = form.cleaned_data.get('died')
+                Deads.objects.filter(pk=pk).update(deceased=deceased1, born=born1, died=died1)
                 messages.success(request, 'Successfully Updated'),
                 fail_silently=True
                 return redirect('AdminHomepage', pk=pk)

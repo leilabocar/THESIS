@@ -66,6 +66,15 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger" id="msg" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
 	<form name="vform" enctype="multipart/form-data" method="post">
         {% csrf_token %}
@@ -74,6 +83,7 @@
             <header class="heading"> CLIENT PROPERTY MANAGEMENT FORM</header>
             <hr>
             </hr>
+                {{form.errors.product}}
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Full Name" name="Full Name">Customer Name:</span>
                 {{ form.customer|attr:'class:form-control' }}
@@ -84,6 +94,7 @@
                 {{ form.product|attr:'class:form-control' }}
                     <div id="FN_error"></div>
             </div>
+                {{form.error}}
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Full Name" name="Full Name">Terms of Payment</span>
                 {{ form.terms|attr:'class:form-control' }}
