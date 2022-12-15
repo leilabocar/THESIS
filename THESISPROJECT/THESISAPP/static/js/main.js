@@ -22,6 +22,7 @@ function initMap(){
 		disableDoubleClickZoom: true,
 		mapTypeId: "terrain",
 		provideRouteAlternatives: false,
+		draggableCursor:"default"
 
 	});
 }

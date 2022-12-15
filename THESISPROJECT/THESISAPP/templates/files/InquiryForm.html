@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
+<script type="text/javascript" src="{% static 'js/dates.js' %}"></script>
     <style>
         h3 {
             color: black;
@@ -159,7 +161,7 @@
                 <label class="form-check-label" for="validationFormCheck2">Niche</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" class="form-check-input" id="validationFormCheck3" name="lot_type" value="Apartment Type" required>
+                <input type="radio" class="form-check-input" id="validationFormCheck3" name="lot_type" value="Apartment Type">
                 <label class="form-check-label" for="validationFormCheck3">Apartment Type</label>
                 <div class="invalid-feedback">Please Select</div>
             </div>
@@ -170,7 +172,7 @@
                 </div>
                 <input type="number" placeholder="Phase"  class="form-control" name="phase" required>
                 <input type="number" placeholder="Block" class="form-control" name="block" required>
-                <input type="text" placeholder="Lot No." class="form-control" name="lotno" required>
+                <input type="text" placeholder="Lot No." id="lot_no" class="form-control" name="lotno" required>
                 <div id="Phase_error"></div>
             </div>
 
@@ -224,7 +226,7 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="Age" name="Age">Birthday</span>
-                <input type="date" class="form-control" placeholder="MM/DD/YYYY" name="birth" required>
+                <input type="date" class="form-control" placeholder="MM/DD/YYYY" name="birth" id="birth" required>
                     <div id="Age_error"></div>
             </div>
             <div class="input-group mb-3">
