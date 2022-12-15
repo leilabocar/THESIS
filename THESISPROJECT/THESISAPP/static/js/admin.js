@@ -4,6 +4,7 @@ var marker;
 $(function() {
 	initMap();
 	getMapLatLong();
+    validationLot();
     // enterLatLng();
     // submitForm();
 });
@@ -14,6 +15,8 @@ function initMap(){
 		zoomControl: true,
 		// gestureHandling: "none",
 		mapTypeId: "terrain",
+        draggableCursor:"default"
+      
 	});
 	
 }
@@ -154,3 +157,30 @@ function submitForm(){
 //   })
 
 }
+function validationLot(){
+
+let lot =  $('#id_lotno')
+lot.removeAttr('maxlength');
+lot.removeAttr('required');
+$('#id_lot_3').on('change',function(){
+    let regex = /^\d{3}[a-zA-Z]$/;
+    if($("#id_lot_3 input[name='lot']:checked")){
+        console.log("true")
+        $('#id_lotno').keyup(function() {
+            let value = $(this).val();
+            let isValid =regex.test(value);
+            if($(this).val().length >= 4){
+                if(!isValid){
+                    $(this).val("");
+                }
+            }
+    
+    });
+    } 
+});
+
+
+
+}
+ 
+
