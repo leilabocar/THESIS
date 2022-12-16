@@ -578,8 +578,8 @@ def PropertyManagement(request, pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         print ("PropertyManagement Page")
         a = User.objects.filter(pk=pk)
-        form = LotOrderForm
-        form1 = PaymentHistoryForm
+        form = LotOrderForm()
+        form1 = PaymentHistoryForm()
         if request.method == 'POST':
             form = LotOrderForm(request.POST)
             form1 = PaymentHistoryForm(request.POST)

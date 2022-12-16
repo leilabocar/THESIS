@@ -198,3 +198,4 @@ class PaymentHistoryForm(forms.ModelForm):
     class Meta:
         model=PaymentHistory
         fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')
+    
