@@ -762,6 +762,7 @@ def AddDeceased(request,pk):
         return redirect('Logout')
     return render(request, 'files/AddDeceased.html',{'a':a,'form':form})
 
+@login_required(login_url='/accounts/login/')
 def AddDeceasedUpdate(request,pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         dead= Deads.objects.get(id=pk)
@@ -788,6 +789,7 @@ def AddDeceasedUpdate(request,pk):
         return redirect('Logout')
     return render(request, 'files/AddDeceased.html',{'form':form,'dead':dead})
 
+@login_required(login_url='/accounts/login/')
 def AddDeceasedDelete(request, pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         Deads.objects.filter(id=pk).delete()
