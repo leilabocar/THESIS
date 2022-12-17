@@ -46,7 +46,7 @@ def Login(request):
                 return redirect(f'Inquiry/{user.pk}/{user.email}')
             elif user is not None and user.is_clerk2:
                 login(request,user)
-                return redirect(f'ClientPayment/{user.pk}')
+                return redirect(f'AdminHomepage/{user.pk}')
             elif user is not None and user.is_clerk3:
                 login(request,user)
                 return redirect(f'Application/{user.pk}/{user.email}')
@@ -196,7 +196,7 @@ def Appointment(request, pk,email):
         context['all_page_obj'] = all_page_obj
     elif request.user.is_authenticated and request.user.is_clerk2:
         messages.add_message(request, messages.ERROR, 'You cannot access Appointment Page!')
-        return redirect('ClientPayment',pk=pk)
+        return redirect('AdminHomepage',pk=pk)
     elif request.user.is_authenticated and request.user.is_clerk3:
         messages.add_message(request, messages.ERROR, 'You cannot access Appointment Page!')
         return redirect('Application',pk=pk,email=email)
@@ -284,7 +284,7 @@ def Inquiry(request, pk, email):
         context['all_page_obj1'] = all_page_obj1
     elif request.user.is_authenticated and request.user.is_clerk2:
         messages.add_message(request, messages.ERROR, 'You cannot access Inquiry Page!')
-        return redirect('ClientPayment',pk=pk)
+        return redirect('AdminHomepage',pk=pk)
     elif request.user.is_authenticated and request.user.is_clerk3:
         messages.add_message(request, messages.ERROR, 'You cannot access Inquiry Page!')
         return redirect('Application',pk=pk,email=email)
@@ -355,7 +355,7 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
 
 #-----ENDCLERK1
 
-#---CLERK2
+#---CLERK3
 @login_required(login_url='/accounts/login/')
 def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
@@ -373,7 +373,7 @@ def BuyersApplication(request, pk, email):
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
         messages.add_message(request, messages.ERROR, 'You cannot access Buyers Page!')
-        return redirect('ClientPayment',pk=pk)
+        return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
     return render(request, 'files/BuyersApplication.html',context=context)
@@ -406,7 +406,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
     elif request.user.is_authenticated and request.user.is_clerk1:
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
-        return redirect('ClientPayment',pk=pk)
+        return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
 
@@ -438,10 +438,9 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
     elif request.user.is_authenticated and request.user.is_clerk1:
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
-        return redirect('ClientPayment',pk=pk)
+        return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
-
 
 @login_required(login_url='/accounts/login/')
 def Application(request,pk,email):
@@ -460,7 +459,7 @@ def Application(request,pk,email):
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
         messages.add_message(request, messages.ERROR, 'You cannot access Application Page!')
-        return redirect('ClientPayment',pk=pk)
+        return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
     return render(request, 'files/Application.html',context=context)
@@ -526,9 +525,9 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
         return redirect('ClientPayment',pk=pk)
     else:
         return redirect('Logout')
-#---ENDCLERK2
+#---ENDCLERK3
 
-#---CLERK3
+#---CLERK2
 @login_required(login_url='/accounts/login/')
 def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
