@@ -153,12 +153,15 @@ class BookAppointmentForm(forms.ModelForm):
 class LotOrderForm(forms.ModelForm):
     paid_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
     due_date = forms.DateTimeField(required=False,widget=DatePickerInput(attrs={'class':'form-control'}))
-
-
+    
     class Meta:
         model=LotOrder
         fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['product'].disabled = True
+
 class NotifierForm(forms.Form):
     email = forms.CharField()
     name = forms.CharField()

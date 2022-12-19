@@ -55,7 +55,6 @@ class InquiryFormModel(models.Model):
     email = models.EmailField(max_length=99, verbose_name='email')
 
 class ApplicationFormModel(models.Model):
-    id = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True,verbose_name='app_id')
     date = models.DateField(verbose_name='date', null=True)
     phase = models.CharField(max_length=30, verbose_name='phase', null=True)
     block = models.CharField(max_length=30, verbose_name='block', null=True)
@@ -81,7 +80,6 @@ class BuyersFormModel(models.Model):
                    ('Full Down','Full Down'),
                    ('Reservation','Reservation')]
 
-    id = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True,verbose_name='id') 
     lot_type = models.CharField(max_length=30, choices=lot_type_choices, verbose_name='lot_type', null=True)
     phase = models.CharField(max_length=30, verbose_name='phase', null=True)
     block = models.CharField(max_length=30, verbose_name='block', null=True)
@@ -97,7 +95,6 @@ class BuyersFormModel(models.Model):
     email = models.EmailField(max_length=99, verbose_name='email', null=True)
 
 class BookAppointmentModel(models.Model):
-    id = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True,verbose_name='id')
     reason = models.CharField(max_length=250, verbose_name='reason', null=True)
     fullname = models.CharField(max_length=250, verbose_name='fullname', null=True)
     contacts = models.CharField(max_length=11, verbose_name='contacts', null=True)
@@ -143,7 +140,7 @@ class LotOrder(models.Model):
     due_date = models.DateField(null=True,verbose_name='due date', blank=True,default=None)
 
     def __str__(self):
-        return f'{self.customer} | {self.product.lot} Phase:{self.product.phase} Block:{self.product.block} Lot No.:{self.product.lotno}'
+        return f'{self.customer.username} | {self.product.lot} Phase:{self.product.phase} Block:{self.product.block} Lot No.:{self.product.lotno}'
 
     def calculate(self):
         pay = self.pay

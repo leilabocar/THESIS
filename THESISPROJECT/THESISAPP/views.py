@@ -62,12 +62,6 @@ def Signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            email = form.cleaned_data.get('email')
-            pk = User.objects.filter(email=email).values_list('id', flat=True).first()
-            print(pk)
-            ApplicationFormModel.objects.create(id_id=pk)
-            BuyersFormModel.objects.create(id_id=pk)
-            BookAppointmentModel.objects.create(id_id=pk)
             msg = 'User Created'
             return redirect('Login')
         else:
@@ -93,53 +87,35 @@ def Client(request,pk):
         return redirect('Logout')
     return render(request, 'files/Client.html', {'a':a,'orders':orders})
 
-@login_required(login_url='/accounts/login/')
-def ApplicationForm(request, pk):
-    if request.user.is_authenticated and request.user.is_client:
-        print("Application Page")
-        a = User.objects.filter(pk=pk)
-        b = ApplicationFormModel.objects.get(id_id=pk)
-        form = ApplicationFormForm(instance=b)
-        if request.method == 'POST':
-            form = ApplicationFormForm(request.POST, instance=b)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Success')
-    else:
-        return redirect('Logout')
-    return render(request, 'files/ApplicationForm.html',{'a':a, 'form':form})
+def ApplicationForm(request):
+    form = ApplicationFormForm()
+    if request.method == 'POST':
+        form = ApplicationFormForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Success')
 
-@login_required(login_url='/accounts/login/')
-def BookAppointment(request,pk):
-    if request.user.is_authenticated and request.user.is_client:
-        print ("Success")
-        a = User.objects.filter(pk=pk)
-        b = BookAppointmentModel.objects.get(id_id=pk)
-        form = BookAppointmentForm(instance=b)
-        if request.method == 'POST':
-            form = BookAppointmentForm(request.POST, instance=b)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Success')
-    else:
-        return redirect('Logout')
-    return render(request, 'files/BookAppointment.html',{'a':a, 'form':form})
+    return render(request, 'files/ApplicationForm.html')
+
+def BookAppointment(request):
+    form = BookAppointmentForm()
+    if request.method == 'POST':
+        form = BookAppointmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Success')
+
+    return render(request, 'files/BookAppointment.html')
     
-@login_required(login_url='/accounts/login/')
-def BuyersForm(request, pk):
-    if request.user.is_authenticated and request.user.is_client:
-        print ("Buyers Form Page")
-        a = User.objects.filter(pk=pk)
-        b = BuyersFormModel.objects.get(id_id=pk)
-        form = BuyersFormForm(instance=b)
-        if request.method == 'POST':
-            form = BuyersFormForm(request.POST, instance=b)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Success')
-    else:
-        return redirect('Logout')
-    return render(request, 'files/BuyersForm.html', {'a':a, 'form':form})
+def BuyersForm(request):
+    form = BuyersFormForm()
+    if request.method == 'POST':
+        form = BuyersFormForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Success')
+
+    return render(request, 'files/BuyersForm.html')
 
 @login_required(login_url='/accounts/login/')
 def BillSummary(request, pk):
@@ -222,7 +198,7 @@ def AppointmentApprove(request, pk, email,date,fullname):
                 [b],
                 fail_silently=False
             )
-        BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        BookAppointmentModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
@@ -249,7 +225,7 @@ def AppointmentReject(request,pk,email,fullname):
                 [b],
                 fail_silently=False
             )
-        BookAppointmentModel.objects.filter(pk=pk).update(reason=None,fullname=None,contacts=None,email=None,date=None)
+        BookAppointmentModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
@@ -399,8 +375,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
                 [b],
                 fail_silently=False
             )
-        BuyersFormModel.objects.filter(pk=pk).update(
-            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        BuyersFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
@@ -431,8 +406,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
                 [b],
                 fail_silently=False
             )
-        BuyersFormModel.objects.filter(pk=pk).update(
-            lot_type=None,phase=None,block=None,terms=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        BuyersFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
@@ -484,8 +458,7 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
                 [b],
                 fail_silently=False
             )
-        ApplicationFormModel.objects.filter(pk=pk).update(
-            date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        ApplicationFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
@@ -515,8 +488,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
                 [b],
                 fail_silently=False
             )
-        ApplicationFormModel.objects.filter(pk=pk).update(
-            date=None,phase=None,block=None,lotno=None,fullname=None,birth=None,gender=None,contacts=None,address=None,email=None)
+        ApplicationFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
@@ -672,6 +644,13 @@ def AddNew(request, pk):
             form = ProductForm(request.POST)
             if form.is_valid():
                 form.save()
+                lot = form.cleaned_data.get('lot')
+                phase = form.cleaned_data.get('phase')
+                block = form.cleaned_data.get('block')
+                lotno = form.cleaned_data.get('lotno')
+                data = Product.objects.filter(lot=lot,phase=phase,block=block,lotno=lotno).values_list('id',flat=True).first()
+                print(data)
+                LotOrder.objects.create(product_id=data)
                 messages.success(request, 'Successfully Added'),
                 fail_silently=True
                 return redirect('AddNew', pk=pk)
@@ -690,8 +669,10 @@ def AddNewUpdate(request,pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         prod= Product.objects.get(id=pk)
         form = ProductForm(instance=prod)
+        dis = form.fields['balance'].disabled = True
         if request.method == 'POST':
             form = ProductForm(request.POST, instance=prod)
+            dis = form.fields['balance'].disabled = True
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Successfully Updated'),
@@ -705,7 +686,7 @@ def AddNewUpdate(request,pk):
         return redirect('Inquiry',pk=pk, email=request.user.email)
     else:
         return redirect('Logout')
-    return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
+    return render(request, 'files/AddNew.html',{'form':form,'prod':prod,'dis':dis})
 
 # def AddNewDeceased(request,pk):
 #     if request.user.is_authenticated and request.user.is_admin:

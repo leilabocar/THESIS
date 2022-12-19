@@ -70,7 +70,6 @@
   <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
     <ul class="navbar-nav ms-auto">
         <a class="btn btn-space btn btn-dark"  href="{% url 'AddNew' user.pk %}">Add Lot</a>
-        <a href="{% url 'PropertyManagement' user.pk  %}" class="btn btn-space btn btn-primary">Create</a>
         <a href="{% url 'Notifier' user.pk  %}"><input type="button" value="Notify" class="btn btn-space btn btn-secondary btn"></a>
         <a href="{% url 'AdminHomepage' user.pk  %}" class="btn btn-space btn btn-danger">Back</a>
     </ul>
