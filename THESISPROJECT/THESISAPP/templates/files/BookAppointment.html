@@ -57,7 +57,7 @@
             <h3>Himlayang General Trias</h3>
 
             <ul class="navbar-nav ms-auto">
-                <a href="{% url 'Client' user.pk %}" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'Homepage' %}" class="btn btn-secondary">BACK</a>
             </ul>
         </div>
         </div>
@@ -78,7 +78,6 @@
             <header class="heading"> BOOK APPOINTMENT</header>
             <hr>
             </hr>
-            <input type="hidden" name="pk" value="{{user.pk}}">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Reason for Visit</span>
@@ -117,5 +116,12 @@
     </form>
 
 </body>
+<script>
 
+    var message_ele = document.getElementById("msg");
+
+    setTimeout(function(){ 
+    message_ele.style.display = "none"; 
+    }, 2000);
+</script>
 </html>

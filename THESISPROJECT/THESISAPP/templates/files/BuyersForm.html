@@ -57,7 +57,7 @@
             <h3>Himlayang General Trias</h3>
 
             <ul class="navbar-nav ms-auto">
-                <a href="{% url 'Client' user.pk%}" class="btn btn-secondary">BACK</a>
+                <a href="{% url 'Homepage' %}" class="btn btn-secondary">Back</a>
             </ul>
         </div>
         </div>
@@ -176,6 +176,14 @@
     </form>
 
 </body>
+<script>
+    var message_ele = document.getElementById("msg");
+
+    setTimeout(function(){ 
+    message_ele.style.display = "none"; 
+    }, 2000);
+</script>
+
 
 </html>
 

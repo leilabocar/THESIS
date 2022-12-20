@@ -131,7 +131,6 @@ class BuyersFormForm(forms.ModelForm):
             return n
 
 class BookAppointmentForm(forms.ModelForm):
-    pk = forms.IntegerField()
     reason = forms.CharField()
     fullname = forms.CharField()
     contacts = forms.CharField()
