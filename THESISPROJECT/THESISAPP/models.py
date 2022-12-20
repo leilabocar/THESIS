@@ -121,7 +121,8 @@ class Product(models.Model):
 class LotOrder(models.Model):
     STATUS = [
         ('Fully Paid', 'Fully Paid'),
-        ('Partially Paid','Partially Paid')]
+        ('Partially Paid','Partially Paid'),
+        ('Resell', 'Resell')]
 
     terms_choices=[('Cash','Cash'),
                    ('1 Year','1 Year'),
