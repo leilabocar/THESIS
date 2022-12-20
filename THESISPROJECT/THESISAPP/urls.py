@@ -59,6 +59,8 @@ urlpatterns = [
     path('ApplicationForm', views.ApplicationForm, name='ApplicationForm'),
     path('BookAppointment', views.BookAppointment, name='BookAppointment'),
     path('Property/<int:pk>', views.Property, name='Property'),
+    # path('AddDeceasedUpdateClient/<int:pk>', views.AddDeceasedUpdateClient, name='AddDeceasedUpdateClient'),
+
 #---------------END CLIENT SIDE
     
 ]

@@ -151,9 +151,35 @@ def Property(request, pk):
     if request.user.is_authenticated and request.user.is_client:
         a = User.objects.get(pk=pk)
         display = a.lotorder_set.filter(balance=0)
+
     else:
         return redirect('Logout')
     return render(request, 'files/Property.html',{'a':a,'display':display})
+
+# def AddDeceasedUpdateClient(request,pk):
+#     if request.user.is_authenticated and request.user.is_client:
+#         b = LotOrder.objects.filter(customer_id=request.user.id).values_list('id',flat=True).first()
+#         deads = Deads.objects.filter(owner_id=b).values_list('id',flat=True).first()
+#         print(deads)
+#         dead = Deads.objects.get(pk=deads)
+#         user = request.user
+#         form = DeceasedForm(user,instance=dead)
+#         if request.method == 'POST':
+#             form = DeceasedForm(user,request.POST, instance=dead)
+#             if form.is_valid():
+#                 deceased1 = form.cleaned_data.get('deceased')
+#                 born1 = form.cleaned_data.get('born')
+#                 died1 = form.cleaned_data.get('died')
+#                 Deads.objects.filter(pk=pk).update(deceased=deceased1, born=born1, died=died1)
+#                 messages.success(request, 'Successfully Updated'),
+#                 fail_silently=True
+#                 return redirect('Property', pk=pk)
+#             else:
+#                 messages.error(request, 'Invalid Input'),
+#                 fail_silently=True
+#     else:
+#         return redirect('Logout')
+#     return render(request, 'files/AddDeceased.html',{'form':form,'dead':dead})
 # ---------- END CLIENT
 
 # ---------- ADMIN
