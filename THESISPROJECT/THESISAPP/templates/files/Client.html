@@ -49,7 +49,7 @@
     <!-- HEADER -->
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'Homepage' %}">
+            <a class="navbar-brand" >
                 <img src="{% static 'images/logo.jpg' %}" style="width: 55px; padding-left: 0.9rem"  class="rounded-pill">
             </a>
             <h3 style="font-size: 25px;" >Himlayang General Trias</h3>
@@ -64,25 +64,13 @@
                     <li class="nav-item">
                         <a class="nav-link" style="font-size: 20px;" href="{% url 'Property' user.pk %}">Property</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
-                            data-bs-toggle="dropdown">Application</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ApplicationForm' user.pk %}">Application Form</a></li>
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersForm' user.pk %}">Buyers Form</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  style="font-size: 20px;" href="#" role="button" data-bs-toggle="dropdown">Bills &
-                            Payments</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BillSummary' user.pk  %}">Bill Summary</a></li>
-                            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'PaymentHistory' user.pk %}">Payment History</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 20px;" href="{% url 'BillSummary' user.pk %}">Bill Summary</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" style="font-size: 20px;" href="{% url 'BookAppointment' user.pk %}">Appointment</a>
+                        <a class="nav-link" style="font-size: 20px;" href="{% url 'PaymentHistory' user.pk %}">Payment History</a>
                     </li>
+                    
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <a href="{% url 'Logout' %}" onclick="return confirm('Do you want to log out?')" style="font-size: 16px;" class="btn btn-secondary">Log Out</a>
