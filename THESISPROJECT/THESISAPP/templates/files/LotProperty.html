@@ -55,8 +55,18 @@
                         <a class="nav-link" href="{% url 'TermsofPayment' %}">Terms of Payment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'AboutUs' %}">Contact Us</a>
+                        <a class="nav-link" href="{% url 'ContactUs' %}">Contact Us</a>
                     </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle"  href="#" role="button"
+                                  data-bs-toggle="dropdown">Forms</a>
+                              <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="{% url 'ApplicationForm'  %}">Application Form</a></li>
+                                  <li><a class="dropdown-item" href="{% url 'BuyersForm'  %}">Buyers Form</a></li>
+                                  <li><a class="dropdown-item" href="{% url 'BookAppointment'  %}">Book Appointment</a></li>
+                              </ul>
+                    </li>
+                    
                 </ul>
                 <div class="buttons">
                     <a href="{% url 'Login' %}" class="btn btn-space btn btn-primary">Login</a>
@@ -64,7 +74,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+      </nav>
     <div class="container">
         <h1 class="text-center p-3"> LOT OFFERS</h1>
         <div class="row g-3">

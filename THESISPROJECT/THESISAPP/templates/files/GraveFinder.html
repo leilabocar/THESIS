@@ -79,39 +79,49 @@
   <!-- HEADER -->
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'Homepage' %}">
-        <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
-      </a>
-      <h3>Himlayang General Trias</h3>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav m-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'Homepage' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'AboutUs' %}">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'LotProperty' %}">Lot Property</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'GraveFinder' %}">Grave Finder</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'TermsofPayment' %}">Terms of Payment</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'ContactUs' %}">Contact Us</a>
-          </li>
-        </ul>
-        <div class="buttons">
-          <a href="{% url 'Login' %}" class="btn btn-space btn btn-primary">Login</a>
-          <a href="{% url 'InquiryForm' %}" class="btn btn-space btn btn-secondary">Inquire</a>
+        <a class="navbar-brand" href="{% url 'Homepage' %}">
+            <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
+        </a>
+        <h3>Himlayang General Trias</h3>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Homepage' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'AboutUs' %}">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'LotProperty' %}">Lot Property</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'GraveFinder' %}">Grave Finder</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'TermsofPayment' %}">Terms of Payment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'ContactUs' %}">Contact Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle"  href="#" role="button"
+                              data-bs-toggle="dropdown">Forms</a>
+                          <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="{% url 'ApplicationForm'  %}">Application Form</a></li>
+                              <li><a class="dropdown-item" href="{% url 'BuyersForm'  %}">Buyers Form</a></li>
+                              <li><a class="dropdown-item" href="{% url 'BookAppointment'  %}">Book Appointment</a></li>
+                          </ul>
+                </li>
+                
+            </ul>
+            <div class="buttons">
+                <a href="{% url 'Login' %}" class="btn btn-space btn btn-primary">Login</a>
+                <a href="{% url 'InquiryForm' %}" class="btn btn-space btn btn-secondary">Inquire</a>
+            </div>
         </div>
-      </div>
     </div>
   </nav>
 
