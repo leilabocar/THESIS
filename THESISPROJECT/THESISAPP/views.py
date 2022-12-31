@@ -324,6 +324,7 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
         return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
+        
 @login_required(login_url='/accounts/login/')
 def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
