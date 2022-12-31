@@ -303,7 +303,9 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
         p = InquiryFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
         b1 = InquiryFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l = InquiryFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
-        fname = InquiryFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        fname = InquiryFormModel.objects.filter(pk=pk).values_list('fullname', flat=True).first()
+        print(fname)
+
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
@@ -324,7 +326,7 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
         return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
-        
+
 @login_required(login_url='/accounts/login/')
 def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:

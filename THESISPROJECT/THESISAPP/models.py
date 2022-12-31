@@ -54,6 +54,9 @@ class InquiryFormModel(models.Model):
     address = models.CharField(max_length=99, verbose_name='address')
     email = models.EmailField(max_length=99, verbose_name='email')
 
+    def __str__(self):
+        return f'{self.fullname}'
+
 class ApplicationFormModel(models.Model):
     date = models.DateField(verbose_name='date', null=True)
     phase = models.CharField(max_length=30, verbose_name='phase', null=True)
