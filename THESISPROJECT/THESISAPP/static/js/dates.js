@@ -14,7 +14,10 @@ function dates(){
     // payment page for deceased date
     $('#id_born').attr('max', currentDate.toISOString().substring(0, 10));
     $('#id_died').attr('max', currentDate.toISOString().substring(0, 10));
-
+    
+    // Signup
+    $('#id_birth').attr('max', currentDate.toISOString().substring(0, 10));
+    
     // for client page date
     $('#id_paid_date').attr('max', currentDate.toISOString().substring(0, 10));
     // $('#id_due_date').attr('max', currentDate.toISOString().substring(0, 10));
