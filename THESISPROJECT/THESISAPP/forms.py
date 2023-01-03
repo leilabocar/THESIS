@@ -73,7 +73,7 @@ class NoticeForm(forms.Form):
     content = forms.CharField()
 
 class ApplicationFormForm(forms.ModelForm):
-    pk = forms.IntegerField()
+    # pk = forms.IntegerField()
     date = forms.DateField()
     phase = forms.CharField()
     block = forms.CharField()
@@ -103,7 +103,7 @@ class BuyersFormForm(forms.ModelForm):
                    ('Full Down','Full Down'),
                    ('Reservation','Reservation')]
 
-    pk = forms.IntegerField()
+    # pk = forms.IntegerField()
     lot_type = forms.ChoiceField(choices= lot_type_choices, widget=forms.RadioSelect, required=True)
     phase = forms.CharField()
     block = forms.CharField()
