@@ -61,7 +61,8 @@ urlpatterns = [
     # path('AddDeceasedUpdateClient/<int:pk>', views.AddDeceasedUpdateClient, name='AddDeceasedUpdateClient'),
 
     #RESET PASSWORD
-    path('ResetPassword', auth_views.PasswordResetView.as_view(), name="reset_password"),
+    path('ResetPassword',
+     auth_views.PasswordResetView.as_view(template_name="files/PasswordReset.html"), name="reset_password"),
     path('ResetPasswordSent', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
     path('Reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
     path('ResetPasswordComplete', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
