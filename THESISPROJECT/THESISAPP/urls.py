@@ -4,7 +4,6 @@ from . import views
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
 
-
 urlpatterns = [
 #---------------ADMIN SIDE
     path('Notice/<int:pk>', views.Notice, name='Notice'),
@@ -60,6 +59,13 @@ urlpatterns = [
     path('BookAppointment', views.BookAppointment, name='BookAppointment'),
     path('Property/<int:pk>', views.Property, name='Property'),
     # path('AddDeceasedUpdateClient/<int:pk>', views.AddDeceasedUpdateClient, name='AddDeceasedUpdateClient'),
+
+    #RESET PASSWORD
+    path('ResetPassword', auth_views.PasswordResetView.as_view(), name="reset_password"),
+    path('ResetPasswordSent', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+    path('Reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path('ResetPasswordComplete', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+
 
 #---------------END CLIENT SIDE
     
