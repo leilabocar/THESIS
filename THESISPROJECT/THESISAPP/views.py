@@ -725,14 +725,13 @@ def AddNewUpdate(request,pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         prod= Product.objects.get(id=pk)
         form = ProductForm(instance=prod)
-        dis = form.fields['balance'].disabled = True
         if request.method == 'POST':
             form = ProductForm(request.POST, instance=prod)
-            dis = form.fields['balance'].disabled = True
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Successfully Updated'),
+                messages.add_message(request, messages.SUCCESS, 'Successfully Updated!'),
                 fail_silently=True
+                return redirect('LotTable',pk=pk)
             else:
                 messages.error(request, 'Invalid Input'),
                 fail_silently=True
@@ -742,7 +741,7 @@ def AddNewUpdate(request,pk):
         return redirect('Inquiry',pk=pk, email=request.user.email)
     else:
         return redirect('Logout')
-    return render(request, 'files/AddNew.html',{'form':form,'prod':prod,'dis':dis})
+    return render(request, 'files/AddNew.html',{'form':form,'prod':prod})
 
 # def AddNewDeceased(request,pk):
 #     if request.user.is_authenticated and request.user.is_admin:

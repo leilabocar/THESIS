@@ -61,6 +61,15 @@
           </ul>
       </div>
 </nav>
+{% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success" id="msg" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
 <div id="textbox">
   <div class="alignright">
@@ -118,4 +127,11 @@
     </span>
   </div>
 </body>
+<script>
+  var message_ele = document.getElementById("msg");
+
+  setTimeout(function(){ 
+  message_ele.style.display = "none"; 
+  }, 2000);
+</script>
 </html>
