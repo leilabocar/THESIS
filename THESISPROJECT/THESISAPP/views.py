@@ -412,7 +412,37 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
 def BuyersApplication(request, pk, email):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
         context= {}
+        buyers = BuyersFormModel.objects.all().count()
+        inquiries = InquiryFormModel.objects.all().count()
+        invitee = BookAppointmentModel.objects.all().count()
+        applicants = ApplicationFormModel.objects.all().count()
         filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+        context['buyers'] = buyers
+        context['inquiries'] = inquiries
+        context['invitee'] = invitee
+        context['applicants'] = applicants
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        messages.add_message(request, messages.ERROR, 'You cannot access Buyers Page!')
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Buyers Page!')
+        return redirect('AdminHomepage',pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/BuyersApplication.html',context=context)
+
+@login_required(login_url='/accounts/login/')
+def BuyersApplicationLogs(request, pk, email):
+    if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk3:
+        context= {}
+        filter_all = buyerslogsFilter(request.GET, queryset=BuyersFormLogs.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
 
         paginated_filter_all = Paginator(filter_all.qs, 11)
@@ -428,7 +458,8 @@ def BuyersApplication(request, pk, email):
         return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/BuyersApplication.html',context=context)
+    return render(request, 'files/BuyersApplicationLogs.html',context=context)
+
 
 @login_required(login_url='/accounts/login/')
 def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fullname):

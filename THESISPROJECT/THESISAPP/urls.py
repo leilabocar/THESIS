@@ -19,6 +19,7 @@ urlpatterns = [
     path('ApplicationApprove/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationApprove, name='ApplicationApprove'),
     path('ApplicationReject/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationReject, name='ApplicationReject'),
     path('BuyersApplication/<int:pk>/<str:email>', views.BuyersApplication, name='BuyersApplication'), 
+    path('BuyersApplicationLogs/<int:pk>/<str:email>', views.BuyersApplicationLogs, name='BuyersApplicationLogs'),
     path('BuyersApplicationApprove/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.BuyersApplicationApprove, name='BuyersApplicationApprove'), 
     path('BuyersApplicationReject/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.BuyersApplicationReject, name='BuyersApplicationReject'),  
 # clerk 3

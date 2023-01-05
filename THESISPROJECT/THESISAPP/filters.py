@@ -24,6 +24,28 @@ class buyersFilter(django_filters.FilterSet):
         model = BuyersFormModel
         fields = '__all__'
 
+class buyerslogsFilter(django_filters.FilterSet):
+    lot_choices=[('Lawn Lot','Lawn Lot'),
+                      ('Mausoleum','Mausoleum'),
+                      ('Niche','Niche')]
+    
+    terms_choices=[('Cash','Cash'),
+                   ('1 Year','1 Year'),
+                   ('2 Years','2 Years'),
+                   ('3 Years','3 Years'),
+                   ('Full Down','Full Down'),
+                   ('Reservation','Reservation')]
+
+    lot_type = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
+    terms = django_filters.ChoiceFilter(empty_label='Terms',choices=terms_choices)
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
+    fullname = django_filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = BuyersFormLogs
+        fields = '__all__'
+
 class appointmentFilter(django_filters.FilterSet):
     date = django_filters.DateFilter(widget=DatePickerInput(attrs={'class':'form-control'}))
     fullname = django_filters.CharFilter(lookup_expr='icontains')

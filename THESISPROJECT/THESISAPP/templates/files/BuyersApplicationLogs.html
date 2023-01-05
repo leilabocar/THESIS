@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Buyers Application</title>
+  <title>Buyers Application Logs</title>
   <meta charset="utf-8">
   <link rel="icon" type="image/x-icon" href="{% static 'images/logo.jpg' %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,18 +35,6 @@
       background-color: #4CAF50;
       color: white;
     }
-    .circle {
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 10px;
-      color: white;
-      background-color: red;
-      position: absolute;
-    }
 </style>
 </head>
 <body>
@@ -62,57 +50,15 @@
     
       <ul class="navbar-nav ms-auto">
         
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
-              data-bs-toggle="dropdown">Transactions</a>
-          <ul class="dropdown-menu">
-            {% csrf_token %}
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry
-                <span class="circle">{{inquiries}}</span></a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment
-                <span class="circle">{{invitee}}</span></a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'AdminHomepage' user.pk %}">Grave Finder Table</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk  %}">Payments</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application
-                <span class="circle">{{applicants}}</span></a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">
-                 Buyers<span class="circle">{{buyers}}</span> </a></li>
-          </ul>
-        </li>
-        <a class="btn btn-danger" onclick="return confirm('Do you want to log out?')" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
+        <a class="btn btn-danger" style="font-size: 15px;" href="{% url 'BuyersApplication' user.pk user.email %}">Back</a>
       </ul>
     </div> 
 </div>
 </nav>
-</div>
-{% if messages %}
-    {% for message in messages %}
-
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-        <div class="alert alert-danger" id="msg" role="alert">
-            {{ message }}
-        </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
-{% if messages %}
-    {% for message in messages %}
-
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-        <div class="alert alert-success" id="msg" role="alert">
-            {{ message }}
-        </div>
-        {% endif %}
-    {% endfor %}
-{% endif %}
 
 <form method="get"> 
   {% csrf_token %}
-  <div>
-    <div style="overflow-x:auto;" class="col-sm-1">
-      <a href="{% url 'BuyersApplicationLogs' user.pk user.email %}">Logs</a>
-    </div>
-    <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
+  <div style="overflow-x:auto; text-align: right;" class="col-sm-12"><br>
       Search: 
       <div class="d-sm-inline-block">{% render_field filter_all.form.fullname class="form-control" placeholder='Name' %}</div>
       <div class="d-sm-inline-block">{% render_field filter_all.form.lot_type class="form-control" placeholder='Lot Type:' %}</div>
@@ -121,9 +67,7 @@
       <div class="d-sm-inline-block">{% render_field filter_all.form.lotno class="form-control" placeholder='Lot:' %}</div>
       <div class="d-sm-inline-block">{% render_field filter_all.form.terms class="form-control" placeholder='Terms of Payment' %}</div>
       <button type="submit" class="btn btn-success float-sm-right">Search</button><br><br>
-    </div>
   </div>
-  
   <!--Table-->
     <div style="overflow-x:auto;" class="col-sm-12">
       <table class="table table-bordered table-dark table-hover">
@@ -136,7 +80,7 @@
           <th>Contact</th>
           <th>Address</th>
           <th>Email</th>
-          <th>Action</th>
+          <th>Status</th>
         </tr>
         {% for buyers in all_page_obj %}
         <tr>
@@ -147,8 +91,7 @@
           <td>{{buyers.contacts}}</td>
           <td>{{buyers.address}}</td>
           <td>{{buyers.email}}</td>
-          <td><a href="{% url 'BuyersApplicationApprove' buyers.pk buyers.email buyers.lot_type buyers.phase buyers.block buyers.lotno buyers.fullname %}"><button type="button" class="btn btn-secondary">Approve</button></a>
-            <a href="{% url 'BuyersApplicationReject' buyers.pk buyers.email buyers.lot_type buyers.phase buyers.block buyers.lotno buyers.fullname %}"><button type="button" class="btn btn-danger">Reject</button></td>
+          <td>{{buyers.status}}</td>
         </tr>
         {% endfor %}
       </thead>
