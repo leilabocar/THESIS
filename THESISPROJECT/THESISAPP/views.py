@@ -237,9 +237,11 @@ def Appointment(request, pk,email):
 def AppointmentApprove(request, pk, email,date,fullname):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
-        b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
-        date = BookAppointmentModel.objects.filter(date=date).values_list('date', flat=True).first()
-        fname = BookAppointmentModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        b = BookAppointmentModel.objects.filter(pk=pk).values_list('email', flat=True).first()
+        date = BookAppointmentModel.objects.filter(pk=pk).values_list('date', flat=True).first()
+        fname = BookAppointmentModel.objects.filter(pk=pk).values_list('fullname', flat=True).first()
+        contacts = BookAppointmentModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        reason = BookAppointmentModel.objects.filter(pk=pk).values_list('reason', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Hello {fname},\n\n'+
@@ -251,6 +253,7 @@ def AppointmentApprove(request, pk, email,date,fullname):
                 [b],
                 fail_silently=False
             )
+        BookAppointmentLogs.objects.create(fullname=fname,contacts=contacts,email=b,reason=reason,date=date,status='Approved')
         BookAppointmentModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
@@ -266,8 +269,11 @@ def AppointmentReject(request,pk,email,fullname):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
-        b = BookAppointmentModel.objects.filter(email=email).values_list('email', flat=True).first()
-        fname = BookAppointmentModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        b = BookAppointmentModel.objects.filter(pk=pk).values_list('email', flat=True).first()
+        date = BookAppointmentModel.objects.filter(pk=pk).values_list('date', flat=True).first()
+        fname = BookAppointmentModel.objects.filter(pk=pk).values_list('fullname', flat=True).first()
+        contacts = BookAppointmentModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        reason = BookAppointmentModel.objects.filter(pk=pk).values_list('reason', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Hello {fname},\n\n'+
@@ -278,6 +284,7 @@ def AppointmentReject(request,pk,email,fullname):
                 [b],
                 fail_silently=False
             )
+        BookAppointmentLogs.objects.create(fullname=fname,contacts=contacts,email=b,reason=reason,date=date,status='Resched')
         BookAppointmentModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Appointment', pk=c, email=email)
@@ -326,11 +333,16 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
-        lot = InquiryFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        lot = InquiryFormModel.objects.filter(pk=pk).values_list('lot_type', flat=True).first()
         p = InquiryFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
         b1 = InquiryFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l = InquiryFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
         fname = InquiryFormModel.objects.filter(pk=pk).values_list('fullname', flat=True).first()
+        terms = InquiryFormModel.objects.filter(pk=pk).values_list('terms', flat=True).first()
+        birth = InquiryFormModel.objects.filter(pk=pk).values_list('birth', flat=True).first()
+        gender = InquiryFormModel.objects.filter(pk=pk).values_list('gender', flat=True).first()
+        contacts = InquiryFormModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        address = InquiryFormModel.objects.filter(pk=pk).values_list('address', flat=True).first()
         print(fname)
 
         send_mail(
@@ -344,6 +356,8 @@ def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
                 [b],
                 fail_silently=False
             )
+        InquiryFormLogs.objects.create(
+            lot_type=lot,phase=p,block=b1,lotno=l,terms=terms,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,email=b,status='Approved')
         InquiryFormModel.objects.filter(id=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Inquiry',pk=pk, email=email)
@@ -359,12 +373,16 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = InquiryFormModel.objects.filter(email=email).values_list('email', flat=True).first()
-        lot = InquiryFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        lot = InquiryFormModel.objects.filter(pk=pk).values_list('lot_type', flat=True).first()
         p = InquiryFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
         b1 = InquiryFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l = InquiryFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
-        product = (lot + ' Phase:'+p+ ' Block:'+b1+ ' Lot:'+l + ' is Unavailable')
         fname = InquiryFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        terms = InquiryFormModel.objects.filter(pk=pk).values_list('terms', flat=True).first()
+        birth = InquiryFormModel.objects.filter(pk=pk).values_list('birth', flat=True).first()
+        gender = InquiryFormModel.objects.filter(pk=pk).values_list('gender', flat=True).first()
+        contacts = InquiryFormModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        address = InquiryFormModel.objects.filter(pk=pk).values_list('address', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
@@ -375,6 +393,8 @@ def InquiryReject(request,pk,email,lot_type,phase,block,lotno,fullname):
                 [b],
                 fail_silently=False
             )
+        InquiryFormLogs.objects.create(
+            lot_type=lot,phase=p,block=b1,lotno=l,terms=terms,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,email=b,status='Declined')
         InquiryFormModel.objects.filter(id=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Inquiry',pk=pk, email=email)
@@ -416,11 +436,16 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
-        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        lot = BuyersFormModel.objects.filter(pk=pk).values_list('lot_type', flat=True).first()
         p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
         b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
-        fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        fname = BuyersFormModel.objects.filter(pk=pk).values_list('fullname', flat=True).first()
+        terms = BuyersFormModel.objects.filter(pk=pk).values_list('terms', flat=True).first()
+        birth = BuyersFormModel.objects.filter(pk=pk).values_list('birth', flat=True).first()
+        gender = BuyersFormModel.objects.filter(pk=pk).values_list('gender', flat=True).first()
+        contacts = BuyersFormModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        address = BuyersFormModel.objects.filter(pk=pk).values_list('address', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
@@ -431,6 +456,8 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
                 [b],
                 fail_silently=False
             )
+        BuyersFormLogs.objects.create(
+            lot_type=lot,phase=p,block=b1,lotno=l,terms=terms,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,email=b,status='Approved')
         BuyersFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
@@ -447,11 +474,16 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
         a = User.objects.filter(pk=pk)
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BuyersFormModel.objects.filter(email=email).values_list('email', flat=True).first()
-        lot = BuyersFormModel.objects.filter(lot_type=lot_type).values_list('lot_type', flat=True).first()
+        lot = BuyersFormModel.objects.filter(pk=pk).values_list('lot_type', flat=True).first()
         p = BuyersFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
         b1 = BuyersFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l = BuyersFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
         fname = BuyersFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        terms = BuyersFormModel.objects.filter(pk=pk).values_list('terms', flat=True).first()
+        birth = BuyersFormModel.objects.filter(pk=pk).values_list('birth', flat=True).first()
+        gender = BuyersFormModel.objects.filter(pk=pk).values_list('gender', flat=True).first()
+        contacts = BuyersFormModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        address = BuyersFormModel.objects.filter(pk=pk).values_list('address', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
@@ -462,6 +494,8 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
                 [b],
                 fail_silently=False
             )
+        BuyersFormLogs.objects.create(
+            lot_type=lot,phase=p,block=b1,lotno=l,terms=terms,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,email=b,status='Declined')
         BuyersFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('BuyersApplication', pk=c, email=email)
@@ -503,7 +537,13 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
         p = ApplicationFormModel.objects.filter(phase=phase).values_list('phase', flat=True).first()
         b1 = ApplicationFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l= ApplicationFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
-        fname = ApplicationFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        fname = ApplicationFormModel.objects.filter(pk=pk).values_list('fullname', flat=True).first()
+        birth = ApplicationFormModel.objects.filter(pk=pk).values_list('birth', flat=True).first()
+        gender = ApplicationFormModel.objects.filter(pk=pk).values_list('gender', flat=True).first()
+        contacts = ApplicationFormModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        address = ApplicationFormModel.objects.filter(pk=pk).values_list('address', flat=True).first()
+        date = ApplicationFormModel.objects.filter(pk=pk).values_list('date', flat=True).first()
+
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
@@ -514,6 +554,8 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
                 [b],
                 fail_silently=False
             )
+        ApplicationFormLogs.objects.create(
+            email=b,phase=p,block=b1,date=date,lotno=l,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,status='Approved')
         ApplicationFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
@@ -534,6 +576,11 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
         b1 = ApplicationFormModel.objects.filter(block=block).values_list('block', flat=True).first()
         l= ApplicationFormModel.objects.filter(lotno=lotno).values_list('lotno', flat=True).first()
         fname = ApplicationFormModel.objects.filter(fullname=fullname).values_list('fullname', flat=True).first()
+        birth = ApplicationFormModel.objects.filter(pk=pk).values_list('birth', flat=True).first()
+        gender = ApplicationFormModel.objects.filter(pk=pk).values_list('gender', flat=True).first()
+        contacts = ApplicationFormModel.objects.filter(pk=pk).values_list('contacts', flat=True).first()
+        address = ApplicationFormModel.objects.filter(pk=pk).values_list('address', flat=True).first()
+        date = ApplicationFormModel.objects.filter(pk=pk).values_list('date', flat=True).first()
         send_mail(
                 'From Himlayang General Trias Management',
                 f'Dear {fname},\n\nGood day!\n\n' +
@@ -544,6 +591,8 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
                 [b],
                 fail_silently=False
             )
+        ApplicationFormLogs.objects.create(
+            email=b,phase=p,block=b1,date=date,lotno=l,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,status='Declined')
         ApplicationFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
         return redirect('Application', pk=c, email=email)
