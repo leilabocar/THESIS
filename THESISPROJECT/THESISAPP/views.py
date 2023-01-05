@@ -828,6 +828,7 @@ def PropertyManagementUpdate(request, pk):
                 form.save()
                 form1.save()
                 messages.success(request, 'Successfully Updated')
+                return redirect('ClientPayment',pk=pk)
             else:
                 messages.error(request, 'Invalid Input')
     elif request.user.is_authenticated and request.user.is_clerk3:
