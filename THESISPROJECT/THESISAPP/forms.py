@@ -1,6 +1,6 @@
 from enum import unique
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from .models import *
 from .widget import DatePickerInput, TimePickerInput, DateTimePickerInput
 from django.utils.safestring import mark_safe
@@ -200,4 +200,3 @@ class PaymentHistoryForm(forms.ModelForm):
     class Meta:
         model=PaymentHistory
         fields = ('customer','product','terms','pay','balance','paid_date','due_date','status')
-    

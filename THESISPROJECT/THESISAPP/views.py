@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
@@ -89,7 +91,13 @@ def ChangePassword(request, pk):
             messages.add_message(request, messages.SUCCESS, 'Your password was successfully updated!')
             return redirect('Client', pk=pk)
         else:
-            messages.error(request, 'Please correct the error below.')
+            error_text = '<ul style="display:flex;'\
+              'flex-direction:column;list-style-type:none;"'
+            for msg_list in form.errors.values():
+                for msg in msg_list:
+                    error_text += f'<li>{msg}</li>'
+            error_text += '</ul>'
+            messages.error(request, mark_safe(error_text))
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'files/ChangePassword.html', {
