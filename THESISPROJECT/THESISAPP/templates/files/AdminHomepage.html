@@ -46,6 +46,18 @@
       float: right;
       padding: 10px 10px 0px 10px;
     }
+    .circle {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 10px;
+      color: white;
+      background-color: red;
+      position: absolute;
+    }
 </style>
 </head>
 <body>
@@ -64,12 +76,16 @@
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
               data-bs-toggle="dropdown">Transactions</a>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'AdminHomepage' user.pk %}">Grave Finder Table</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk  %}">Payments</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application</a></li>
-              <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">Buyers</a></li>
+            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry
+              <span class="circle">{{inquiries}}</span></a></li>
+            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment
+              <span class="circle">{{invitee}}</span></a></li>
+            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'AdminHomepage' user.pk %}">Grave Finder Table</a></li>
+            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk  %}">Payments</a></li>
+            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application
+              <span class="circle">{{applicants}}</span></a></li>
+            <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">
+               Buyers<span class="circle">{{buyers}}</span> </a></li>
           </ul>
         </li>
         <a class="btn btn-danger" onclick="return confirm('Do you want to log out?')" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
@@ -100,8 +116,6 @@
   </div>
   
 </div>
-
-
 
 <!--Table-->
   <div style="overflow-x:auto;" class="col-sm-12">

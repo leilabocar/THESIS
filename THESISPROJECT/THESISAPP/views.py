@@ -215,7 +215,36 @@ def Property(request, pk):
 def Appointment(request, pk,email):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         context= {}
+        buyers = BuyersFormModel.objects.all().count()
+        inquiries = InquiryFormModel.objects.all().count()
+        invitee = BookAppointmentModel.objects.all().count()
+        applicants = ApplicationFormModel.objects.all().count()
         filter_all = appointmentFilter(request.GET, queryset=BookAppointmentModel.objects.exclude(email=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+        context['buyers'] = buyers
+        context['inquiries'] = inquiries
+        context['invitee'] = invitee
+        context['applicants'] = applicants
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Appointment Page!')
+        return redirect('AdminHomepage',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        messages.add_message(request, messages.ERROR, 'You cannot access Appointment Page!')
+        return redirect('Application',pk=pk,email=email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Appointment.html', context=context)
+
+def AppointmentLogs(request, pk,email):
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
+        context= {}
+        filter_all = appointmentlogsFilter(request.GET, queryset=BookAppointmentLogs.objects.exclude(email=None))
         context['filter_all'] = filter_all
 
         paginated_filter_all = Paginator(filter_all.qs, 11)
@@ -231,7 +260,8 @@ def Appointment(request, pk,email):
         return redirect('Application',pk=pk,email=email)
     else:
         return redirect('Logout')
-    return render(request, 'files/Appointment.html', context=context)
+    return render(request, 'files/AppointmentLogs.html', context=context)
+
 
 @login_required(login_url='/accounts/login/')
 def AppointmentApprove(request, pk, email,date,fullname):
@@ -299,6 +329,10 @@ def AppointmentReject(request,pk,email,fullname):
 def Inquiry(request, pk, email):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         context= {}
+        buyers = BuyersFormModel.objects.all().count()
+        inquiries = InquiryFormModel.objects.all().count()
+        invitee = BookAppointmentModel.objects.all().count()
+        applicants = ApplicationFormModel.objects.all().count()
         filter_all = inquiryFilter(request.GET, queryset=inquire.objects.all())
         context['filter_all'] = filter_all
 
@@ -318,6 +352,10 @@ def Inquiry(request, pk, email):
         all_page_obj1 = paginated_filter_all1.get_page(page_number1)
 
         context['all_page_obj1'] = all_page_obj1
+        context['buyers'] = buyers
+        context['inquiries'] = inquiries
+        context['invitee'] = invitee
+        context['applicants'] = applicants
     elif request.user.is_authenticated and request.user.is_clerk2:
         messages.add_message(request, messages.ERROR, 'You cannot access Inquiry Page!')
         return redirect('AdminHomepage',pk=pk)
@@ -327,6 +365,30 @@ def Inquiry(request, pk, email):
     else:
         return redirect('Logout')
     return render(request, 'files/Inquiry.html',context=context)
+
+@login_required(login_url='/accounts/login/')
+def InquiryLogs(request, pk, email):
+    if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
+        context= {}
+        filter_all = inquirylogsFilter(request.GET, queryset=InquiryFormLogs.objects.all())
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 10)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+        
+    
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Inquiry Page!')
+        return redirect('AdminHomepage',pk=pk)
+    elif request.user.is_authenticated and request.user.is_clerk3:
+        messages.add_message(request, messages.ERROR, 'You cannot access Inquiry Page!')
+        return redirect('Application',pk=pk,email=email)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/InquiryLogs.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def InquiryApprove(request, pk, email, lot_type,phase,block,lotno,fullname):
@@ -541,7 +603,37 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
 def Application(request,pk,email):
     if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
         context= {}
+        buyers = BuyersFormModel.objects.all().count()
+        inquiries = InquiryFormModel.objects.all().count()
+        invitee = BookAppointmentModel.objects.all().count()
+        applicants = ApplicationFormModel.objects.all().count()
         filter_all = applicationFilter(request.GET, queryset=ApplicationFormModel.objects.exclude(fullname=None))
+        context['filter_all'] = filter_all
+
+        paginated_filter_all = Paginator(filter_all.qs, 11)
+        page_number = request.GET.get('page')
+        all_page_obj = paginated_filter_all.get_page(page_number)
+
+        context['all_page_obj'] = all_page_obj
+        context['buyers'] = buyers
+        context['inquiries'] = inquiries
+        context['invitee'] = invitee
+        context['applicants'] = applicants
+    elif request.user.is_authenticated and request.user.is_clerk1:
+        messages.add_message(request, messages.ERROR, 'You cannot access Application Page!')
+        return redirect('Inquiry',pk=pk, email=email)
+    elif request.user.is_authenticated and request.user.is_clerk2:
+        messages.add_message(request, messages.ERROR, 'You cannot access Application Page!')
+        return redirect('AdminHomepage',pk=pk)
+    else:
+        return redirect('Logout')
+    return render(request, 'files/Application.html',context=context)
+
+@login_required(login_url='/accounts/login/')
+def ApplicationLogs(request,pk,email):
+    if request.user.is_authenticated and request.user.is_clerk3 or request.user.is_admin:
+        context= {}
+        filter_all = applicationlogsFilter(request.GET, queryset=ApplicationFormLogs.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
 
         paginated_filter_all = Paginator(filter_all.qs, 11)
@@ -557,7 +649,7 @@ def Application(request,pk,email):
         return redirect('AdminHomepage',pk=pk)
     else:
         return redirect('Logout')
-    return render(request, 'files/Application.html',context=context)
+    return render(request, 'files/ApplicationLogs.html',context=context)
 
 @login_required(login_url='/accounts/login/')
 def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
@@ -640,6 +732,10 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
 def AdminHomepage(request, pk):
     if request.user.is_authenticated and request.user.is_admin or request.user.is_clerk2:
         context= {}
+        buyers = BuyersFormModel.objects.all().count()
+        inquiries = InquiryFormModel.objects.all().count()
+        invitee = BookAppointmentModel.objects.all().count()
+        applicants = ApplicationFormModel.objects.all().count()
         filter_all = deadsFilter(request.GET, queryset=Deads.objects.order_by('-id'))
         context['filter_all'] = filter_all
 
@@ -648,6 +744,10 @@ def AdminHomepage(request, pk):
         all_page_obj = paginated_filter_all.get_page(page_number)
 
         context['all_page_obj'] = all_page_obj
+        context['buyers'] = buyers
+        context['inquiries'] = inquiries
+        context['invitee'] = invitee
+        context['applicants'] = applicants
     elif request.user.is_authenticated and request.user.is_clerk3:
         messages.add_message(request, messages.ERROR, 'You cannot access Grave Finder Table Page!')
         return redirect('Application',pk=pk, email=request.user.email)
@@ -662,6 +762,10 @@ def AdminHomepage(request, pk):
 def ClientPayment(request, pk):
     if request.user.is_authenticated and request.user.is_clerk2 or request.user.is_admin:
         context= {}
+        buyers = BuyersFormModel.objects.all().count()
+        inquiries = InquiryFormModel.objects.all().count()
+        invitee = BookAppointmentModel.objects.all().count()
+        applicants = ApplicationFormModel.objects.all().count()
         filter_all = clientpaymentFilter(request.GET, queryset=LotOrder.objects.order_by('-id'))
         context['filter_all'] = filter_all
 
@@ -670,6 +774,10 @@ def ClientPayment(request, pk):
         all_page_obj = paginated_filter_all.get_page(page_number)
 
         context['all_page_obj'] = all_page_obj
+        context['buyers'] = buyers
+        context['inquiries'] = inquiries
+        context['invitee'] = invitee
+        context['applicants'] = applicants
     elif request.user.is_authenticated and request.user.is_clerk3:
         messages.add_message(request, messages.ERROR, 'You cannot access Client Payment Page!')
         return redirect('Application',pk=pk, email=request.user.email)

@@ -54,6 +54,16 @@ class appointmentFilter(django_filters.FilterSet):
     class Meta:
         model = BookAppointmentModel
         fields = '__all__'
+class appointmentlogsFilter(django_filters.FilterSet):
+    date = django_filters.DateFilter(widget=DatePickerInput(attrs={'class':'form-control'}))
+    fullname = django_filters.CharFilter(lookup_expr='icontains')
+    status_choices=[('Approved','Approved'),
+                      ('Resched','Resched')]
+    status = django_filters.ChoiceFilter(empty_label='Status',choices=status_choices)
+
+    class Meta:
+        model = BookAppointmentLogs
+        fields = '__all__'
 
 class clientpaymentFilter(django_filters.FilterSet):
     terms_choices=[('Cash','Cash'),
@@ -94,6 +104,25 @@ class inquiryFilter(django_filters.FilterSet):
     class Meta:
         model = InquiryFormModel
         fields = '__all__'
+
+class inquirylogsFilter(django_filters.FilterSet):
+    lot_choices=[('Lawn Lot','Lawn Lot'),
+                      ('Mausoleum','Mausoleum'),
+                      ('Niche','Niche'),
+                      ('Apartment Type','Apartment Type')]
+
+    fullname = django_filters.CharFilter(lookup_expr='icontains')
+    lot_type = django_filters.ChoiceFilter(empty_label='Select Lot Type',choices=lot_choices)
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
+    lotno = django_filters.CharFilter(lookup_expr='icontains')
+    status_choices=[('Approved','Approved'),
+                      ('Declined','Declined')]
+    status = django_filters.ChoiceFilter(empty_label='Status',choices=status_choices)
+    class Meta:
+        model = InquiryFormLogs
+        fields = '__all__'
+        
         
 class productFilter(django_filters.FilterSet):
     lot_choices=[('Lawn Lot','Lawn Lot'),
@@ -116,6 +145,18 @@ class applicationFilter(django_filters.FilterSet):
 
     class Meta:
         model = ApplicationFormModel
+        fields = '__all__'
+
+class applicationlogsFilter(django_filters.FilterSet):
+    phase = django_filters.NumberFilter(lookup_expr='icontains')
+    block = django_filters.NumberFilter(lookup_expr='icontains')
+    lotno = django_filters.CharFilter(lookup_expr='icontains')
+    status_choices=[('Approved','Approved'),
+                      ('Declined','Declined')]
+    status = django_filters.ChoiceFilter(empty_label='Status',choices=status_choices)
+
+    class Meta:
+        model = ApplicationFormLogs
         fields = '__all__'
 
 class deadsFilter(django_filters.FilterSet):

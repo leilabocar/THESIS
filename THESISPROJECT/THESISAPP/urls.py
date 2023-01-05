@@ -9,13 +9,16 @@ urlpatterns = [
     path('Notice/<int:pk>', views.Notice, name='Notice'),
 # clerk 1
     path('Inquiry/<int:pk>/<str:email>', views.Inquiry, name='Inquiry'),
+    path('InquiryLogs/<int:pk>/<str:email>', views.InquiryLogs, name='InquiryLogs'),
     path('InquiryReject/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.InquiryReject, name='InquiryReject'),
     path('InquiryApprove/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.InquiryApprove, name='InquiryApprove'),
     path('Appointment/<int:pk>/<str:email>', views.Appointment, name='Appointment'),
+    path('AppointmentLogs/<int:pk>/<str:email>', views.AppointmentLogs, name='AppointmentLogs'),
     path('AppointmentApprove/<int:pk>/<str:email>/<str:date>/<str:fullname>', views.AppointmentApprove, name='AppointmentApprove'),
     path('AppointmentReject/<int:pk>/<str:email>/<str:fullname>', views.AppointmentReject, name='AppointmentReject'),
 # clerk 2   
     path('Application/<int:pk>/<str:email>', views.Application, name='Application'),
+    path('ApplicationLogs/<int:pk>/<str:email>', views.ApplicationLogs, name='ApplicationLogs'),
     path('ApplicationApprove/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationApprove, name='ApplicationApprove'),
     path('ApplicationReject/<int:pk>/<str:email>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.ApplicationReject, name='ApplicationReject'),
     path('BuyersApplication/<int:pk>/<str:email>', views.BuyersApplication, name='BuyersApplication'), 
