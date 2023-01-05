@@ -73,11 +73,21 @@
                     
                 </ul>
                 <ul class="navbar-nav ms-auto">
+                    <a href="{% url 'ChangePassword' user.pk %}" style="font-size: 16px;" class="btn btn-primary">Change Password</a>
                     <a href="{% url 'Logout' %}" onclick="return confirm('Do you want to log out?')" style="font-size: 16px;" class="btn btn-secondary">Log Out</a>
                 </ul>
             </div>
         </div>
     </nav>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success" id="msg" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
     <div class="container1">
         <h2 class="text-info" style="font-size: 35px;">Hello, {{user.first_name}} {{user.last_name}}</h2>
@@ -119,7 +129,7 @@
         {% csrf_token %}
         <div class="bg-img"><br><br>
             <div class="container2">
-                <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> TOTAL AMOUNT DUE:</p>
+                <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> REMAINING BALANCE:</p>
                 <p class="text-center" id="receives" style="font-size: 25px; font-family: sans-serif;color: black;">
                     {% for i in orders %}
                      {{i.balance}}
@@ -199,5 +209,12 @@
 
 
 </body>
+<script>
+   var message_ele = document.getElementById("msg");
+
+   setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+   }, 2000);
+</script>
 
 </html>

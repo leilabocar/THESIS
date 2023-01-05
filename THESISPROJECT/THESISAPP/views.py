@@ -12,6 +12,8 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
@@ -77,6 +79,23 @@ def Signup(request):
     return render(request, 'files/Signup.html', {'form': form, 'msg': msg})
 
 # --------------- CLIENT
+@login_required(login_url='/accounts/login/')
+def ChangePassword(request, pk):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.add_message(request, messages.SUCCESS, 'Your password was successfully updated!')
+            return redirect('Client', pk=pk)
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'files/ChangePassword.html', {
+        'form': form
+    })
+
 @login_required(login_url='/accounts/login/')
 def Client(request,pk):
     if request.user.is_authenticated and request.user.is_client:
