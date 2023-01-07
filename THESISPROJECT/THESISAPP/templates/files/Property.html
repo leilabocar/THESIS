@@ -28,12 +28,13 @@
             font-family: Roboto, sans-serif;
             border-style: 1px solid grey;
             background-color: rgb(174, 199, 192);
-            margin: 0 auto;
+            margin: 10px;
             opacity: 0.8;
             box-shadow: 2px 5px 5px 0px #eee;
+            width: 480px;
             max-width: 480px;
             padding-top: 5px;
-            height: auto;
+            height: 480px;
             padding: 20px 20px 20px 20px;
             margin-top: 20px;
             
@@ -47,9 +48,9 @@
             padding-top: 10px;
         }
         @media screen and (max-width:1300px) {
-      .flex-container-public {
-        flex-flow: row wrap;
-
+      .main-container {
+       flex-flow: column wrap;
+       align-self: center;
       }
 
       #map {
@@ -61,7 +62,7 @@
 
     #map {
       height: 700px;
-      width: 1200px;
+      width: 1325px;
       margin: auto;
     }
     .mapContainerPublic {
