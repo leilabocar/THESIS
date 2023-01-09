@@ -1,4 +1,5 @@
-var map;
+var map = null;
+var text = null;
 var latlong;
 var directionsRenderer = new google.maps.DirectionsRenderer();
 var directionsService = new google.maps.DirectionsService();
@@ -8,10 +9,59 @@ var marker1 = [];
 var infoStart =[];
 var infoEnd = [];
 var step = [];
+var infoDistance = [];
 $(function() {
 	// clickTd();
 	initMap();
 	// getMapLatLong();
+	// Phase 1
+	new google.maps.Marker({
+		position: { lat: 14.36411592420933, lng: 120.908960894963 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 1',
+			fontSize: '20px',
+		},
+	});
+	// Phase 2
+	new google.maps.Marker({
+		position: { lat: 14.36418574973309, lng: 120.90978790446964 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 2',
+			fontSize: '20px',
+		},
+	});
+	// Phase 3
+	new google.maps.Marker({
+		position: { lat: 14.364714952994268, lng: 120.90885846718007 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 3',
+			fontSize: '20px',
+		},
+	});
+	// Phase 4
+	new google.maps.Marker({
+		position: { lat: 14.364714952994268, lng: 120.90971582565943 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 4',
+			fontSize: '20px',
+		},
+	});
 });
 function initMap(){
 	map = new google.maps.Map(document.getElementById("map"), {
@@ -23,13 +73,22 @@ function initMap(){
 		mapTypeId: "terrain",
 		provideRouteAlternatives: false,
 		draggableCursor:"default"
-
 	});
 }
-
+function scrollElement(){
+	var element = document.getElementById("map");
+	element.scrollIntoView();
+}
+function getCurrentURL () {
+	return window.location.href;
+}
 function clickViewButton(lat,long){
 	// $("tr#trclick").on('click',function(e){
-		
+	url = getCurrentURL();
+	let result = url.substring(22);
+	if(result == 'InquiryForm'){
+		scrollElement();
+	}
 	// });
 	// e.stopPropagation();
 	removeMarkersAndLines();
@@ -41,7 +100,7 @@ function clickViewButton(lat,long){
 	var m1 = new google.maps.Marker({
 		map: map,
 		title: "start",
-		position: new google.maps.LatLng(14.3636834,120.9092979)
+		position: new google.maps.LatLng(14.3636834,120.9092979),
 	  });
 	var m2 = new google.maps.Marker({
 		map: map,
@@ -79,6 +138,7 @@ function setMapOnAll(map) {
   }
 var extra1 = [];
 var extra2 = [];
+var label = [];
 function calcRoute(start,end) {
 	// var start = new google.maps.LatLng(14.3636834,120.9092979); // start of himlayan gate
 	// var end = new google.maps.LatLng(lat,long); // destination for lot
@@ -89,6 +149,7 @@ function calcRoute(start,end) {
 	  }, function(response, status) {
 		if (status === google.maps.DirectionsStatus.OK) {
 		  // directionsDisplay.setDirections(response);
+		
 		  renderDirectionsPolylines(response, start, end);
 		} else {
 		  window.alert('Directions request failed due to ' + status);
@@ -141,6 +202,8 @@ function calcRoute(start,end) {
   var extra1 = [];
   var extra2 = [];
   function renderDirectionsPolylines(response, start, end) {
+	var distance = response.routes[0].legs[0].distance.value / 1000;
+	var meter = distance * 1000;
 	if(stepPolyline !=null || stepPolyline !=undefined){
 		stepPolyline.setMap(null);
 	}
@@ -165,6 +228,15 @@ function calcRoute(start,end) {
 		stepPolyline.setMap(map);
 	  }
 	}
+	 // Create an info window for the polyline
+	 var infoWindow = new google.maps.InfoWindow();
+
+	 // Open the info window immediately
+	 infoWindow.setContent('The distance on your destination is: '+meter+"m");
+	 infoWindow.setPosition(stepPolyline.getPath().getAt(0));
+	 infoDistance.push(infoWindow);
+	 infoWindow.open(map);
+   
 	if (google.maps.geometry.spherical.computeDistanceBetween(start, stepPolyline.getPath().getAt(0)) > 1) {
 	  // add "dotted line"
 			extraLine1 = new google.maps.Polyline(walkingPolylineOptions2);
@@ -224,6 +296,12 @@ function calcRoute(start,end) {
 		if(infoEnd.length != 0 || infoEnd != null || infoEnd != undefined || infoEnd != []){
 			for(var i=0; i < infoEnd.length; i++){
 				infoEnd[i].setMap(null);
+			}
+				
+		}
+		if(infoDistance.length != 0 || infoDistance != null || infoDistance != undefined || infoDistance != []){
+			for(var i=0; i < infoDistance.length; i++){
+				infoDistance[i].setMap(null);
 			}
 				
 		}
