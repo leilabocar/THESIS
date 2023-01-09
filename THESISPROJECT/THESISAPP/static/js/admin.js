@@ -7,6 +7,54 @@ $(function() {
     validationLot();
     // enterLatLng();
     // submitForm();
+    	// Phase 1
+	new google.maps.Marker({
+		position: { lat: 14.36411592420933, lng: 120.908960894963 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 1',
+			fontSize: '20px',
+		},
+	});
+	// Phase 2
+	new google.maps.Marker({
+		position: { lat: 14.36418574973309, lng: 120.90978790446964 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 2',
+			fontSize: '20px',
+		},
+	});
+	// Phase 3
+	new google.maps.Marker({
+		position: { lat: 14.364714952994268, lng: 120.90885846718007 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 3',
+			fontSize: '20px',
+		},
+	});
+	// Phase 4
+	new google.maps.Marker({
+		position: { lat: 14.364714952994268, lng: 120.90971582565943 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Phase 4',
+			fontSize: '20px',
+		},
+	});
 });
 function initMap(){
 	map = new google.maps.Map(document.getElementById("mapAdmin"), {
