@@ -5,7 +5,7 @@ var amountPayment = 0;
 var amountToBePaid = 0;
 var originalAmountToBePaid = $('#id_balance').val();
 $(function() {
-    autoDeductFinalAmount();
+    // autoDeductFinalAmount();
     selectedVal = $("#id_terms option:selected").val();
     getLotAddress = $("#id_product option:selected").text();
     if(selectedVal == "" || selectedVal == null || selectedVal == undefined){
@@ -135,32 +135,32 @@ function getSelectedTermsOfPayment(){
       
 	});
 } 
-function autoDeductFinalAmount(){
-  $('#id_pay').keyup(function(event) {
-    var amountPaid = $(this).val();
-    if (event.keyCode === 8 && amountPaid === '' || amountPaid === '.') {
-      // Handle backspace key
-      $('#id_balance').val(originalAmountToBePaid);
-      return;
-    }
+// function autoDeductFinalAmount(){
+//   $('#id_pay').keyup(function(event) {
+//     var amountPaid = $(this).val();
+//     if (event.keyCode === 8 && amountPaid === '' || amountPaid === '.') {
+//       // Handle backspace key
+//       $('#id_balance').val(originalAmountToBePaid);
+//       return;
+//     }
 
-    if (amountPaid === '' || amountPaid === '.') {
-      return;
-    }
+//     if (amountPaid === '' || amountPaid === '.') {
+//       return;
+//     }
 
-    var amountToBePaid = parseFloat($('#id_balance').val());
-    $('#id_balance').val((amountToBePaid - parseFloat(amountPaid)).toFixed(2));
-  });
+//     var amountToBePaid = parseFloat($('#id_balance').val());
+//     $('#id_balance').val((amountToBePaid - parseFloat(amountPaid)).toFixed(2));
+//   });
 
-  $('#id_pay').on('input', function() {
-    var regex = /^[0-9.]+$/;
-    var amountPaid = $(this).val();
-    if (!regex.test(amountPaid)) {
-      $(this).val('');
-      $('#id_balance').val(originalAmountToBePaid);
-    }
-  });
-}
+//   $('#id_pay').on('input', function() {
+//     var regex = /^[0-9.]+$/;
+//     var amountPaid = $(this).val();
+//     if (!regex.test(amountPaid)) {
+//       $(this).val('');
+//       $('#id_balance').val(originalAmountToBePaid);
+//     }
+//   });
+// }
 function computeTotalAmount(lotType, paymentTerm, outrightDP, amountPayment) {
     var amount;
     if (lotType == "Apartment") {
