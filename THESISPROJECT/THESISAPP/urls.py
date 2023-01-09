@@ -14,7 +14,7 @@ urlpatterns = [
     path('InquiryApprove/<int:pk>/<str:email>/<str:lot_type>/<str:phase>/<str:block>/<str:lotno>/<str:fullname>', views.InquiryApprove, name='InquiryApprove'),
     path('Appointment/<int:pk>/<str:email>', views.Appointment, name='Appointment'),
     path('AppointmentLogs/<int:pk>/<str:email>', views.AppointmentLogs, name='AppointmentLogs'),
-    path('AppointmentApprove/<int:pk>/<str:email>/<str:date>/<str:fullname>', views.AppointmentApprove, name='AppointmentApprove'),
+    path('AppointmentApprove/<int:pk>/<str:email>/', views.AppointmentApprove, name='AppointmentApprove'),
     path('AppointmentReject/<int:pk>/<str:email>/<str:fullname>', views.AppointmentReject, name='AppointmentReject'),
 # clerk 2   
     path('Application/<int:pk>/<str:email>', views.Application, name='Application'),

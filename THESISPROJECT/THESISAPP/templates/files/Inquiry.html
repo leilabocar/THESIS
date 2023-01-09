@@ -46,8 +46,8 @@
         }
       }
       .circle {
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       align-items: center;
       justify-content: center;
@@ -85,7 +85,7 @@
         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
-              data-bs-toggle="dropdown">Transactions</a>
+              data-bs-toggle="dropdown">Transactions<span class="circle">{{overall}}</span> </a>
           <ul class="dropdown-menu">
             {% csrf_token %}
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry

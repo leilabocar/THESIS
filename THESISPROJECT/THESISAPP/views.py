@@ -219,6 +219,12 @@ def Appointment(request, pk,email):
         inquiries = InquiryFormModel.objects.all().count()
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
+        overall = buyers+inquiries+invitee+applicants
+        if overall and buyers and inquiries and invitee and applicants > 10:
+            overall,buyers,inquiries,invitee,applicants = '10+'
+        else:
+            overall,buyers,inquiries,invitee,applicants
+        context['overall'] = overall
         filter_all = appointmentFilter(request.GET, queryset=BookAppointmentModel.objects.exclude(email=None))
         context['filter_all'] = filter_all
 
@@ -264,7 +270,7 @@ def AppointmentLogs(request, pk,email):
 
 
 @login_required(login_url='/accounts/login/')
-def AppointmentApprove(request, pk, email,date,fullname):
+def AppointmentApprove(request, pk, email):
     if request.user.is_authenticated and request.user.is_clerk1 or request.user.is_admin:
         c = User.objects.filter(pk=pk).values_list('id', flat=True).first()
         b = BookAppointmentModel.objects.filter(pk=pk).values_list('email', flat=True).first()
@@ -286,7 +292,7 @@ def AppointmentApprove(request, pk, email,date,fullname):
         BookAppointmentLogs.objects.create(fullname=fname,contacts=contacts,email=b,reason=reason,date=date,status='Approved')
         BookAppointmentModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
-        return redirect('Appointment', pk=c, email=email)
+        return redirect('Appointment', pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
         return redirect('ClientPayment',pk=pk)
     elif request.user.is_authenticated and request.user.is_clerk3:
@@ -317,7 +323,7 @@ def AppointmentReject(request,pk,email,fullname):
         BookAppointmentLogs.objects.create(fullname=fname,contacts=contacts,email=b,reason=reason,date=date,status='Resched')
         BookAppointmentModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
-        return redirect('Appointment', pk=c, email=email)
+        return redirect('Appointment', pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
         return redirect('ClientPayment',pk=pk)
     elif request.user.is_authenticated and request.user.is_clerk3:
@@ -333,6 +339,12 @@ def Inquiry(request, pk, email):
         inquiries = InquiryFormModel.objects.all().count()
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
+        overall = buyers+inquiries+invitee+applicants
+        if overall and buyers and inquiries and invitee and applicants > 10:
+            overall,buyers,inquiries,invitee,applicants = '10+'
+        else:
+            overall,buyers,inquiries,invitee,applicants
+        context['overall'] = overall
         filter_all = inquiryFilter(request.GET, queryset=inquire.objects.all())
         context['filter_all'] = filter_all
 
@@ -478,6 +490,12 @@ def BuyersApplication(request, pk, email):
         inquiries = InquiryFormModel.objects.all().count()
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
+        overall = buyers+inquiries+invitee+applicants
+        if overall and buyers and inquiries and invitee and applicants > 10:
+            overall,buyers,inquiries,invitee,applicants = '10+'
+        else:
+            overall,buyers,inquiries,invitee,applicants
+        context['overall'] = overall
         filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
 
@@ -553,7 +571,7 @@ def BuyersApplicationApprove(request, pk, email,lot_type,phase,block,lotno,fulln
             lot_type=lot,phase=p,block=b1,lotno=l,terms=terms,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,email=b,status='Approved')
         BuyersFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
-        return redirect('BuyersApplication', pk=c, email=email)
+        return redirect('BuyersApplication', pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
@@ -591,7 +609,7 @@ def BuyersApplicationReject(request, pk, email,lot_type,phase,block,lotno,fullna
             lot_type=lot,phase=p,block=b1,lotno=l,terms=terms,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,email=b,status='Declined')
         BuyersFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
-        return redirect('BuyersApplication', pk=c, email=email)
+        return redirect('BuyersApplication', pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
@@ -607,6 +625,12 @@ def Application(request,pk,email):
         inquiries = InquiryFormModel.objects.all().count()
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
+        overall = buyers+inquiries+invitee+applicants
+        if overall and buyers and inquiries and invitee and applicants > 10:
+            overall,buyers,inquiries,invitee,applicants = '10+'
+        else:
+            overall,buyers,inquiries,invitee,applicants
+
         filter_all = applicationFilter(request.GET, queryset=ApplicationFormModel.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
 
@@ -619,6 +643,7 @@ def Application(request,pk,email):
         context['inquiries'] = inquiries
         context['invitee'] = invitee
         context['applicants'] = applicants
+        context['overall'] = overall
     elif request.user.is_authenticated and request.user.is_clerk1:
         messages.add_message(request, messages.ERROR, 'You cannot access Application Page!')
         return redirect('Inquiry',pk=pk, email=email)
@@ -681,7 +706,7 @@ def ApplicationApprove(request,pk,email, phase, block, lotno, fullname):
             email=b,phase=p,block=b1,date=date,lotno=l,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,status='Approved')
         ApplicationFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
-        return redirect('Application', pk=c, email=email)
+        return redirect('Application', pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
@@ -718,7 +743,7 @@ def ApplicationReject(request,pk,email, phase, block, lotno, fullname):
             email=b,phase=p,block=b1,date=date,lotno=l,fullname=fname,birth=birth,gender=gender,contacts=contacts,address=address,status='Declined')
         ApplicationFormModel.objects.filter(pk=pk).delete()
         messages.success(request, 'Successfully Sent')
-        return redirect('Application', pk=c, email=email)
+        return redirect('Application', pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk1:
         return redirect('Inquiry',pk=pk, email=email)
     elif request.user.is_authenticated and request.user.is_clerk2:
@@ -736,6 +761,12 @@ def AdminHomepage(request, pk):
         inquiries = InquiryFormModel.objects.all().count()
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
+        overall = buyers+inquiries+invitee+applicants
+        if overall and buyers and inquiries and invitee and applicants > 10:
+            overall,buyers,inquiries,invitee,applicants = '10+'
+        else:
+            overall,buyers,inquiries,invitee,applicants
+        context['overall'] = overall
         filter_all = deadsFilter(request.GET, queryset=Deads.objects.order_by('-id'))
         context['filter_all'] = filter_all
 

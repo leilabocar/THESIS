@@ -45,8 +45,8 @@
       padding: 10px 0px 10px 10px;
     }
     .circle {
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       align-items: center;
       justify-content: center;
@@ -73,7 +73,7 @@
         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
-              data-bs-toggle="dropdown">Transactions</a>
+              data-bs-toggle="dropdown">Transactions<span class="circle">{{overall}}</span> </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry
               <span class="circle">{{inquiries}}</span></a></li>
@@ -142,7 +142,7 @@
           <td>{{appo.email}}</td>
           <td>{{appo.reason}}</td>
           <td>{{appo.date}}</td>
-          <td><a href="{% url 'AppointmentApprove' appo.pk appo.email appo.date appo.fullname %}"><button type="button" class="btn btn-secondary">Approve</button></a>
+          <td><a href="{% url 'AppointmentApprove' appo.pk appo.email  %}"><button type="button" class="btn btn-secondary">Approve</button></a>
               <a href="{% url 'AppointmentReject' appo.pk appo.email appo.fullname %}"><button type="button" class="btn btn-danger">Reschedule</button></td>
         </tr>
         {% endfor %}
