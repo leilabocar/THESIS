@@ -130,14 +130,21 @@
             <div class="container2">
                 <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> REMAINING BALANCE:</p>
                 <p class="text-center" id="receives" style="font-size: 25px; font-family: sans-serif;color: black;">
-                    {% for i in orders %}
+                    <!-- {% for i in orders %}
                      {{i.balance}}
-                    {% endfor %}</p> <br><br>
+                    {% endfor %} -->
+                    {% for b in new_order %}
+                    {{ b.balance }}
+                    {% endfor %}
+                    {{no_display}}
+                </p> <br><br>
+                    
                 <p class="text-center" style="font-size: 35px; font-family: sans-serif;color: rgb(197, 2, 2); "> DUE DATE:</p>
                 <p class="text-center" id="returns" style="font-size: 25px; font-family: sans-serif;color: black; ">
-                    {% for e in orders %}
-                    {{e.due_date}}
+                    {% for e in new_order%}
+                    {{ e.due_date }}
                     {% endfor %}
+                    {{no_display}}
                 </p>
             </div>
         </div>

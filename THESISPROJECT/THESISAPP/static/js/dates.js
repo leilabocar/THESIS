@@ -9,12 +9,13 @@ $(function() {
 
 function dates(){
     var currentDate = new Date();
+    var previousDate = new Date();
 
     // Set the maximum date of the date input field to the current date
     // payment page for deceased date
     $('#id_born').attr('max', currentDate.toISOString().substring(0, 10));
     $('#id_died').attr('max', currentDate.toISOString().substring(0, 10));
-    
+    $('#date').attr('min', previousDate.toISOString().substring(10, 0));
     // Signup
     $('#id_birth').attr('max', currentDate.toISOString().substring(0, 10));
     

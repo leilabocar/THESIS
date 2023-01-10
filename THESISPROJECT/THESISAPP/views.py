@@ -110,9 +110,21 @@ def Client(request,pk):
         print("Client Page")
         a = User.objects.get(pk=pk)
         orders = a.lotorder_set.exclude(balance=0)
+        no_display = 'N/A'
+        new_order = LotOrder.objects.filter(customer_id=pk).exclude(balance=0)
+        nn = LotOrder.objects.filter(customer_id=pk).exclude(balance=0).exists()
+        print(nn)
+
+        if LotOrder.objects.filter(customer_id=pk).exclude(balance=0).exists() is True:
+            new_order = LotOrder.objects.filter(customer_id=pk).exclude(balance=0)
+            no_display = ''
+        else:
+            no_display
+            
+
     else:
         return redirect('Logout')
-    return render(request, 'files/Client.html', {'a':a,'orders':orders})
+    return render(request, 'files/Client.html', {'a':a,'orders':orders,'new_order':new_order,'no_display':no_display})
 
 def ApplicationForm(request):
     form = ApplicationFormForm()
@@ -856,6 +868,11 @@ def PropertyManagementUpdate(request, pk):
             form = LotOrderForm(request.POST, instance=order)
             form1 = PaymentHistoryForm(request.POST)
             if form.is_valid() and form1.is_valid():
+                # balance = form.cleaned_data.get('balance')
+                # if balance == 0:
+                #     LotOrder.objects.filter(pk=pk).update(status="Fully Paid")
+                # else:
+                #     LotOrder.objects.filter(pk=pk).update(status="Partially Paid")
                 form.save()
                 form1.save()
                 messages.success(request, 'Successfully Updated')

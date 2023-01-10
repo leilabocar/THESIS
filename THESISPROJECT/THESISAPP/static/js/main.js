@@ -304,7 +304,7 @@ function calcRoute(start,end) {
 	 var infoWindow = new google.maps.InfoWindow();
 
 	 // Open the info window immediately
-	 infoWindow.setContent('The distance on your destination is: '+meter+"m");
+	 infoWindow.setContent('The distance of your destination is: '+meter+"m");
 	 infoWindow.setPosition(stepPolyline.getPath().getAt(0));
 	 infoDistance.push(infoWindow);
 	 infoWindow.open(map);
