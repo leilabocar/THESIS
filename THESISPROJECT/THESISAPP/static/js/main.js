@@ -62,6 +62,78 @@ $(function() {
 			fontSize: '20px',
 		},
 	});
+	// Guard
+	new google.maps.Marker({
+		position: { lat: 14.363660, lng: 120.909259 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Guard House',
+			fontSize: '15px',
+		},
+	});
+	//Chapel
+	new google.maps.Marker({
+		position: { lat: 14.364513, lng: 120.909316 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'Chapel',
+			fontSize: '15px',
+		},
+	});
+	//CR1
+	new google.maps.Marker({
+		position: { lat: 14.364628, lng: 120.908495 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'C.R',
+			fontSize: '15px',
+		},
+	});
+	//CR2
+	new google.maps.Marker({
+		position: { lat: 14.364854, lng: 120.908336 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'C.R',
+			fontSize: '15px',
+		},
+	});
+	//CR3
+	new google.maps.Marker({
+		position: { lat: 14.364586, lng: 120.910157 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'C.R',
+			fontSize: '15px',
+		},
+	});
+	//CR4
+	new google.maps.Marker({
+		position: { lat: 14.365358, lng: 120.910146 },
+		map: map,
+		icon: "none",
+		label: {
+			color: 'Black',
+			fontWeight: 'bold',
+			text: 'C.R',
+			fontSize: '15px',
+		},
+	});
 });
 function initMap(){
 	map = new google.maps.Map(document.getElementById("map"), {
