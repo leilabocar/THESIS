@@ -48,6 +48,7 @@ urlpatterns = [
     path('GraveFinder', views.GraveFinder, name='GraveFinder'),
     path('ContactUs', views.ContactUs, name='ContactUs'),
     path('PrivacyPolicy', views.PrivacyPolicy, name='PrivacyPolicy'),
+    path('Help', views.Help, name='Help'),
     path('Login', views.Login, name='Login'),
     path('Signup', views.Signup, name='Signup'),
     path('TermsofPayment', views.TermsofPayment, name='TermsofPayment'),

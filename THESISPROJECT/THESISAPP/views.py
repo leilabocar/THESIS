@@ -1183,6 +1183,9 @@ def Mausoleum(request):
 
 def Apartment(request):
     return render(request, 'files/Apartment.html')
+
+def Help(request):
+    return render(request, 'files/Help.html')
     
 def Logout(request):
     logout(request)

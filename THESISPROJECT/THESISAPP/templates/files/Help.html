@@ -45,7 +45,7 @@
     <nav class="navbar navbar-expand-sm bg-light navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'Homepage' %}">
-                <img src="images/logo.jpg" style="width:55px;" class="rounded-pill">
+                <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
             </a>
             <h3>Himlayang General Trias</h3>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -344,7 +344,8 @@
                     <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="section8"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <p>After logging into your account, you will redirect to the client page, which is your homepage. This page is where you can access it and can view your transactions.</p>
+                            <p>After logging into your account, you will redirect to the client page, which is your
+                                homepage. This page is where you can access it and can view your transactions.</p>
                         </div>
                     </div>
                 </div>
