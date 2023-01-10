@@ -232,10 +232,31 @@ def Appointment(request, pk,email):
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
         overall = buyers+inquiries+invitee+applicants
-        if overall and buyers and inquiries and invitee and applicants > 10:
-            overall,buyers,inquiries,invitee,applicants = '10+'
+        
+        if overall > 0:
+            overall = '!'
         else:
-            overall,buyers,inquiries,invitee,applicants
+            overall = ''
+        
+        if invitee > 0:
+            invitee = '!'
+        else:
+            invitee = ''
+
+        if inquiries > 0:
+            inquiries = '!'
+        else:
+            inquiries = ''
+
+        if buyers > 0:
+            buyers = '!'
+        else:
+            buyers = ''
+
+        if applicants > 0:
+            applicants = '!'
+        else:
+            applicants = ''
         context['overall'] = overall
         filter_all = appointmentFilter(request.GET, queryset=BookAppointmentModel.objects.exclude(email=None))
         context['filter_all'] = filter_all
@@ -352,10 +373,31 @@ def Inquiry(request, pk, email):
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
         overall = buyers+inquiries+invitee+applicants
-        if overall and buyers and inquiries and invitee and applicants > 10:
-            overall,buyers,inquiries,invitee,applicants = '10+'
+        
+        if overall > 0:
+            overall = '!'
         else:
-            overall,buyers,inquiries,invitee,applicants
+            overall = ''
+        
+        if invitee > 0:
+            invitee = '!'
+        else:
+            invitee = ''
+
+        if inquiries > 0:
+            inquiries = '!'
+        else:
+            inquiries = ''
+
+        if buyers > 0:
+            buyers = '!'
+        else:
+            buyers = ''
+
+        if applicants > 0:
+            applicants = '!'
+        else:
+            applicants = ''
         context['overall'] = overall
         filter_all = inquiryFilter(request.GET, queryset=inquire.objects.all())
         context['filter_all'] = filter_all
@@ -503,10 +545,31 @@ def BuyersApplication(request, pk, email):
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
         overall = buyers+inquiries+invitee+applicants
-        if overall and buyers and inquiries and invitee and applicants > 10:
-            overall,buyers,inquiries,invitee,applicants = '10+'
+        
+        if overall > 0:
+            overall = '!'
         else:
-            overall,buyers,inquiries,invitee,applicants
+            overall = ''
+        
+        if invitee > 0:
+            invitee = '!'
+        else:
+            invitee = ''
+
+        if inquiries > 0:
+            inquiries = '!'
+        else:
+            inquiries = ''
+
+        if buyers > 0:
+            buyers = '!'
+        else:
+            buyers = ''
+
+        if applicants > 0:
+            applicants = '!'
+        else:
+            applicants = ''
         context['overall'] = overall
         filter_all = buyersFilter(request.GET, queryset=BuyersFormModel.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
@@ -638,10 +701,31 @@ def Application(request,pk,email):
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
         overall = buyers+inquiries+invitee+applicants
-        if overall and buyers and inquiries and invitee and applicants > 10:
-            overall,buyers,inquiries,invitee,applicants = '10+'
+        
+        if overall > 0:
+            overall = '!'
         else:
-            overall,buyers,inquiries,invitee,applicants
+            overall = ''
+        
+        if invitee > 0:
+            invitee = '!'
+        else:
+            invitee = ''
+
+        if inquiries > 0:
+            inquiries = '!'
+        else:
+            inquiries = ''
+
+        if buyers > 0:
+            buyers = '!'
+        else:
+            buyers = ''
+
+        if applicants > 0:
+            applicants = '!'
+        else:
+            applicants = ''
 
         filter_all = applicationFilter(request.GET, queryset=ApplicationFormModel.objects.exclude(fullname=None))
         context['filter_all'] = filter_all
@@ -774,10 +858,31 @@ def AdminHomepage(request, pk):
         invitee = BookAppointmentModel.objects.all().count()
         applicants = ApplicationFormModel.objects.all().count()
         overall = buyers+inquiries+invitee+applicants
-        if overall and buyers and inquiries and invitee and applicants > 10:
-            overall,buyers,inquiries,invitee,applicants = '10+'
+        if overall > 0:
+            overall = '!'
         else:
-            overall,buyers,inquiries,invitee,applicants
+            overall = ''
+        
+        if invitee > 0:
+            invitee = '!'
+        else:
+            invitee = ''
+
+        if inquiries > 0:
+            inquiries = '!'
+        else:
+            inquiries = ''
+
+        if buyers > 0:
+            buyers = '!'
+        else:
+            buyers = ''
+
+        if applicants > 0:
+            applicants = '!'
+        else:
+            applicants = ''
+            
         context['overall'] = overall
         filter_all = deadsFilter(request.GET, queryset=Deads.objects.order_by('-id'))
         context['filter_all'] = filter_all
