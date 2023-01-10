@@ -83,18 +83,18 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" role="button"
-              data-bs-toggle="dropdown">Transactions<span class="badge badge-secondary">{{overall}}</span> </a>
+              data-bs-toggle="dropdown">Transactions<span class="badge badge-pill badge-secondary">{{overall}}</span> </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Inquiry' user.pk user.email %}">Inquiry
-              <span class="badge badge-secondary">{{inquiries}}</span></a></li>
+              <span class="badge badge-pill badge-secondary">{{inquiries}}</span></a></li>
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Appointment' user.pk user.email %}">Appointment
-              <span class="badge badge-secondary">{{invitee}}</span></a></li>
+              <span class="badge badge-pill badge-secondary">{{invitee}}</span></a></li>
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'AdminHomepage' user.pk %}">Grave Finder Table</a></li>
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'ClientPayment' user.pk  %}">Payments</a></li>
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'Application' user.pk user.email %}">Application
-              <span class="badge badge-secondary">{{applicants}}</span></a></li>
+              <span class="badge badge-pill badge-secondary">{{applicants}}</span></a></li>
             <li><a class="dropdown-item" style="font-size: 20px;" href="{% url 'BuyersApplication' user.pk user.email %}">
-               Buyers<span class="badge badge-secondary">{{buyers}}</span> </a></li>
+               Buyers<span class="badge badge-pill badge-secondary">{{buyers}}</span> </a></li>
           </ul>
         </li>
         <a class="btn btn-danger" onclick="return confirm('Do you want to log out?')" style="font-size: 15px;" href="{% url 'Logout' %}">Log out</a>
