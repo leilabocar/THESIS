@@ -166,12 +166,14 @@ class LotOrder(models.Model):
             self.balance = float(self.calculate())
             super().save(*args, **kwargs)
         
-        if self.balance == 0:
+        if self.balance == 0 and self.terms != None:
             self.status = "Fully Paid"
             super().save(*args, **kwargs)
-        else:
+        elif self.balance != 0 and self.terms != None:
             self.status = "Partially Paid"
             super().save(*args, **kwargs)
+        else:
+            pass
 
 class Deads(models.Model):
     owner = models.ForeignKey(LotOrder, null=True, on_delete=models.SET_NULL, verbose_name='owner', blank=True,default=None)
