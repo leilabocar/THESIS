@@ -1371,7 +1371,7 @@ def BuyersFormPdf(request):
     buf.seek(0)
     return FileResponse(buf, as_attachment=True, filename='BuyersLogs.pdf')
 
-def InquiryFormLogs(request):
+def InquiryFormPdf(request):
     #create byteststream buffer
     buf = io.BytesIO()
     #create document template

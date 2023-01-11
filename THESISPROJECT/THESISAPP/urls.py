@@ -7,6 +7,10 @@ from django.contrib import admin
 urlpatterns = [
 #---------------ADMIN SIDE
     path('Notice/<int:pk>', views.Notice, name='Notice'),
+    path('InquiryFormPdf', views.InquiryFormPdf, name='InquiryFormPdf'),
+    path('BuyersFormPdf', views.BuyersFormPdf, name='BuyersFormPdf'),
+    path('ApplicationFormPdf', views.ApplicationFormPdf, name='ApplicationFormPdf'),
+    path('BookAppointmentFormPdf', views.BookAppointmentFormPdf, name='BookAppointmentFormPdf'),
 # clerk 1
     path('Inquiry/<int:pk>/<str:email>', views.Inquiry, name='Inquiry'),
     path('InquiryLogs/<int:pk>/<str:email>', views.InquiryLogs, name='InquiryLogs'),
