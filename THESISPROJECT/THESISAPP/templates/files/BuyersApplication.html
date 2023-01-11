@@ -39,18 +39,6 @@
       background-color: #4CAF50;
       color: white;
     }
-    .circle {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 10px;
-      color: white;
-      background-color: red;
-      position: absolute;
-    }
     .alignright {
       float: right;
       padding: 10px 10px 10px 0px;
@@ -67,6 +55,117 @@
     .alignleft {
       float: left;
       padding: 10px 0px 10px 10px;
+    }
+    .help-container {
+      position: fixed;
+      bottom: 10px;
+      left: 25px;
+      cursor: pointer;
+      z-index: 1040;
+    }
+
+    .helpIconButton {
+      width: 50px;
+      height: 50px;
+      background: #188045;
+      border-radius: 100%;
+      cursor: pointer;
+      box-shadow: 8px 5px 5px #aaaaaa;
+    }
+
+    .helpIconButton i {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: white;
+    }
+
+    /* Help List Stylings */
+
+    .helpOptions {
+      list-style-type: none;
+      position: absolute;
+      bottom: 45px;
+      left: 0px;
+      display: none;
+      max-height: 100vh;
+      z-index: 1040;
+    }
+
+    .helpOptions li {
+      display: flex;
+      justify-content: flex-end;
+      padding: 5px;
+      z-index: 1040;
+      position: relative;
+    }
+
+    .btn-label {
+      padding: 10px 25px;
+      margin-right: 10px;
+      align-self: center;
+      background-color: #188045;
+      color: white;
+      border-radius: 3px;
+      box-shadow: 8px 8px 5px #676767;
+      text-align: center;
+      max-width: 500px;
+      min-width: 350px;
+      border-radius: 15px;
+      z-index: 1040;
+      position: relative;
+
+    }
+
+    #helpCheckBox:checked+label .helpOptions {
+      display: inline;
+      transition: 1s;
+    }
+
+    /* .help-container:hover .helpOptions{
+  display:inline;
+} */
+    @media screen and (max-width: 500px) {
+      .helpIconButton i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: white;
+        font-size: 15px;
+      }
+
+      .btn-label {
+        padding: 10px 25px;
+        margin-right: 10px;
+        align-self: center;
+        background-color: #188045;
+        color: white;
+        border-radius: 3px;
+        box-shadow: 8px 8px 5px #676767;
+        text-align: center;
+        max-width: 500px;
+        min-width: 230px;
+        border-radius: 15px;
+        z-index: 1040;
+      }
+
+      .helpOptions {
+        list-style-type: none;
+        position: absolute;
+        bottom: 45px;
+        right: 0px;
+        display: none;
+        z-index: 1040;
+      }
+
+      .help-container {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
     }
 </style>
 </head>
@@ -194,6 +293,41 @@
     </span>
   </div>
 </body>
+
+<input type="checkbox" id="helpCheckBox">
+<label class="help-container" for="helpCheckBox">
+    <label class="button helpIconButton hoverableButton" for="helpCheckBox" data-toggle="tooltip"
+        data-bs-placement="left" data-bs-offset="0,10" title="Help">
+        <i>Help?</i>
+    </label>
+    <ul class="helpOptions">
+        <li>
+            <span class="btn-label hoverableButton" data-bs-toggle="modal" data-bs-target="#loginQ1">How to
+                Manage Client who wants to Buy Lots?</span>
+        </li>
+        </li>
+    </ul>
+</label>
+
+<div class="modal fade" id="loginQ1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header text-center d-flex justify-content-start">
+                <img src="{% static 'images/logo.jpg' %}" style="width:55px;" class="rounded-pill">
+                <h5 class="modal-title" id="exampleModalLabel"> Buyers Transactions Guide</h5>
+            </div>
+            <div class="modal-body" style="padding:2% 10% 2% 10%;">
+                <div>
+                    <img class="img-fluid" alt="Responsive image" src="{% static 'images/Buyers.png' %}">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background-color: #EF3A25; color: white;"
+                    data-bs-dismiss="modal" aria-label="Close"> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
   var message_ele = document.getElementById("msg");
 
