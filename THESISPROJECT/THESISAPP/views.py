@@ -16,6 +16,13 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate
+from django.http import FileResponse
 
 #EMAIL
 from django.core.mail import EmailMultiAlternatives,send_mail
@@ -1308,6 +1315,80 @@ def Apartment(request):
 
 def Help(request):
     return render(request, 'files/Help.html')
+
+def BookAppointmentFormPdf(request):
+    #create byteststream buffer
+    buf = io.BytesIO()
+    #create document template
+    pdf = SimpleDocTemplate(buf, pagesize=letter)
+    #content
+    inquiry_list = BookAppointmentLogs.objects.all()
+    data = [['Name','Mobile No.','Email','Date of Appointment','Reason','Status',]]
+    for inquiry in inquiry_list:
+        data.append([inquiry.fullname,inquiry.contacts,inquiry.email,inquiry.date,inquiry.reason,inquiry.status])
+    elems = []
+    #table
+    elems.append(Table(data))
+    pdf.build(elems)
+    buf.seek(0)
+    return FileResponse(buf, as_attachment=True, filename='BookAppointmentLogs.pdf')
+
+def ApplicationFormPdf(request):
+    #create byteststream buffer
+    buf = io.BytesIO()
+    #create document template
+    pdf = SimpleDocTemplate(buf, pagesize=letter)
+    #content
+    application_list = ApplicationFormLogs.objects.all()
+    data = [['Name','Mobile No.','Email','Gender','Birthday','Address','Lot Type','Phase','Block','Lot No.','Status']]
+    for application in application_list:
+        data.append(
+            [application.fullname,application.contacts,application.email,application.gender,application.birth,application.address,
+            'Apartment',application.phase,application.block,application.lotno,application.status])
+    elems = []
+    #table
+    elems.append(Table(data))
+    pdf.build(elems)
+    buf.seek(0)
+    return FileResponse(buf, as_attachment=True, filename='ApplicationLogs.pdf')
+
+def BuyersFormPdf(request):
+    #create byteststream buffer
+    buf = io.BytesIO()
+    #create document template
+    pdf = SimpleDocTemplate(buf, pagesize=letter)
+    #content
+    buyers_list = BuyersFormLogs.objects.all()
+    data = [['Name','Mobile No.','Email','Gender','Birthday','Address','Lot Type','Phase','Block','Lot No.','Terms','Status']]
+    for buyers in buyers_list:
+        data.append(
+            [buyers.fullname,buyers.contacts,buyers.email,buyers.gender,buyers.birth,buyers.address,
+            buyers.lot_type,buyers.phase,buyers.block,buyers.lotno,buyers.terms,buyers.status])
+    elems = []
+    #table
+    elems.append(Table(data))
+    pdf.build(elems)
+    buf.seek(0)
+    return FileResponse(buf, as_attachment=True, filename='BuyersLogs.pdf')
+
+def InquiryFormLogs(request):
+    #create byteststream buffer
+    buf = io.BytesIO()
+    #create document template
+    pdf = SimpleDocTemplate(buf, pagesize=letter)
+    #content
+    inquiry_list = InquiryFormLogs.objects.all()
+    data = [['Name','Mobile No.','Email','Gender','Birthday','Address','Lot Type','Phase','Block','Lot No.','Terms','Status']]
+    for inquiry in inquiry_list:
+        data.append(
+            [inquiry.fullname,inquiry.contacts,inquiry.email,inquiry.gender,inquiry.birth,inquiry.address,
+            inquiry.lot_type,inquiry.phase,inquiry.block,inquiry.lotno,inquiry.terms,inquiry.status])
+    elems = []
+    #table
+    elems.append(Table(data))
+    pdf.build(elems)
+    buf.seek(0)
+    return FileResponse(buf, as_attachment=True, filename='InquiryLogs.pdf')
     
 def Logout(request):
     logout(request)
